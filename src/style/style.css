@@ -331,6 +331,13 @@ header ul {
 .btn--network:hover {
   background: var(--bg-color-pink, #FFF5FC);
 }
+.btn--network-disabled {
+  background: transparent;
+  padding: 8px 14px;
+  border: 1px solid #7E7E7E;
+  display: flex;
+  position: relative;
+}
 .btn--network > button {
   background-color: red;
 }
