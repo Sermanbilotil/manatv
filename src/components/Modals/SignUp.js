@@ -48,7 +48,7 @@ const Register = ({
                     Password confirmation
                     <input value={confirmPassword}  onChange={(e) => setConfirmPassword(e.target.value)} type="password" className="modal__input" placeholder="Write your password"/>
                 </label>
-                {confirmLetterSend.length > 0 && <p className={'green_text'}>{confirmLetterSend}</p>}
+                {/*{confirmLetterSend.length > 0 && <p className={'green_text'}>{confirmLetterSend}</p>}*/}
                 <button onClick={(e) => Register(e)} className="btn btn--black modal__btn">
                     Sign up
                 </button>

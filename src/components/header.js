@@ -10,12 +10,14 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import {api_url, ValidateEmail} from "../utils/utils";
+import EmailSend from "./Modals/EmailSend";
 
 
 const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginModal}) => {
 
     const [showSignModal, setShowSignModal] = useState(false)
     const [showPasswordModal, setShowPasswordModal] = useState(false)
+    const [showEmailSendModal, setEmailSendModal] = useState(true)
 
     const [selectOpened, setSelectOpened] = useState(false)
 
@@ -29,8 +31,9 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
     const [validEmail, setValidEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [validPassword, setValidPassword] = useState('')
 
-    const [confirmLetterSend, setConfirmLetterSend] = useState('')
+    const [confirmLetterSend, setConfirmLetterSend] = useState('Confirmation letter has been sent to your e-mail address')
 
 
 
@@ -52,8 +55,9 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
             })
                 .then(function (response) {
                     console.log('res',response);
-                    setConfirmLetterSend('A confirmation letter has been sent to your e-mail address')
                     setValidEmail('')
+                    setShowSignModal(false)
+                    setEmailSendModal(true)
                 })
                 .catch(function (error) {
                     console.log('err',error.response.data);
@@ -86,6 +90,10 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                 })
                 .catch(function (error) {
                     console.log('err',error.response.data);
+                    if(error.response.data.detail){
+                        setValidPassword(error.response.data.detail)
+                    }
+
                 });
 
         } else {
@@ -111,6 +119,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                   password={password}
                                   setPassword={setPassword}
                                   LoginUser={LoginUser}
+                                  validPassword={validPassword}
         />}
         {showSignModal && <SignUp setShowSignModal={setShowSignModal}
                                   setShowLoginModal={setShowLoginModal}
@@ -128,6 +137,23 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
 
 
         />}
+
+
+        {showEmailSendModal && <EmailSend
+            setShowLoginModal={setShowLoginModal}
+            confirmLetterSend={confirmLetterSend}
+            setEmailSendModal={setEmailSendModal}
+
+
+        />}
+
+
+
+
+
+
+
+
         {showPasswordModal && <ForgotPass setShowPasswordModal={setShowPasswordModal}
                                           setShowLoginModal={setShowLoginModal}
             />}

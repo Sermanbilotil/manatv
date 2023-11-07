@@ -1,7 +1,6 @@
-
 import FacebookLogin from 'react-facebook-login';
 
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import {googleLogout, useGoogleLogin} from '@react-oauth/google';
 import TwitterLogin from "react-twitter-login";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -9,10 +8,20 @@ import VkAuth from 'react-vk-auth';
 import {api_url, ValidateEmail} from "../../utils/utils";
 
 
-const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email,setEmail, password,setPassword, LoginUser}) => {
+const Login = ({
+                   setShowLoginModal,
+                   setShowSignModal,
+                   setShowPasswordModal,
+                   email,
+                   setEmail,
+                   password,
+                   setPassword,
+                   LoginUser,
+                   validPassword
+               }) => {
 
-    const [ user, setUser ] = useState([]);
-    const [ profile, setProfile ] = useState([]);
+    const [user, setUser] = useState([]);
+    const [profile, setProfile] = useState([]);
 
 
     const signUp = () => {
@@ -36,10 +45,10 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
     }
 
     const googleLogin = (user) => {
-       const facebookToken = 'EAArAhyE3Jr8BO4tqjXrcn61eXdY1JBPYaawZCFUWUvgAyoujoZAMYA1JkWGZBIYv5ZAryOqw6MKnaTwaMeWsWZC5c95OzaAAKM81wSHNF4aPZAMxAVrAFO0w6sJLB5iEANIqPWOWD5syY6DvWUm7IcYIaimeLoOJXk6TRbCYtRiGnBeFB8FpCaU0aczktaBitoygeMadPoHCvs9ry8ygjdHvOW8ZBKZB5CeXCcJ6UOZBkwAWHcG1S0jipmn1ZBMODfZB8oWpMpp'
+        const facebookToken = 'EAArAhyE3Jr8BO4tqjXrcn61eXdY1JBPYaawZCFUWUvgAyoujoZAMYA1JkWGZBIYv5ZAryOqw6MKnaTwaMeWsWZC5c95OzaAAKM81wSHNF4aPZAMxAVrAFO0w6sJLB5iEANIqPWOWD5syY6DvWUm7IcYIaimeLoOJXk6TRbCYtRiGnBeFB8FpCaU0aczktaBitoygeMadPoHCvs9ry8ygjdHvOW8ZBKZB5CeXCcJ6UOZBkwAWHcG1S0jipmn1ZBMODfZB8oWpMpp'
 
-        if(user) {
-            console.log('user',user.access_token)
+        if (user) {
+            console.log('user', user.access_token)
 
 
             axios.post(api_url + `auth/convert-token/`, {
@@ -48,20 +57,20 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
                 client_secret: 'sT0nGKRI41pYZ8nQh8r5O0W6TC3jJvCSYmFg8CPCqCgpaTgcK8YkrrkZgbq7ZsUhYiX03Ioyu7hHh32TNlHMVEBNgWvtzQXU6IJulBDqOUOHsDVTrXZEJ8g39BioJyeC',
                 backend: 'google-oauth2',
                 grant_type: 'convert_token'
-            },{
+            }, {
                 headers: {
                     'Accept': 'application/json',
                 }
             })
                 .then(function (response) {
                     console.log('googleLogin res', response)
-                    if(response.data.access_token) {
+                    if (response.data.access_token) {
                         getUserData(response.data.access_token)
                     }
                 })
                 .catch(function (error) {
-                    console.log('googleLogin',error.response.data);
-                    if(error.response.data.detail) {
+                    console.log('googleLogin', error.response.data);
+                    if (error.response.data.detail) {
 
                     }
                 });
@@ -70,7 +79,7 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
         }
     }
     const getUserData = (token) => {
-    console.log('tiken',token)
+        console.log('tiken', token)
         axios.get(api_url + 'users/me/', {
             withCredentials: true,
             headers: {
@@ -84,11 +93,11 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
 
                 localStorage.setItem('userLogged', 'true')
                 localStorage.setItem('userData', JSON.stringify(response.data))
-                console.log('res',response.data);
+                console.log('res', response.data);
 
             })
             .catch(function (error) {
-                console.log('err',error.response.data);
+                console.log('err', error.response.data);
 
             });
 
@@ -111,7 +120,7 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
                     .catch((err) => console.log(err));
             }
         },
-        [ user ]
+        [user]
     );
 
     const onSuccess = (response) => {
@@ -146,12 +155,15 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
             <form className="modal__form">
                 <label className="modal__label">
                     Email
-                    <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="modal__input" placeholder="Write your email" />
+                    <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="modal__input"
+                           placeholder="Write your email"/>
                 </label>
                 <label className="modal__label">
                     Password
-                    <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="modal__input" placeholder="Write your password" />
+                    <input value={password} onChange={e => setPassword(e.target.value)} type="password"
+                           className="modal__input" placeholder="Write your password"/>
                 </label>
+                {validPassword.length > 0 && <p className={'red_text'}>{validPassword}</p>}
                 <button onClick={(e) => LoginUser(e)} className="btn btn--black modal__btn">
                     Log in
                 </button>
@@ -173,7 +185,7 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
                         fields="name,email,picture"
                         scope="public_profile,user_friends"
                         callback={() => responseFacebook}
-                        icon={ <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 33 32">
+                        icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 33 32">
                             <path className="fill" fill="#111"
                                   d="M16.75 3.25A12.75 12.75 0 1 0 29.5 16 12.765 12.765 0 0 0 16.75 3.25Zm.75 23.975V18.75h3.25a.75.75 0 1 0 0-1.5H17.5V14a2.25 2.25 0 0 1 2.25-2.25h2a.75.75 0 1 0 0-1.5h-2A3.75 3.75 0 0 0 16 14v3.25h-3.25a.75.75 0 1 0 0 1.5H16v8.475a11.25 11.25 0 1 1 1.5 0Z"/>
                         </svg>}
@@ -195,7 +207,6 @@ const Login = ({setShowLoginModal, setShowSignModal, setShowPasswordModal, email
                     {/*    consumerKey={'7BSQIdK6IWst06miRuSXbdEsq'}*/}
                     {/*    consumerSecret={'9jpKCLZvcKqfqTg6Of8iNRSYELAZtluT1A0INWTvK4QsKGl0El'}*/}
                     {/*/>*/}
-
 
 
                     <button onClick={() => login()} className="btn btn--network">

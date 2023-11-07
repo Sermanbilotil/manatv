@@ -12,11 +12,11 @@ const Profile = ({userData,setUserData}) => {
     const token = Cookies.get('token');
 
     const [userName, setUserName] = useState('')
-    const [userLang, setUserLang] = useState('')
+    const [userLang, setUserLang] = useState('Виберіть опцію')
     const [userLangOpened, setUserLangOpened] = useState('')
     const [subtitleLangOpened, setSubtitleLangOpened] = useState('')
-    const [subtitleLang, setSubtitleLang] = useState('')
-    const [langLevel, setLangLevel] = useState('')
+    const [subtitleLang, setSubtitleLang] = useState('Виберіть опцію')
+    const [langLevel, setLangLevel] = useState('Виберіть опцію')
     const [langLevelOpened, setLangLevelOpened] = useState('')
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
@@ -38,9 +38,17 @@ const Profile = ({userData,setUserData}) => {
         if(Object.keys(userData).length > 0 ) {
             setEmail(userData.email)
             setUserName(userData.name)
-            setUserLang(userData.interface_language)
-            setLangLevel(userData.language_level)
-            setSubtitleLang(userData.subtitle_translation_language)
+            if(userData?.interface_language !== null) {
+                setUserLang(userData?.interface_language)
+            }
+            if(userData?.language_level  !== null) {
+                setLangLevel(userData?.language_level)
+            }
+            if(userData?.subtitle_translation_language !== null) {
+                setSubtitleLang(userData?.subtitle_translation_language)
+            }
+
+
         }
         console.log('ud', userData)
 
@@ -361,7 +369,7 @@ const Profile = ({userData,setUserData}) => {
 
                                 <div onClick={() => setLangLevelOpened(!langLevelOpened)} className="custom-select">
                                     <div className={langLevelOpened ? 'select-header opened' : 'select-header'}><span
-                                        className="selected-option">{langLevel.length > 0 ? langLevel : 'Виберіть опцію'}</span><i className="arrow-icon"></i>
+                                        className="selected-option">{langLevel && langLevel.length > 0 ? langLevel : 'Виберіть опцію'}</span><i className="arrow-icon"></i>
                                     </div>
                                     <ul className={langLevelOpened ? 'options-list opened' : 'options-list'}>
                                         <li   onClick={() => setLangLevel('beginner')}>beginner</li>
@@ -374,7 +382,7 @@ const Profile = ({userData,setUserData}) => {
                                 Save
                             </button>
                         </div>
-                        {dataSavedText.length > 0 && <p className={'green_text'}>{dataSavedText}</p>}
+                        {dataSavedText && dataSavedText.length > 0 && <p className={'green_text'}>{dataSavedText}</p>}
                     </form>
                 </div>
                 <div className="settings-block">
@@ -388,7 +396,7 @@ const Profile = ({userData,setUserData}) => {
 
                                 <div onClick={() => setUserLangOpened(!userLangOpened)} className="custom-select">
                                     <div className={userLangOpened ? 'select-header opened' : 'select-header'}><span
-                                        className="selected-option">{userLang.length > 0 ? userLang : 'Виберіть опцію'}</span><i className="arrow-icon"></i>
+                                        className="selected-option">{userLang && userLang.length > 0 ? userLang : 'Виберіть опцію'}</span><i className="arrow-icon"></i>
                                     </div>
                                     <ul className={userLangOpened ? 'options-list opened' : 'options-list'}>
                                         <li   onClick={() => setUserLang('en')}>en</li>
@@ -400,7 +408,7 @@ const Profile = ({userData,setUserData}) => {
                                 Subtitle translation language
                                 <div onClick={() => setSubtitleLangOpened(!subtitleLangOpened)} className="custom-select">
                                     <div className={subtitleLangOpened ? "select-header opened" : 'select-header'}><span className="selected-option">
-                                        {subtitleLang.length > 0 ? subtitleLang : 'Виберіть опцію'}
+                                        {subtitleLang && subtitleLang.length > 0 ? subtitleLang : 'Виберіть опцію'}
                                     </span><i
                                         className="arrow-icon"></i></div>
                                     <ul className={subtitleLangOpened ? 'options-list opened' : 'options-list'}>
