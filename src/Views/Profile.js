@@ -12,11 +12,11 @@ const Profile = ({userData,setUserData}) => {
     const token = Cookies.get('token');
 
     const [userName, setUserName] = useState('')
-    const [userLang, setUserLang] = useState('Виберіть опцію')
+    const [userLang, setUserLang] = useState('Select option')
     const [userLangOpened, setUserLangOpened] = useState('')
     const [subtitleLangOpened, setSubtitleLangOpened] = useState('')
-    const [subtitleLang, setSubtitleLang] = useState('Виберіть опцію')
-    const [langLevel, setLangLevel] = useState('Виберіть опцію')
+    const [subtitleLang, setSubtitleLang] = useState('Select option')
+    const [langLevel, setLangLevel] = useState('Select option')
     const [langLevelOpened, setLangLevelOpened] = useState('')
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
@@ -297,7 +297,7 @@ const Profile = ({userData,setUserData}) => {
                         <div className="settings-block-form__row">
                             <label className="settings-block__label settings-block__label--large">
                                 You will have to confirm your email
-                                <input  type="email" value={email} placeholder="fagozit@gmail.com"/>
+                                <input  type="email" value={email} placeholder="User email"/>
                                 {/*{emailError.length > 0 && <p className={'red_text'}>{emailError}</p>}*/}
                             </label>
                             {/*<button onClick={(e) => ChangeEmail(e)} className="btn btn--transparent settings-block__btn settings-block__btn--small">*/}
@@ -312,22 +312,24 @@ const Profile = ({userData,setUserData}) => {
                     </p>
                     <form action className="settings-block__form settings-block-form">
                         <div className="settings-block-form__row">
+
                             <label className="settings-block__label">
-                                Current password
-                                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Write current password"/>
-                                {passwordError.length > 0 && <p className={passwordError == 'Password changed successfully.' ? 'green_text' : 'red_text'}>{passwordError}</p>}
+                                New Password
+                                <input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Type new password"/>
+                                {newPasswordError.length > 0 && <p className={'red_text'}>{newPasswordError}</p>}
                             </label>
                             <label className="settings-block__label">
-                                Password
-                                <input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Write password"/>
+                                Password confirmation
+                                <input value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} type="password" placeholder="Type password confirmation"/>
                                 {newPasswordError.length > 0 && <p className={'red_text'}>{newPasswordError}</p>}
                             </label>
                         </div>
                         <div className="settings-block-form__row">
+
                             <label className="settings-block__label">
-                                Password confirmation
-                                <input value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} type="password" placeholder="Write password confirmation"/>
-                                {newPasswordError.length > 0 && <p className={'red_text'}>{newPasswordError}</p>}
+                                Current password
+                                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Type current password"/>
+                                {passwordError.length > 0 && <p className={passwordError == 'Password changed successfully.' ? 'green_text' : 'red_text'}>{passwordError}</p>}
                             </label>
                             <button onClick={(e) => ChangePassword(e)} className="btn btn--transparent settings-block__btn settings-block__btn--big">
                                 Save
