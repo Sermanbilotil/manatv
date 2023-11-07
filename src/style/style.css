@@ -338,6 +338,9 @@ header ul {
   display: flex;
   position: relative;
 }
+.btn--network-disabled svg {
+  width: 32px;
+}
 .btn--network > button {
   background-color: red;
 }
