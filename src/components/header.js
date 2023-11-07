@@ -17,7 +17,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
 
     const [showSignModal, setShowSignModal] = useState(false)
     const [showPasswordModal, setShowPasswordModal] = useState(false)
-    const [showEmailSendModal, setEmailSendModal] = useState(true)
+    const [showEmailSendModal, setEmailSendModal] = useState(false)
 
     const [selectOpened, setSelectOpened] = useState(false)
 
