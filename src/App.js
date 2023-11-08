@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from "./components/Header";
+import Header from "./components/header";
 import {BrowserRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom';
 import Profile from "./Views/Profile";
-import Footer from "./components/Footer";
+import Footer from "./components/footer";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {api_url} from "./utils/utils";
@@ -25,7 +25,7 @@ function App() {
 
         if(localStorage.getItem('userLogged') === 'true' && token ) {
             setShowLoginModal(false)
-            console.log(' localStorage.getItem(\'authType\')', localStorage.getItem('authType'))
+            console.log(' loc localStorage.getItem(\'authType\')', localStorage.getItem('authType'))
 
 
                   getUserData(token)
