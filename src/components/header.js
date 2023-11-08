@@ -85,8 +85,9 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
             })
                 .then(function (response) {
                     console.log('res',response);
-                    Cookies.set('token',  response.data.detail);
-                    getUserData(response.data.detail)
+                    Cookies.set('token',  'Token ' + response.data.detail);
+                    localStorage.setItem('authType',  'token');
+                    getUserData('Token' + response.data.detail)
                 })
                 .catch(function (error) {
                     console.log('err',error.response.data);
@@ -104,6 +105,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
     const Logout = () => {
        localStorage.removeItem('userLogged')
        localStorage.removeItem('userData')
+       localStorage.removeItem('authType')
         setShowLoginModal(true)
     }
 
@@ -120,6 +122,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                   setPassword={setPassword}
                                   LoginUser={LoginUser}
                                   validPassword={validPassword}
+                                  getUserData={getUserData}
         />}
         {showSignModal && <SignUp setShowSignModal={setShowSignModal}
                                   setShowLoginModal={setShowLoginModal}

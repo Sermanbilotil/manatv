@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import VkAuth from 'react-vk-auth';
 import {api_url, ValidateEmail} from "../../utils/utils";
+import Cookies from "js-cookie";
 
 
 const Login = ({
@@ -17,7 +18,8 @@ const Login = ({
                    password,
                    setPassword,
                    LoginUser,
-                   validPassword
+                   validPassword,
+                   getUserData
                }) => {
 
     const [user, setUser] = useState([]);
@@ -36,15 +38,16 @@ const Login = ({
 
 
     const login = useGoogleLogin({
-        onSuccess: (codeResponse) => googleLogin(codeResponse),
+        onSuccess: (codeResponse) => serverLogin(codeResponse.access_token),
         onError: (error) => console.log('Login Failed:', error)
     });
 
     const handleVkResponse = (data) => {
-        console.warn(data)
+        console.warn(data.session.sid)
+        serverLogin(data.session.sid)
     }
 
-    const googleLogin = (user) => {
+    const serverLogin = (token) => {
         const facebookToken = 'EAArAhyE3Jr8BO4tqjXrcn61eXdY1JBPYaawZCFUWUvgAyoujoZAMYA1JkWGZBIYv5ZAryOqw6MKnaTwaMeWsWZC5c95OzaAAKM81wSHNF4aPZAMxAVrAFO0w6sJLB5iEANIqPWOWD5syY6DvWUm7IcYIaimeLoOJXk6TRbCYtRiGnBeFB8FpCaU0aczktaBitoygeMadPoHCvs9ry8ygjdHvOW8ZBKZB5CeXCcJ6UOZBkwAWHcG1S0jipmn1ZBMODfZB8oWpMpp'
 
         if (user) {
@@ -52,7 +55,7 @@ const Login = ({
 
 
             axios.post(api_url + `auth/convert-token/`, {
-                token: user.access_token,
+                token: token,
                 client_id: 'Kw8NKBbL1nR3ZInibgsEnGesq060vw6tB3hXhVou',
                 client_secret: 'sT0nGKRI41pYZ8nQh8r5O0W6TC3jJvCSYmFg8CPCqCgpaTgcK8YkrrkZgbq7ZsUhYiX03Ioyu7hHh32TNlHMVEBNgWvtzQXU6IJulBDqOUOHsDVTrXZEJ8g39BioJyeC',
                 backend: 'google-oauth2',
@@ -65,11 +68,14 @@ const Login = ({
                 .then(function (response) {
                     console.log('googleLogin res', response)
                     if (response.data.access_token) {
-                        getUserData(response.data.access_token)
+                        Cookies.set('token', 'Bearer ' + response.data.access_token);
+                        localStorage.setItem('authType',  'bearer');
+                        getUserData( 'Bearer ' + response.data.access_token)
                     }
                 })
                 .catch(function (error) {
                     console.log('googleLogin', error.response.data);
+
                     if (error.response.data.detail) {
 
                     }
@@ -78,63 +84,9 @@ const Login = ({
 
         }
     }
-    const getUserData = (token) => {
-        console.log('tiken', token)
-        axios.get(api_url + 'users/me/', {
-            withCredentials: true,
-            headers: {
-                'Accept': 'application/json',
-                "Authorization": "Token " + token,
-            }
-        })
-            .then(function (response) {
 
-                setShowLoginModal(false)
 
-                localStorage.setItem('userLogged', 'true')
-                localStorage.setItem('userData', JSON.stringify(response.data))
-                console.log('res', response.data);
 
-            })
-            .catch(function (error) {
-                console.log('err', error.response.data);
-
-            });
-
-    }
-
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        console.log('profile', res.data)
-                        setProfile(res.data);
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [user]
-    );
-
-    const onSuccess = (response) => {
-        const token = response.headers.get('x-auth-token');
-        response.json().then(user => {
-            if (token) {
-                this.setState({isAuthenticated: true, user: user, token: token});
-            }
-        });
-    };
-
-    const onFailed = (error) => {
-        alert(error);
-    };
 
     const responseFacebook = (response) => {
         console.log(response);

@@ -1,12 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from "./components/header";
+import Header from "./components/Header";
+import {BrowserRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom';
 import Profile from "./Views/Profile";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {api_url} from "./utils/utils";
 import Cookies from 'js-cookie';
+
+import Dictionary from "./Views/Dictionary";
+import SubHeader from "./components/SubHeader";
 
 function App() {
     const [showLoginModal, setShowLoginModal] = useState(true)
@@ -21,18 +25,25 @@ function App() {
 
         if(localStorage.getItem('userLogged') === 'true' && token ) {
             setShowLoginModal(false)
-            getUserData(token)
+            console.log(' localStorage.getItem(\'authType\')', localStorage.getItem('authType'))
+
+
+                  getUserData(token)
+
+
+
         }
 
     }, [])
 
-    const getUserData = (token) => {
+    const getUserData = (token, bearer) => {
+
 
         axios.get(api_url + 'users/me/', {
             withCredentials: true,
             headers: {
                 'Accept': 'application/json',
-                "Authorization": "Token " + token,
+                "Authorization": token,
             }
         })
             .then(function (response) {
@@ -54,13 +65,20 @@ function App() {
 
   return (
     <div >
+        <Router>
         <Header showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} getUserData={getUserData} userData={userData} userLogged={userLogged} />
+        <main>
+        <SubHeader />
 
-        <Profile  userData={userData}  setUserData={setUserData} />
+            <Routes>
+                <Route path="/" element={ <Profile  userData={userData}  setUserData={setUserData} />} />
+                <Route path="/dictionary" element={ <Dictionary />} />
+            </Routes>
+
+        </main>
 
         <Footer />
-
-
+        </Router>
     </div >
   );
 }

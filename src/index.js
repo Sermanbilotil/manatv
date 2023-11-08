@@ -10,20 +10,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Helmet,HelmetProvider} from "react-helmet-async";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <GoogleOAuthProvider clientId="338576098456-a7h7s7cj413egjmcdec86i8kj88dprh8.apps.googleusercontent.com">
   <React.StrictMode>
-      <HelmetProvider >
+
     <App />
 
-
-      <Helmet>
-          <script type="text/babel" src="./../js/script.js"></script>
-      </Helmet>
-      </HelmetProvider>
   </React.StrictMode>
     </GoogleOAuthProvider>
 );
