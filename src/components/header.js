@@ -87,7 +87,8 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                     console.log('response',response);
                     Cookies.set('token',  'Token ' + response.data.detail);
                     localStorage.setItem('authType',  'token');
-                    getUserData('Token' + response.data.detail)
+                    console.log('log','Token' + response.data.detail )
+                    getUserData('Token ' + response.data.detail)
                 })
                 .catch(function (error) {
                     console.log('err',error.response.data);
