@@ -1,18 +1,19 @@
-
-import { ExportJsonCsv } from 'react-export-json-csv';
+import {ExportJsonCsv} from 'react-export-json-csv';
 
 
 import {useEffect, useState} from "react";
 import WordCard from "../components/WordCard";
-import {getDictionary, getDictionaryData} from "../api/dictionary";
+import {deleteDictionaryWord, getDictionary, getDictionaryData} from "../api/dictionary";
 import WordModal from "../components/Modals/WordModal";
+import StudyWordModal from "../components/Modals/StudyWordModal";
 
 
 const Dictionary = () => {
 
     const [gridType, setGridType] = useState('grid')
     const [searchWord, setSearchWord] = useState('')
-    const [exportedData, setExportedData] = useState([])
+    const [source, setSource] = useState(null)
+
 
     const [dictionary, setDictionary] = useState(null)
     const [dictionaryData, setDictionaryData] = useState(null)
@@ -20,6 +21,7 @@ const Dictionary = () => {
 
 
     const [showWordModal, setShowWordModal] = useState(false)
+    const [showStudyWordModal, setShowStudyWordModal] = useState(false)
     const [activeWordData, setActiveWordData] = useState(null)
 
     const [showTranslations, setShowTranslations] = useState(true)
@@ -36,38 +38,40 @@ const Dictionary = () => {
     }, [dictionary]);
 
     useEffect(() => {
-        if(dictionaryData !== null ) {
+        if (dictionaryData !== null) {
             setDictionaryWords(dictionaryData.dictionary_words)
 
         }
     }, [dictionaryData]);
 
 
-
     useEffect(() => {
         console.log('searchWord ', searchWord)
         let filteredWords = dictionaryWords
-       if(dictionaryWords !== null ) {
-           filteredWords = dictionaryData.dictionary_words.filter(item => item.word.includes(searchWord))
-           setDictionaryWords(filteredWords)
-       }
-
-
-        console.log(filteredWords)
-
-
+        if (dictionaryWords !== null) {
+            filteredWords = dictionaryData.dictionary_words.filter(item => item.word.includes(searchWord))
+            setDictionaryWords(filteredWords)
+        }
     }, [searchWord]);
 
+    useEffect(() => {
+
+        console.log('source ', source)
+        let filteredWords = dictionaryWords
+        if (dictionaryWords !== null && source !== null) {
+            filteredWords = dictionaryData.dictionary_words.filter(item => item.source === source)
+            setDictionaryWords(filteredWords)
+        } else {
+            dictionaryData !== null && setDictionaryWords(dictionaryData.dictionary_words)
+        }
+    }, [source]);
 
     const showModal = (data) => {
         setShowWordModal(true)
         setActiveWordData(data)
     }
 
-    const formatForEcport = () => {
 
-
-    }
 
 
     return <section className="dictionary">
@@ -75,7 +79,7 @@ const Dictionary = () => {
             <div className="dictionary-main">
                 <div className="sidebar">
                     <h1 className="sidebar__name">Dictionary</h1>
-                    <button className="btn btn--transparent sidebar__btn">
+                    <button onClick={() => setShowStudyWordModal(true)} className="btn btn--transparent sidebar__btn">
                         Study words
                     </button>
                     <div className="sidebar-check">
@@ -103,19 +107,21 @@ const Dictionary = () => {
                                     name="sources"
                                     defaultChecked=""
                                 />
-                                <label htmlFor="sources-all" className="sidebar-block__label">
+                                <label onClick={() => setSource(null)} htmlFor="sources-all" className="sidebar-block__label">
                                     All words
                                 </label>
                             </li>
                             {dictionaryData && dictionaryData.sources_word_count.map(item => {
+                                const newSource = item.source_title === "New Serial" ? 3 : 4
+
                                 return <li className="sidebar-block__item">
                                     <input
                                         type="radio"
-                                        id="sources-1"
+                                        id={"sources" + newSource}
                                         className="sidebar-block__checkbox"
                                         name="sources"
                                     />
-                                    <label htmlFor="sources-1" className="sidebar-block__label">
+                                    <label onClick={() => setSource(newSource)} htmlFor={"sources" + newSource} className="sidebar-block__label">
                                         {item.source_title}
                                     </label>
                                     <span className="sidebar-block__count">{item.count}</span>
@@ -123,7 +129,7 @@ const Dictionary = () => {
                             })}
                         </ul>
                     </div>
-                    
+
                     <ExportJsonCsv className="btn btn--icon" headers={[
                         {
                             key: 'id',
@@ -154,7 +160,7 @@ const Dictionary = () => {
                         </svg>
                         Export
                     </ExportJsonCsv>
-                    <button className="btn btn--icon btn-delete-all">
+                    <button onClick={() => setDictionaryWords([])} className="btn btn--icon btn-delete-all">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -247,7 +253,17 @@ const Dictionary = () => {
 
                     </ul>
 
-                    {showWordModal && <WordModal setDictionaryData={setDictionaryData}  activeWordData={activeWordData} setShowWordModal={setShowWordModal} />}
+                    {showWordModal && <WordModal setDictionaryData={setDictionaryData}
+                                                 activeWordData={activeWordData}
+                                                 setShowWordModal={setShowWordModal}/>}
+
+                    {showStudyWordModal && <StudyWordModal
+                        setDictionaryData={setDictionaryData}
+                        setShowStudyWordModal={setShowStudyWordModal}
+                        dictionaryWords={dictionaryWords}
+
+
+                    />}
 
                 </div>
             </div>
