@@ -6,6 +6,7 @@ import WordCard from "../components/WordCard";
 import {deleteDictionaryWord, getDictionary, getDictionaryData} from "../api/dictionary";
 import WordModal from "../components/Modals/WordModal";
 import StudyWordModal from "../components/Modals/StudyWordModal";
+import SubHeader from "../components/SubHeader";
 
 
 const Dictionary = () => {
@@ -54,6 +55,7 @@ const Dictionary = () => {
         }
     }, [searchWord]);
 
+
     useEffect(() => {
 
         console.log('source ', source)
@@ -74,7 +76,9 @@ const Dictionary = () => {
 
 
 
-    return <section className="dictionary">
+    return <>  <SubHeader />
+
+    <section className="dictionary">
         <div className="container">
             <div className="dictionary-main">
                 <div className="sidebar">
@@ -269,7 +273,7 @@ const Dictionary = () => {
             </div>
         </div>
     </section>
-
+    </>
 
 }
 

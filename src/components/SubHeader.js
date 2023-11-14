@@ -75,7 +75,7 @@ const SubHeader = () => {
                     </a>
                 </li>
                 <li className="common-header__item">
-                    <Link to="settings" className={pathname === '/' ?  'common-header__link active' : 'common-header__link'}>
+                    <Link to="/settings" className={pathname === '/settings' ?  'common-header__link active' : 'common-header__link'}>
                         <svg
                             className="common-header__icon"
                             xmlns="http://www.w3.org/2000/svg"

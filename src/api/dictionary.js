@@ -27,7 +27,7 @@ export const getDictionary = (setDictionary ) => {
 
 
 export const getDictionaryData = (id, setDictionaryData) => {
-    console.log('token', token)
+    console.log('token', token, id)
 
     axios.get(api_url + `dictionaries/${id}`, {
         withCredentials: true,
@@ -48,7 +48,7 @@ export const getDictionaryData = (id, setDictionaryData) => {
 }
 
 export const editDictionaryWord = (setDictionaryData, id, status) => {
-    console.log('token', token, id, status)
+    console.log('token editDictionaryWord', token, id, status)
 
     axios.patch(api_url + `dictionary-words/${id}/`, {
         status: status,
@@ -63,7 +63,7 @@ export const editDictionaryWord = (setDictionaryData, id, status) => {
         .then(function (response) {
             console.log('res getDictionaryDWord', response)
 
-            getDictionaryData(1, setDictionaryData)
+            getDictionaryData(response.data.dictionary, setDictionaryData)
         })
         .catch(function (error) {
             console.log('err',error);

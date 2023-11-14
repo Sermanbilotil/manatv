@@ -11,6 +11,10 @@ import Cookies from 'js-cookie';
 
 import Dictionary from "./Views/Dictionary";
 import SubHeader from "./components/SubHeader";
+import Videos from "./Views/Videos";
+import SerialCard from "./components/SerialCard";
+import Serial from "./Views/Serial";
+import MainPage from "./Views/MainPage";
 
 function App() {
     const [showLoginModal, setShowLoginModal] = useState(true)
@@ -68,11 +72,14 @@ function App() {
         <Router>
         <Header showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} getUserData={getUserData} userData={userData} userLogged={userLogged} />
         <main>
-        <SubHeader />
+
 
             <Routes>
-                <Route path="/" element={ <Profile  userData={userData}  setUserData={setUserData} />} />
+                <Route path="/" element={ <MainPage  />} />
+                <Route path="/settings" element={ <Profile  userData={userData}  setUserData={setUserData} />} />
                 <Route path="/dictionary" element={ <Dictionary />} />
+                <Route path="/videos" element={ <Videos />} />
+                <Route  path="/videos/:id" element={ <Serial />} />
             </Routes>
 
         </main>

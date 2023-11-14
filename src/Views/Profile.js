@@ -5,6 +5,7 @@ import axios from "axios";
 import {api_url, ValidateEmail} from "../utils/utils";
 import Cookies from "js-cookie";
 import Modal from 'react-modal';
+import SubHeader from "../components/SubHeader";
 
 
 const Profile = ({userData, setUserData}) => {
@@ -237,7 +238,11 @@ const Profile = ({userData, setUserData}) => {
     }, [passwordError, dataSavedText]);
 
 
-    return <section className="settings">
+    return <>
+
+        <SubHeader />
+
+    <section className="settings">
         <div className="container">
             <div className="settings-block">
                 <p className="settings-block__title">
@@ -390,7 +395,7 @@ const Profile = ({userData, setUserData}) => {
             </div>
         </div>
     </section>
-
+    </>
 }
 
 export default Profile
