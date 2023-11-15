@@ -1,11 +1,11 @@
-import filmIcon from '../img/film-icon.png'
+import filmIcon from '../../img/film-icon.png'
 
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import {api_url, ValidateEmail} from "../utils/utils";
+import {api_url, ValidateEmail} from "../../utils/utils";
 import Cookies from "js-cookie";
 import Modal from 'react-modal';
-import SubHeader from "../components/SubHeader";
+import SubHeader from "../../components/SubHeader";
 
 
 const Profile = ({userData, setUserData}) => {

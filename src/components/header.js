@@ -161,6 +161,9 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
 
         {showPasswordModal && <ForgotPass setShowPasswordModal={setShowPasswordModal}
                                           setShowLoginModal={setShowLoginModal}
+                                          setEmailSendModal={setEmailSendModal}
+
+
             />}
         <div className="container">
             <div className="site-header__inner">
@@ -243,7 +246,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                 </button>
                                 <ul className={ selectOpened ? 'site-account__list active' : 'site-account__list' }>
                                     <li className="site-account__item site-account-item">
-                                        <a href="subscription.html" className="site-account-item__link">
+                                        <Link to="/subscription" className="site-account-item__link">
                                             <svg className="site-account-item__img" xmlns="http://www.w3.org/2000/svg"
                                                  fill="none" viewBox="0 0 24 25">
                                                 <path fill="#111"
@@ -251,7 +254,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                             </svg>
                                             <span className="site-account-item__name">Subscription</span>
                                             <span className="site-account-item__left">51 days left</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="site-account__item site-account-item">
                                         <Link to="/dictionary" className="site-account-item__link">
@@ -264,14 +267,14 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                         </Link>
                                     </li>
                                     <li className="site-account__item site-account-item">
-                                        <a href="notifications.html" className="site-account-item__link">
+                                        <Link to="/notifications" className="site-account-item__link">
                                             <svg className="site-account-item__img" xmlns="http://www.w3.org/2000/svg"
                                                  fill="none" viewBox="0 0 24 25">
                                                 <path fill="#111"
                                                       d="M20.632 17.088c-.531-.913-1.32-3.488-1.32-6.838a7.312 7.312 0 1 0-14.625 0c0 3.35-.789 5.925-1.32 6.838A1.313 1.313 0 0 0 4.5 19.062h3.982a3.563 3.563 0 0 0 7.032 0H19.5a1.313 1.313 0 0 0 1.13-1.974h.002ZM12 20.938a2.438 2.438 0 0 1-2.37-1.875h4.74A2.438 2.438 0 0 1 12 20.938Zm7.66-3.094a.178.178 0 0 1-.16.093h-15a.177.177 0 0 1-.16-.093.188.188 0 0 1 0-.188c.71-1.218 1.472-4.06 1.472-7.406a6.187 6.187 0 0 1 12.375 0c0 3.345.764 6.183 1.473 7.406a.188.188 0 0 1 0 .188Z"/>
                                             </svg>
                                             <span className="site-account-item__name">Notifications</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="site-account__item site-account-item">
                                         <Link to="/settings" className="site-account-item__link">

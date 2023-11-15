@@ -27,7 +27,7 @@ const SubHeader = () => {
         <div className="container">
             <ul className="common-header__list">
                 <li className="common-header__item">
-                    <a href="subscription.html" className="common-header__link">
+                    <Link to="/subscription" className={pathname === '/subscription' ?  'common-header__link active' : 'common-header__link'}>
                         <svg
                             className="common-header__icon"
                             xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ const SubHeader = () => {
                             />
                         </svg>
                         <span className="common-header__name">Subscription</span>
-                    </a>
+                    </Link>
                 </li>
                 <li className="common-header__item">
                     <Link to={'/dictionary'} className={pathname === '/dictionary' ?  'common-header__link active' : 'common-header__link'}>
@@ -59,7 +59,7 @@ const SubHeader = () => {
                     </Link>
                 </li>
                 <li className="common-header__item">
-                    <a href="notifications.html" className="common-header__link">
+                    <Link to="/notifications" className={pathname === '/notifications' ?  'common-header__link active' : 'common-header__link'}>
                         <svg
                             className="common-header__icon"
                             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const SubHeader = () => {
                             />
                         </svg>
                         <span className="common-header__name">Notifications</span>
-                    </a>
+                    </Link>
                 </li>
                 <li className="common-header__item">
                     <Link to="/settings" className={pathname === '/settings' ?  'common-header__link active' : 'common-header__link'}>

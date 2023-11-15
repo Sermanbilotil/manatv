@@ -2,11 +2,11 @@ import {ExportJsonCsv} from 'react-export-json-csv';
 
 
 import {useEffect, useState} from "react";
-import WordCard from "../components/WordCard";
-import {deleteDictionaryWord, getDictionary, getDictionaryData} from "../api/dictionary";
-import WordModal from "../components/Modals/WordModal";
-import StudyWordModal from "../components/Modals/StudyWordModal";
-import SubHeader from "../components/SubHeader";
+import WordCard from "../../components/WordCard";
+import {deleteDictionaryWord, getDictionary, getDictionaryData} from "../../api/dictionary";
+import WordModal from "../../components/Modals/WordModal";
+import StudyWordModal from "../../components/Modals/StudyWordModal";
+import SubHeader from "../../components/SubHeader";
 
 
 const Dictionary = () => {

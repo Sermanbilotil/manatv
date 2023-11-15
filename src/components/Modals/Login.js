@@ -100,7 +100,7 @@ const Login = ({
     return <div className="overlay overlay--common active">
         <div className="overlay__bg"></div>
         <div className="modal modal--login opened">
-            {/*<button onClick={() => setShowLoginModal(false)} className="modal__close"></button>*/}
+            <button onClick={() => setShowLoginModal(false)} className="modal__close"></button>
             <div className="modal__name">
                 Log in
             </div>

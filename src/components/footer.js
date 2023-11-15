@@ -5,6 +5,7 @@ import InvertLogo from '../img/invert-logo.svg'
 
 
 import {useEffect} from "react";
+import {Link} from "react-router-dom";
 
 
 
@@ -42,14 +43,14 @@ const Footer = () => {
                     </h3>
                     <ul className="site-footer-menu__list">
                         <li className="site-footer-menu__item">
-                            <a href="faq.html" className="site-footer-menu__question">
+                            <Link to="/faq" className="site-footer-menu__question">
                                 Do you have the rights to the provided content?
-                            </a>
+                            </Link>
                         </li>
                         <li className="site-footer-menu__item">
-                            <a href="faq.html" className="site-footer-menu__btn">
+                            <Link to="/faq" className="site-footer-menu__btn">
                                 Show all questions
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -59,24 +60,24 @@ const Footer = () => {
                     </h3>
                     <ul className="site-footer-menu__list">
                         <li className="site-footer-menu__item">
-                            <a href="terms.html" className="site-footer-menu__link">
+                            <Link to="/terms" className="site-footer-menu__link">
                                 Copyright
-                            </a>
+                            </Link>
                         </li>
                         <li className="site-footer-menu__item">
-                            <a href="terms.html" className="site-footer-menu__link">
+                            <Link to="/terms" className="site-footer-menu__link">
                                 Privacy policy
-                            </a>
+                            </Link>
                         </li>
                         <li className="site-footer-menu__item">
-                            <a href="terms.html" className="site-footer-menu__link">
+                            <Link to="/terms" className="site-footer-menu__link">
                                 Terms of service
-                            </a>
+                            </Link>
                         </li>
                         <li className="site-footer-menu__item">
-                            <a href="terms.html" className="site-footer-menu__link">
+                            <Link to="/terms" className="site-footer-menu__link">
                                 Terms of payment
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

@@ -1,13 +1,49 @@
 import Login from "./Login";
+import {useState} from "react";
+import {api_url, ValidateEmail} from "../../utils/utils";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 
-const ForgotPass = ({setShowPasswordModal,setShowLoginModal}) => {
-
+const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal}) => {
+    const [email, setEmail] = useState('')
+    const [validEmail, setValidEmail] = useState('')
 
     const Login = () => {
         setShowPasswordModal(false)
         setShowLoginModal(true)
     }
+
+    const resetPassword = (e) => {
+        e.preventDefault();
+        if(ValidateEmail(email)) {
+            axios.post(api_url + 'users/reset_password/', {
+                email: email,
+                language: 'en'
+            }, {
+                withCredentials: true,
+                headers: {
+                    'Accept': 'application/json',
+                }
+            })
+                .then(function (response) {
+                    console.log('response',response);
+                    setShowPasswordModal(false)
+                    setEmailSendModal(true)
+                })
+                .catch(function (error) {
+                    console.log(error.response.data)
+                    if(error.response.data.detail) {
+                        setValidEmail(error.response.data.detail)
+                    }
+                });
+
+        } else {
+
+        }
+    }
+
+
     return <div className="overlay overlay--common active">
         <div className="overlay__bg"></div>
         <div className="modal modal--password opened">
@@ -16,11 +52,12 @@ const ForgotPass = ({setShowPasswordModal,setShowLoginModal}) => {
                 Forgot your password?
             </div>
             <form className="modal__form">
-                <label className="modal__label">
+                <label  className="modal__label">
                     Email
-                    <input type="email" className="modal__input" placeholder="Write your email" />
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="modal__input" placeholder="Write your email" />
+                    {validEmail.length > 0 && <p className={'red_text'}>{validEmail}</p>}
                 </label>
-                <button className="btn btn--black modal__btn">
+                <button onClick={(e) => resetPassword(e)} className="btn btn--black modal__btn">
                     Send me reset password instructions
                 </button>
             </form>
