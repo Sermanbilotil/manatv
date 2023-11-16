@@ -8,8 +8,11 @@ import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
 import {getSerials} from "../api/serials";
 import {useLocation} from "react-router-dom";
+import Cookies from "js-cookie";
 
 
+
+const token = Cookies.get('token');
 
 const Videos = () => {
     const location = useLocation();
@@ -29,10 +32,12 @@ const Videos = () => {
 
 
     useEffect(() => {
-        
-        getSerials(setSerials)
 
-    }, [location]);
+        if(token) {
+            getSerials(setSerials)
+        }
+
+    }, [token]);
 
 
 
