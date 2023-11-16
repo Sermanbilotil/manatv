@@ -12,10 +12,11 @@ import Cookies from "js-cookie";
 
 
 
-const token = Cookies.get('token');
+
 
 const Videos = () => {
     const location = useLocation();
+    const token = Cookies.get('token');
 
     const [showSortFilter, setShowSortFilter] = useState('')
     const [sortFilter, setSortFilter] = useState('Виберіть опцію')
@@ -32,9 +33,9 @@ const Videos = () => {
 
 
     useEffect(() => {
-
+            console.log('token 1', token)
         if(token) {
-            getSerials(setSerials)
+            getSerials(setSerials, token)
         }
 
     }, [token]);

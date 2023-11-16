@@ -45,7 +45,7 @@ function App() {
     }, [])
 
     const getUserData = (token, bearer) => {
-        console.log('token', token)
+
 
         axios.get(api_url + 'users/me/', {
             withCredentials: true,

@@ -4,14 +4,14 @@ import Cookies from "js-cookie";
 
 
 const token = Cookies.get('token');
-export const getSerials = (setSerials) => {
+export const getSerials = (setSerials, Token) => {
     console.log('token', token)
 
     axios.get(api_url + 'tv-shows/', {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization": token,
+            "Authorization": Token ? Token : token,
         }
     })
         .then(function (response) {

@@ -110,6 +110,8 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
        localStorage.removeItem('userLogged')
        localStorage.removeItem('userData')
        localStorage.removeItem('authType')
+        Cookies.set('token', '')
+
         setShowLoginModal(true)
     }
 
