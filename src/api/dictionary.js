@@ -14,7 +14,7 @@ export const getDictionary = (setDictionary ) => {
         }
     })
         .then(function (response) {
-            console.log('Dcit res', response.data[0].id)
+            console.log('Dcit res', response.data)
             setDictionary(response.data)
 
         })
@@ -69,6 +69,34 @@ export const editDictionaryWord = (setDictionaryData, id, status) => {
             console.log('err',error);
 
         });
+
+}
+
+export const deleteDictionary = ( id, setDictionary) => {
+
+
+    if(id !== null ) {
+        axios.delete(api_url + `dictionaries/${id}`,{
+            withCredentials: true,
+            headers: {
+                'Accept': 'application/json',
+                "Authorization": token,
+            },
+
+        })
+            .then(function (response) {
+                console.log('res getDictionaryDWord', response)
+
+                getDictionary(setDictionary)
+
+            })
+            .catch(function (error) {
+                console.log('err',error);
+
+            });
+    } else {
+
+    }
 
 }
 

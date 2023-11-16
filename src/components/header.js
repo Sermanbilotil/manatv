@@ -11,11 +11,12 @@ import Cookies from 'js-cookie';
 
 import {api_url, ValidateEmail} from "../utils/utils";
 import EmailSend from "./Modals/EmailSend";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 
 const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginModal}) => {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const [showSignModal, setShowSignModal] = useState(false)
     const [showPasswordModal, setShowPasswordModal] = useState(false)
     const [showEmailSendModal, setEmailSendModal] = useState(false)
@@ -90,6 +91,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                     localStorage.setItem('authType',  'token');
                     console.log('log','Token' + response.data.detail )
                     getUserData('Token ' + response.data.detail)
+                    navigate('/videos')
                 })
                 .catch(function (error) {
                     console.log('err',error.response.data);
@@ -162,6 +164,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
         {showPasswordModal && <ForgotPass setShowPasswordModal={setShowPasswordModal}
                                           setShowLoginModal={setShowLoginModal}
                                           setEmailSendModal={setEmailSendModal}
+                                          setConfirmLetterSend={setConfirmLetterSend}
 
 
             />}

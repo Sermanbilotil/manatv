@@ -7,7 +7,7 @@ import axios from "axios";
 import VkAuth from 'react-vk-auth';
 import {api_url, ValidateEmail} from "../../utils/utils";
 import Cookies from "js-cookie";
-
+import { useNavigate } from "react-router-dom";
 
 const Login = ({
                    setShowLoginModal,
@@ -22,6 +22,8 @@ const Login = ({
                    getUserData
                }) => {
 
+
+    const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
 
@@ -71,6 +73,7 @@ const Login = ({
                         Cookies.set('token', 'Bearer ' + response.data.access_token);
                         localStorage.setItem('authType',  'bearer');
                         getUserData( 'Bearer ' + response.data.access_token)
+                        navigate("/videos");
                     }
                 })
                 .catch(function (error) {

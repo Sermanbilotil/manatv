@@ -3,17 +3,19 @@ import {ExportJsonCsv} from 'react-export-json-csv';
 
 import {useEffect, useState} from "react";
 import WordCard from "../../components/WordCard";
-import {deleteDictionaryWord, getDictionary, getDictionaryData} from "../../api/dictionary";
+import {deleteDictionary, deleteDictionaryWord, getDictionary, getDictionaryData} from "../../api/dictionary";
 import WordModal from "../../components/Modals/WordModal";
 import StudyWordModal from "../../components/Modals/StudyWordModal";
 import SubHeader from "../../components/SubHeader";
+import Cookies from "js-cookie";
 
-
+const token = Cookies.get('token');
 const Dictionary = () => {
 
     const [gridType, setGridType] = useState('grid')
     const [searchWord, setSearchWord] = useState('')
     const [source, setSource] = useState(null)
+    const [sourceError, setSourceError] = useState('')
 
 
     const [dictionary, setDictionary] = useState(null)
@@ -30,9 +32,10 @@ const Dictionary = () => {
 
     useEffect(() => {
         getDictionary(setDictionary)
-    }, []);
+    }, [token]);
+
     useEffect(() => {
-        if (dictionary !== null) {
+        if (dictionary !== null && dictionary.length > 0) {
 
             getDictionaryData(dictionary[0].id, setDictionaryData)
         }
@@ -67,6 +70,8 @@ const Dictionary = () => {
             dictionaryData !== null && setDictionaryWords(dictionaryData.dictionary_words)
         }
     }, [source]);
+
+
 
     const showModal = (data) => {
         setShowWordModal(true)
@@ -109,7 +114,7 @@ const Dictionary = () => {
                                     id="sources-all"
                                     className="sidebar-block__checkbox"
                                     name="sources"
-                                    defaultChecked=""
+                                    defaultChecked="true"
                                 />
                                 <label onClick={() => setSource(null)} htmlFor="sources-all" className="sidebar-block__label">
                                     All words
@@ -164,7 +169,7 @@ const Dictionary = () => {
                         </svg>
                         Export
                     </ExportJsonCsv>
-                    <button onClick={() => setDictionaryWords([])} className="btn btn--icon btn-delete-all">
+                    <button onClick={() => dictionary.length > 0 && deleteDictionary(dictionary[0].id, setDictionary)} className="btn btn--icon btn-delete-all">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -177,6 +182,7 @@ const Dictionary = () => {
                         </svg>
                         Delete all
                     </button>
+
                 </div>
                 <div className="dictionary-section">
                     <div className="dictionary-section__head">

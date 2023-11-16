@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 
-const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal}) => {
+const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal, setConfirmLetterSend}) => {
     const [email, setEmail] = useState('')
     const [validEmail, setValidEmail] = useState('')
 
@@ -29,6 +29,7 @@ const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal})
                 .then(function (response) {
                     console.log('response',response);
                     setShowPasswordModal(false)
+                    setConfirmLetterSend('Your new password has been sent to your e-mail address')
                     setEmailSendModal(true)
                 })
                 .catch(function (error) {
@@ -39,7 +40,7 @@ const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal})
                 });
 
         } else {
-
+            setValidEmail('Email not valid')
         }
     }
 
