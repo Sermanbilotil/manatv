@@ -7,10 +7,12 @@ import InvertLogo from '../img/invert-logo.svg'
 import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
 import {getSerials} from "../api/serials";
+import {useLocation} from "react-router-dom";
 
 
 
 const Videos = () => {
+    const location = useLocation();
 
     const [showSortFilter, setShowSortFilter] = useState('')
     const [sortFilter, setSortFilter] = useState('Виберіть опцію')
@@ -27,10 +29,10 @@ const Videos = () => {
 
 
     useEffect(() => {
-
+        
         getSerials(setSerials)
 
-    }, []);
+    }, [location]);
 
 
 
