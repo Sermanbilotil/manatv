@@ -46,7 +46,12 @@ header ul {
 .site-header-menu-list__item {
   padding-left: 12px;
   padding-right: 12px;
+  position: relative;
 }
+.site-header-menu-list__item:hover {
+  cursor: pointer;
+}
+
 .site-header-menu-list__item--parent {
   padding-right: 24px;
   position: relative;
@@ -99,6 +104,21 @@ header ul {
   color: #000;
   text-decoration: none;
 }
+
+
+.favourite_btn {
+  padding: 14px;
+  width: 48%;
+  text-align: center;
+  font-size: 16px;
+}
+
+.favourite_btn.active {
+  background-color: #fff;
+  font-weight: 600;
+
+}
+
 .site-search-item__link:hover {
   text-decoration: underline;
 }
@@ -107,6 +127,13 @@ header ul {
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
+.site_notification_list {
+  border-radius: 0px 0px 4px 4px;
+  border: 1px solid var(--basic-color-2, #DFDFDF);
+  background: var(--basic-color-0, #FFF);
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.10);
+  padding: 24px !important;
+},
 
 .site-search__list {
   position: absolute;
@@ -124,6 +151,7 @@ header ul {
   transition: 0.3s;
   width: 250px;
 }
+
 .site-search__input {
   width: 0;
   display: flex;

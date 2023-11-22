@@ -4,10 +4,20 @@ import Cookies from "js-cookie";
 
 
 const token = Cookies.get('token');
-export const getSerials = (setSerials, Token) => {
+export const getSerials = (setSerials, Token, sortFilter,genresFilter,countryFilter,channelFilter,yearFilter) => {
     console.log('token', token)
 
-    axios.get(api_url + 'tv-shows/', {
+        let url = `tv-shows/?`
+        if(sortFilter !== 'Виберіть опцію') {
+            url = url + `ordering=${sortFilter}`
+        }
+        if(yearFilter !== 'Виберіть опцію') {
+            url = url + `&year=${yearFilter}`
+        }
+
+
+
+    axios.get(api_url + url, {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',

@@ -12,6 +12,8 @@ import Cookies from 'js-cookie';
 import {api_url, ValidateEmail} from "../utils/utils";
 import EmailSend from "./Modals/EmailSend";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+import SerialsModal from "./Modals/SerialsModal";
+import NotificationsModal from "./Modals/NotificationsModal";
 
 
 const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginModal}) => {
@@ -20,13 +22,21 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
     const [showSignModal, setShowSignModal] = useState(false)
     const [showPasswordModal, setShowPasswordModal] = useState(false)
     const [showEmailSendModal, setEmailSendModal] = useState(false)
-
     const [selectOpened, setSelectOpened] = useState(false)
+    const [showNotifications, setShowNotifications] = useState(false)
+    const [showFavourites, setShowFavourites] = useState(false)
 
 
     useEffect(() => {
         setSelectOpened(false)
     }, [pathname]);
+
+
+    useEffect(() => {
+        console.log(showNotifications)
+    }, [showNotifications]);
+
+
 
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
@@ -186,6 +196,42 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                 <Link to="" className="site-header-menu-list__link">I watching</Link>
                             </li>
 
+                            <li className="site-header-menu-list__item">
+                                <div onClick={() => {
+                                    setShowNotifications(!showNotifications)
+                                    setShowFavourites(false)
+                                }} >
+                                    {showNotifications ? <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M27.725 21.9925C27.0313 20.7975 26 17.4163 26 13C26 10.3478 24.9464 7.8043 23.0711 5.92893C21.1957 4.05357 18.6522 3 16 3C13.3479 3 10.8043 4.05357 8.92895 5.92893C7.05358 7.8043 6.00002 10.3478 6.00002 13C6.00002 17.4175 4.96752 20.7975 4.27377 21.9925C4.0966 22.2963 4.00268 22.6415 4.00148 22.9931C4.00027 23.3448 4.09182 23.6906 4.26689 23.9956C4.44196 24.3006 4.69437 24.5541 4.99865 24.7304C5.30293 24.9068 5.64833 24.9997 6.00002 25H11.1013C11.332 26.1289 11.9455 27.1436 12.8382 27.8722C13.7308 28.6009 14.8477 28.9989 16 28.9989C17.1523 28.9989 18.2692 28.6009 19.1618 27.8722C20.0545 27.1436 20.6681 26.1289 20.8988 25H26C26.3516 24.9995 26.6968 24.9064 27.0009 24.73C27.3051 24.5535 27.5573 24.3 27.7322 23.9951C27.9071 23.6901 27.9986 23.3444 27.9973 22.9928C27.996 22.6412 27.9021 22.2962 27.725 21.9925ZM16 27C15.3798 26.9998 14.7749 26.8074 14.2685 26.4492C13.7622 26.0911 13.3793 25.5848 13.1725 25H18.8275C18.6208 25.5848 18.2379 26.0911 17.7315 26.4492C17.2252 26.8074 16.6202 26.9998 16 27Z"
+                                                  fill="#111111"/>
+                                        </svg>
+                                        :  <svg width="32" height="32" viewBox="0 0 32 32" fill="#000" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M27.5085 22.1175C26.801 20.9 25.7498 17.4662 25.7498 13C25.7498 10.4141 24.7226 7.93419 22.8941 6.10571C21.0656 4.27723 18.5856 3.25 15.9998 3.25C13.4139 3.25 10.934 4.27723 9.1055 6.10571C7.27702 7.93419 6.24979 10.4141 6.24979 13C6.24979 17.4675 5.19729 20.9 4.48979 22.1175C4.33456 22.3833 4.25219 22.6854 4.25099 22.9932C4.24979 23.301 4.32981 23.6037 4.48297 23.8707C4.63613 24.1377 4.85701 24.3596 5.12333 24.514C5.38964 24.6684 5.69196 24.7498 5.99979 24.75H11.3098C11.492 25.8618 12.0634 26.8727 12.922 27.6021C13.7807 28.3315 14.8706 28.732 15.9973 28.732C17.1239 28.732 18.2139 28.3315 19.0725 27.6021C19.9312 26.8727 20.5026 25.8618 20.6848 24.75H25.9998C26.3074 24.7494 26.6094 24.6676 26.8754 24.5131C27.1413 24.3585 27.3619 24.1366 27.5147 23.8696C27.6676 23.6027 27.7474 23.3002 27.7461 22.9926C27.7448 22.685 27.6624 22.3831 27.5073 22.1175H27.5085ZM15.9998 27.25C15.2684 27.2498 14.5585 27.0029 13.9848 26.5492C13.4112 26.0955 13.0073 25.4616 12.8385 24.75H19.161C18.9923 25.4616 18.5884 26.0955 18.0147 26.5492C17.4411 27.0029 16.7312 27.2498 15.9998 27.25ZM26.2135 23.125C26.1929 23.1633 26.1622 23.1952 26.1248 23.2172C26.0873 23.2393 26.0445 23.2506 26.001 23.25H5.99979C5.95632 23.2506 5.91352 23.2393 5.87605 23.2172C5.83858 23.1952 5.80788 23.1633 5.78729 23.125C5.76534 23.087 5.75379 23.0439 5.75379 23C5.75379 22.9561 5.76534 22.913 5.78729 22.875C6.73354 21.25 7.74979 17.4613 7.74979 13C7.74979 10.812 8.61898 8.71354 10.1662 7.16637C11.7133 5.61919 13.8118 4.75 15.9998 4.75C18.1878 4.75 20.2862 5.61919 21.8334 7.16637C23.3806 8.71354 24.2498 10.812 24.2498 13C24.2498 17.46 25.2673 21.2437 26.2135 22.875C26.2355 22.913 26.247 22.9561 26.247 23C26.247 23.0439 26.2355 23.087 26.2135 23.125Z"
+                                                  fill="#111111"/>
+                                        </svg>
+                                    }
+                                </div>
+
+                                {showNotifications && <NotificationsModal />}
+                            </li>
+
+                            <li  className="site-header-menu-list__item">
+                                <div onClick={() => {
+                                    setShowFavourites(!showFavourites)
+                                    setShowNotifications(false)
+                                }}>
+                                {showFavourites ?  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M29.9998 12.25C30.002 13.2023 29.8153 14.1456 29.4505 15.0253C29.0858 15.9049 28.5502 16.7036 27.8748 17.375L16.7123 28.7025C16.6193 28.797 16.5084 28.872 16.386 28.9232C16.2637 28.9744 16.1324 29.0008 15.9998 29.0008C15.8672 29.0008 15.7359 28.9744 15.6136 28.9232C15.4913 28.872 15.3804 28.797 15.2873 28.7025L4.12482 17.375C2.76393 16.0157 1.99873 14.1716 1.99756 12.2481C1.99639 10.3247 2.75934 8.47961 4.11857 7.11872C5.47781 5.75783 7.32199 4.99263 9.24541 4.99146C11.1688 4.99028 13.0139 5.75324 14.3748 7.11247L15.9998 8.63122L17.6361 7.10747C18.6516 6.09696 19.9438 5.40998 21.3495 5.13326C22.7552 4.85654 24.2113 5.00249 25.5341 5.55269C26.8569 6.10288 27.987 7.03265 28.7818 8.22462C29.5766 9.41659 30.0005 10.8173 29.9998 12.25Z" fill="#111111"/>
+                                    </svg>
+                                    : <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M27.7004 7.29747C26.3884 5.98812 24.611 5.25192 22.7575 5.25005C20.9039 5.24817 19.1251 5.98077 17.8104 7.28747L16.0004 8.97247L14.1904 7.28747C12.8767 5.97548 11.0957 5.23906 9.2391 5.24024C7.38249 5.24141 5.60239 5.98007 4.2904 7.29372C2.9784 8.60737 2.24199 10.3884 2.24317 12.245C2.24434 14.1016 2.983 15.8817 4.29665 17.1937L15.4666 28.5262C15.5364 28.5969 15.6195 28.653 15.7111 28.6913C15.8028 28.7296 15.9011 28.7493 16.0004 28.7493C16.0997 28.7493 16.198 28.7296 16.2897 28.6913C16.3813 28.653 16.4644 28.5969 16.5341 28.5262L27.7004 17.1987C28.3507 16.5487 28.8665 15.7769 29.2184 14.9275C29.5704 14.078 29.7515 13.1676 29.7515 12.2481C29.7515 11.3286 29.5704 10.4182 29.2184 9.56874C28.8665 8.71929 28.3507 7.94751 27.7004 7.29747ZM26.6354 16.1412L16.0004 26.9312L5.36165 16.1375C4.3362 15.1048 3.76181 13.7079 3.76429 12.2526C3.76677 10.7973 4.34592 9.40233 5.37488 8.3732C6.40384 7.34407 7.79874 6.7647 9.25402 6.76199C10.7093 6.75927 12.1064 7.33344 13.1391 8.35872C13.1452 8.3652 13.1519 8.37106 13.1591 8.37622L15.4891 10.5462C15.628 10.6756 15.8107 10.7475 16.0004 10.7475C16.1901 10.7475 16.3728 10.6756 16.5116 10.5462L18.8416 8.37497C18.8489 8.36981 18.8556 8.36395 18.8616 8.35747C19.372 7.84408 19.9787 7.43649 20.6469 7.15807C21.3151 6.87965 22.0317 6.73588 22.7556 6.73502C23.4795 6.73415 24.1965 6.87619 24.8654 7.153C25.5343 7.42981 26.1419 7.83595 26.6535 8.34811C27.1651 8.86028 27.5706 9.46839 27.8466 10.1376C28.1227 10.8068 28.2639 11.5239 28.2622 12.2478C28.2605 12.9717 28.116 13.6881 27.8368 14.3561C27.5576 15.024 27.1494 15.6302 26.6354 16.14V16.1412Z" fill="#111111"/>
+                                    </svg>
+                                }
+                                </div>
+                                {showFavourites && <SerialsModal />}
+                            </li>
+
+
                             <li className="site-header-menu-list__item site-header-menu-list__item--parent">
                                 <a href="#"
                                    className="site-header-menu-list__link site-header-menu-list__link--has-dropdown">En</a>
@@ -206,21 +252,21 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                 <ul className="site-search__list">
                                     <li className="site-search__item site-search-item">
                                         <a href="video.html" className="site-search-item__link">
-                                            <img className="site-search-item__img" src="img/film-icon.png"
+                                            <img className="site-search-item__img" src="../img/film-icon.png"
                                                  alt="New iron man series"/>
                                             <span className="site-search-item__name">New iron man series</span>
                                         </a>
                                     </li>
                                     <li className="site-search__item site-search-item">
                                         <a href="video.html" className="site-search-item__link">
-                                            <img className="site-search-item__img" src="img/film-icon.png"
+                                            <img className="site-search-item__img" src="../img/film-icon.png"
                                                  alt="New iron man series"/>
                                             <span className="site-search-item__name">New iron man series</span>
                                         </a>
                                     </li>
                                     <li className="site-search__item site-search-item">
                                         <a href="video.html" className="site-search-item__link">
-                                            <img className="site-search-item__img" src="img/film-icon.png"
+                                            <img className="site-search-item__img" src="../img/film-icon.png"
                                                  alt="New iron man series"/>
                                             <span className="site-search-item__name">New iron man series</span>
                                         </a>

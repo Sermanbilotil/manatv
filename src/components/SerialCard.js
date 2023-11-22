@@ -17,7 +17,11 @@ const SerialCard = ({serial}) => {
     }, []);
 
 
-
+    const addToFavourites = (e) => {
+        e.preventDefault()
+        const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials2'))
+  
+    }
 
     return <li
         className="videos-list__item videos-list-item"
@@ -37,7 +41,7 @@ const SerialCard = ({serial}) => {
             </p>
             <p className="videos-list-item__add">
                 Add to:
-                <button className="videos-list-item__fav">
+                <div onClick={(e) => addToFavourites(e)} className="videos-list-item__fav">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -48,7 +52,7 @@ const SerialCard = ({serial}) => {
                             d="M20.775 5.473a5.256 5.256 0 0 0-7.417-.007L12 6.729l-1.357-1.263a5.25 5.25 0 0 0-7.42 7.43l8.377 8.499a.563.563 0 0 0 .8 0l8.375-8.496a5.251 5.251 0 0 0 0-7.426Zm-.799 6.633L12 20.198l-7.979-8.095a4.125 4.125 0 0 1 5.848-5.82l1.748 1.627a.562.562 0 0 0 .766 0l1.748-1.629a4.126 4.126 0 1 1 5.845 5.824Z"
                         />
                     </svg>
-                </button>
+                </div>
             </p>
         </Link>
     </li>
