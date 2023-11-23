@@ -6,7 +6,7 @@ import InvertLogo from '../img/invert-logo.svg'
 
 import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
-import {getSerials} from "../api/serials";
+import {getCountriesFilter, getFavourites, getGenresFilter, getSerials} from "../api/serials";
 import {useLocation} from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -46,6 +46,7 @@ const Videos = () => {
             console.log('token 1', token)
         if(token) {
             getSerials(setSerials, token,sortFilter,genresFilter,countryFilter,channelFilter,yearFilter)
+
         }
 
     }, [token]);
@@ -66,9 +67,10 @@ const Videos = () => {
 
     const addFilters = () => {
         const newGenres = []
+
+        getCountriesFilter(setCountries, token)
+        getGenresFilter(setGenres, token)
         serials.map(item => {
-            item.genres.filter(genre => genres.indexOf(genre) === -1 ? genres.push(genre) : null)
-            item.countries.filter(country => countries.indexOf(country) === -1 ? countries.push(country) : null)
             item.networks.filter(network => channels.indexOf(network) === -1 ? channels.push(network) : null)
             if(years.indexOf(item.year) === -1) {
                 years.push(item.year)
@@ -107,7 +109,7 @@ const Videos = () => {
                                 className="arrow-icon"></i></div>
                             <ul className={showGenresFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setGenresFilter('Виберіть опцію')}>Виберіть опцію</li>
-                                {genres.map(item => <li onClick={() => setGenresFilter(item)}>{item}</li>)}
+                                {genres.map(item => <li onClick={() => setGenresFilter(item.title)}>{item.title}</li>)}
                             </ul>
                         </div>
                     </label>
@@ -118,21 +120,21 @@ const Videos = () => {
                                 className="arrow-icon"></i></div>
                             <ul className={showCountryFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setCountryFilter('Виберіть опцію')}>Виберіть опцію</li>
-                                {countries.map(item => <li onClick={() => setCountryFilter(item)}>{item}</li>)}
+                                {countries.map(item => <li onClick={() => setCountryFilter(item.name)}>{item.name}</li>)}
                             </ul>
                         </div>
                     </label>
-                    <label className="filter__label">
-                        Channel/Studio
-                        <div onClick={() => setShowChannelFilter(!showChannelFilter)} className="custom-select ">
-                            <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{channelFilter}</span><i
-                                className="arrow-icon"></i></div>
-                            <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>
-                                <li onClick={() => setChannelFilter('Виберіть опцію')}>Виберіть опцію</li>
-                                {channels.map(item => <li onClick={() => setChannelFilter(item)}>{item}</li>)}
-                            </ul>
-                        </div>
-                    </label>
+                    {/*<label className="filter__label">*/}
+                    {/*    Channel/Studio*/}
+                    {/*    <div onClick={() => setShowChannelFilter(!showChannelFilter)} className="custom-select ">*/}
+                    {/*        <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{channelFilter}</span><i*/}
+                    {/*            className="arrow-icon"></i></div>*/}
+                    {/*        <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>*/}
+                    {/*            <li onClick={() => setChannelFilter('Виберіть опцію')}>Виберіть опцію</li>*/}
+                    {/*            {channels.map(item => <li onClick={() => setChannelFilter(item)}>{item}</li>)}*/}
+                    {/*        </ul>*/}
+                    {/*    </div>*/}
+                    {/*</label>*/}
                     <label className="filter__label">
                         Year
                         <div onClick={() => setShowYearFilter(!showYearFilter)} className="custom-select ">

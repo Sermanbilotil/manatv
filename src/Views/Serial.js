@@ -7,9 +7,11 @@ import {useLocation} from "react-router-dom";
 import { Spinner } from "react-activity";
 import "react-activity/dist/library.css";
 import Series from "../components/series";
+import Cookies from "js-cookie";
 
 const Serial = ({serial}) => {
     const location = useLocation();
+    const token = Cookies.get('token');
     const { serialId } = location.state;
     const [inFavourite, setInFavourite] = useState(false)
 
@@ -19,13 +21,13 @@ const Serial = ({serial}) => {
 
     useEffect(() => {
 
-        getSerialData(serialId, setSerialData)
+        getSerialData(serialId, setSerialData, token)
 
     }, []);
 
     useEffect(() => {
 
-        getSerialData(serialId, setSerialData)
+        getSerialData(serialId, setSerialData, token)
 
     }, [serialId]);
 
@@ -59,15 +61,17 @@ const Serial = ({serial}) => {
         e.preventDefault()
         const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
 
-        let objectExists = checkIfFavourite()
-        if(objectExists) {
-            console.log('Serial exists in favourite');
-            setInFavourite(true)
-        } else {
-            savedSerials.push(serialData)
-            setInFavourite(true)
-            localStorage.setItem('favouriteSerials', JSON.stringify(savedSerials));
+        let objectIndex = savedSerials.findIndex(obj => obj.id === serialData.id);
 
+        if (objectIndex !== -1) {
+            console.log('Serial exists in favourites');
+            savedSerials.splice(objectIndex, 1); // Удаление объекта из массива
+            setInFavourite(false); // Установка в состояние "не в избранных"
+            localStorage.setItem('favouriteSerials', JSON.stringify(savedSerials));
+        } else {
+            savedSerials.push(serialData);
+            setInFavourite(true);
+            localStorage.setItem('favouriteSerials', JSON.stringify(savedSerials));
         }
 
         console.log(savedSerials);

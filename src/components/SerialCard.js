@@ -16,7 +16,7 @@ const SerialCard = ({serial}) => {
     useEffect(() => {
         const objectExists = checkIfFavourite()
         if(objectExists) {
-                setInFavourite(true)
+            setInFavourite(true)
         }
 
     }, []);
@@ -26,33 +26,31 @@ const SerialCard = ({serial}) => {
         e.preventDefault()
         const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
 
-        let objectExists = savedSerials.some(obj => {
-            console.log(obj)
-            return obj.id === serial.id ;
-        });
+        let objectIndex = savedSerials.findIndex(obj => obj.id === serial.id);
 
-        if(objectExists) {
-            console.log('Serial exists in favourite');
-            setInFavourite(true)
-        } else {
-            savedSerials.push(serial)
-            setInFavourite(true)
+        if (objectIndex !== -1) {
+            console.log('Serial exists in favourites');
+            savedSerials.splice(objectIndex, 1); // Удаление объекта из массива
+            setInFavourite(false); // Установка в состояние "не в избранных"
             localStorage.setItem('favouriteSerials', JSON.stringify(savedSerials));
-
+        } else {
+            savedSerials.push(serial);
+            setInFavourite(true);
+            localStorage.setItem('favouriteSerials', JSON.stringify(savedSerials));
         }
 
         console.log(savedSerials);
     }
 
-   const  checkIfFavourite = () => {
-       const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
+    const  checkIfFavourite = () => {
+        const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
 
-       const existing =  savedSerials.some(obj => {
-           console.log(obj)
-           return obj.id === serial.id ;
-       });
+        const existing =  savedSerials.some(obj => {
+            console.log(obj)
+            return obj.id === serial.id ;
+        });
 
-       return existing
+        return existing
 
     }
 

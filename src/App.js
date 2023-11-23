@@ -19,6 +19,7 @@ import FAQ from "./Views/FAQ";
 import Notifications from "./Views/Profile/Notifications";
 import Subscription from "./Views/Profile/Subscription";
 import Terms from "./Views/Terms";
+import {getFavourites} from "./api/serials";
 
 function App() {
     const [showLoginModal, setShowLoginModal] = useState(false)
@@ -27,6 +28,7 @@ function App() {
 
     const [userData, setUserData] = useState({})
 
+    const [favouriteSerials, setFavouriteSerials] = useState([])
 
     useEffect(() => {
         const token = Cookies.get('token');
@@ -38,7 +40,7 @@ function App() {
 
                   getUserData(token)
 
-
+                     getFavourites(token,setFavouriteSerials)
 
         }
 
