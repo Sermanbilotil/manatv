@@ -1,17 +1,21 @@
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import logo from "../../img/mana-logo.svg";
 
 const SerialsModal = () => {
-
+    const { pathname } = useLocation();
     const [activeTab, setActiveTab] = useState(1)
     const [favouriteSerials, setFavouriteSerials] = useState([])
 
 
     useEffect(() => {
-
+        const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
+        setFavouriteSerials(savedSerials)
     }, []);
+
+
+
 
 
     return <ul className="site-search__list" style={{width: '360px'}}>
@@ -42,11 +46,16 @@ const SerialsModal = () => {
                 </li>
                 {favouriteSerials.map(item => {
                     return <li className="site-search__item site-search-item">
-                        <a href="video.html" className="site-search-item__link">
-                            <img className="site-search-item__img" src={logo}
+                        <Link to={`/videos/${item.title}`} state={{serialId: item.id}} style={{textDecoration: 'none'}} >
+                        <div  className="site-search-item__link">
+                            <img className="site-search-item__img" src={item.thumbnail}
                                  alt="New iron man series"/>
-                            <span className="site-search-item__name">New iron man series</span>
-                        </a>
+                            <div className={'site-search-item-left'}>
+                                <span className="site-search-item__name">{item.title}</span>
+                                <span style={{color: '#999', fontSize: 14}}>{item.year}</span>
+                            </div>
+                        </div>
+                         </Link>
                     </li>
                 })}
             </>

@@ -29,12 +29,16 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
 
     useEffect(() => {
         setSelectOpened(false)
+        setShowNotifications(false)
+        setShowFavourites(false)
     }, [pathname]);
 
 
+
     useEffect(() => {
-        console.log(showNotifications)
-    }, [showNotifications]);
+        setShowNotifications(false)
+        setShowFavourites(false)
+    }, [selectOpened]);
 
 
 
