@@ -277,6 +277,16 @@ header ul {
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
+.site-account__text {
+  width: 32px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color-pink, #FE4DCD);
+  color: white;
+}
 .site-account__name {
   color: var(--basic-color-5, #111);
   font-size: 16px;
@@ -2033,9 +2043,18 @@ button.btn--icon svg {
 .settings-thumbnail__img {
   width: 100%;
   height: 100%;
-
 }
-.settings-thumbnail__btn {
+.settings-thumbnail__text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color-pink, #FE4DCD);
+  color: white;
+}
+
+ .settings-thumbnail__btn {
   display: flex;
   padding: 14px 32px;
   justify-content: center;

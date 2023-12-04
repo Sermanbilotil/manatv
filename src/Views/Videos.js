@@ -124,17 +124,17 @@ const Videos = () => {
                             </ul>
                         </div>
                     </label>
-                    {/*<label className="filter__label">*/}
-                    {/*    Channel/Studio*/}
-                    {/*    <div onClick={() => setShowChannelFilter(!showChannelFilter)} className="custom-select ">*/}
-                    {/*        <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{channelFilter}</span><i*/}
-                    {/*            className="arrow-icon"></i></div>*/}
-                    {/*        <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>*/}
-                    {/*            <li onClick={() => setChannelFilter('Виберіть опцію')}>Виберіть опцію</li>*/}
-                    {/*            {channels.map(item => <li onClick={() => setChannelFilter(item)}>{item}</li>)}*/}
-                    {/*        </ul>*/}
-                    {/*    </div>*/}
-                    {/*</label>*/}
+                    <label className="filter__label">
+                        Channel/Studio
+                        <div onClick={() => setShowChannelFilter(!showChannelFilter)} className="custom-select ">
+                            <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{channelFilter}</span><i
+                                className="arrow-icon"></i></div>
+                            <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>
+                                <li onClick={() => setChannelFilter('Виберіть опцію')}>Виберіть опцію</li>
+                                {channels.map(item => <li onClick={() => setChannelFilter(item)}>{item}</li>)}
+                            </ul>
+                        </div>
+                    </label>
                     <label className="filter__label">
                         Year
                         <div onClick={() => setShowYearFilter(!showYearFilter)} className="custom-select ">

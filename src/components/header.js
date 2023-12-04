@@ -16,7 +16,7 @@ import SerialsModal from "./Modals/SerialsModal";
 import NotificationsModal from "./Modals/NotificationsModal";
 
 
-const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginModal}) => {
+const Header = ({favouriteSerials,userLogged, getUserData, userData,showLoginModal, setShowLoginModal}) => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [showSignModal, setShowSignModal] = useState(false)
@@ -196,9 +196,9 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                             <li className="site-header-menu-list__item">
                                 <Link to="/videos" className="site-header-menu-list__link">Videos</Link>
                             </li>
-                            <li className="site-header-menu-list__item">
-                                <Link to="" className="site-header-menu-list__link">I watching</Link>
-                            </li>
+                            {/*<li className="site-header-menu-list__item">*/}
+                            {/*    <Link to="" className="site-header-menu-list__link">I watching</Link>*/}
+                            {/*</li>*/}
 
                             <li className="site-header-menu-list__item">
                                 <div onClick={() => {
@@ -232,7 +232,7 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
                                     </svg>
                                 }
                                 </div>
-                                {showFavourites && <SerialsModal />}
+                                {showFavourites && <SerialsModal favouriteSerials={favouriteSerials} />}
                             </li>
 
 
@@ -290,7 +290,10 @@ const Header = ({userLogged, getUserData, userData,showLoginModal, setShowLoginM
 
                             {userLogged &&  <li className="site-header-menu-list__item site-header-menu-list__item--account site-account">
                                 <button onClick={() => setSelectOpened(!selectOpened)} className="site-account__btn">
-                                    <img className="site-account__img" src={userData.photo ? userData.photo :  filmIcon} alt="Name"/>
+                                    {userData.photo ? <img className="site-account__img" src={userData.photo} alt="Name"/>
+                                        : <div className="site-account__text">{userData.name.slice(0, 1)}</div>
+                                    }
+
                                     <span className="site-account__name">
                                         {userData.name}
                                     </span>

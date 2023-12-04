@@ -4,27 +4,30 @@ import Cookies from "js-cookie";
 
 
 const token = Cookies.get('token');
-export const getSerials = (setSerials, Token, sortFilter,genresFilter,countryFilter,channelFilter,yearFilter) => {
+export const getSerials = (setSerials, Token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter) => {
     console.log('token', token)
 
-        let url = `tv-shows/?`
-        if(sortFilter !== 'Виберіть опцію') {
-            url = url + `ordering=${sortFilter}`
-        }
-        if(yearFilter !== 'Виберіть опцію') {
-            url = url + `&year=${yearFilter}`
-        }
-        if(countryFilter !== 'Виберіть опцію')  {
-            url = url + `&countries=${countryFilter}`
-         }
+    let url = `tv-shows/?`
+    if (sortFilter !== 'Виберіть опцію') {
+        url = url + `ordering=${sortFilter}`
+    }
+    if (yearFilter !== 'Виберіть опцію') {
+        url = url + `&year=${yearFilter}`
+    }
+    if (countryFilter !== 'Виберіть опцію') {
+        url = url + `&countries=${countryFilter}`
+    }
 
-        if(genresFilter !== 'Виберіть опцію')  {
-             url = url + `&genres=${genresFilter}`
-        }
+    if (channelFilter !== 'Виберіть опцію') {
+        url = url + `&networks=${channelFilter}`
+    }
+
+    if (genresFilter !== 'Виберіть опцію') {
+        url = url + `&genres=${genresFilter}`
+    }
 
 
-        console.log('url', url)
-
+    console.log('url', url)
 
 
     axios.get(api_url + url, {
@@ -40,13 +43,13 @@ export const getSerials = (setSerials, Token, sortFilter,genresFilter,countryFil
 
         })
         .catch(function (error) {
-            console.log('err',error.response);
+            console.log('err', error.response);
 
         });
 
 }
 
-export  const getCountriesFilter = (setCountries, Token) => {
+export const getCountriesFilter = (setCountries, Token) => {
     axios.get(api_url + `tv-show-countries/`, {
         withCredentials: true,
         headers: {
@@ -57,15 +60,15 @@ export  const getCountriesFilter = (setCountries, Token) => {
         .then(function (response) {
             console.log('res getCountriesFilter/', response)
             const countries =
-            setCountries(response.data)
+                setCountries(response.data)
         })
         .catch(function (error) {
-            console.log('err',error);
+            console.log('err', error);
 
         });
 }
 
-export  const getGenresFilter = (setGenres, Token) => {
+export const getGenresFilter = (setGenres, Token) => {
     axios.get(api_url + `tv-show-genres/`, {
         withCredentials: true,
         headers: {
@@ -78,12 +81,10 @@ export  const getGenresFilter = (setGenres, Token) => {
             setGenres(response.data)
         })
         .catch(function (error) {
-            console.log('err',error);
+            console.log('err', error);
 
         });
 }
-
-
 
 
 export const getSerialData = (id, setSerialData, Token) => {
@@ -101,22 +102,22 @@ export const getSerialData = (id, setSerialData, Token) => {
             setSerialData(response.data)
         })
         .catch(function (error) {
-            console.log('err',error);
+            console.log('err', error);
 
         });
 
 }
 
 
-export const addToFavourites = (e,serial,setInFavourite) => {
+export const addToFavourites = (e, serial, setInFavourite) => {
     e.preventDefault()
     axios.post(api_url + `user-favourites/`, {
         tv_show: serial.id,
-    },{
+    }, {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization":  token,
+            "Authorization": token,
         }
     })
         .then(function (response) {
@@ -125,7 +126,7 @@ export const addToFavourites = (e,serial,setInFavourite) => {
 
         })
         .catch(function (error) {
-            console.log('err',error);
+            console.log('err', error);
 
         });
 }
@@ -135,7 +136,7 @@ export const getFavourites = (token, setFavouriteSerials) => {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization":  token,
+            "Authorization": token,
         }
     })
         .then(function (response) {
@@ -143,7 +144,7 @@ export const getFavourites = (token, setFavouriteSerials) => {
             setFavouriteSerials(response.data)
         })
         .catch(function (error) {
-            console.log('err',error);
+            console.log('err', error);
 
         });
 }
@@ -153,7 +154,7 @@ export const deleteFavourites = (id) => {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization":  token,
+            "Authorization": token,
         }
     })
         .then(function (response) {
@@ -161,7 +162,7 @@ export const deleteFavourites = (id) => {
 
         })
         .catch(function (error) {
-            console.log('err',error);
+            console.log('err', error);
 
         });
 }

@@ -131,13 +131,16 @@ const Profile = ({userData, setUserData}) => {
         }
     }
 
-    const handleUploadImage = (e) => {
+    const handleUploadImage = (e, remove) => {
         e.preventDefault()
+        if(remove) {
+            inputFile.current.value = ''
+        }
         const userId = userData.id
 
         const formData = new FormData();
-        formData.append('photo', uploadedImage);
-
+        formData.append('photo', remove ? '' :  uploadedImage);
+        console.log('for', previewImage)
         axios.patch(api_url + `users/${userId}/`, formData, {
             withCredentials: true,
             headers: {
@@ -202,7 +205,7 @@ const Profile = ({userData, setUserData}) => {
 
     const inputFile = useRef(null)
     const getImage = (e) => {
-
+        console.log('tttttt')
 
         const file = e.target.files[0];
         setUploadedImage(file)
@@ -312,19 +315,22 @@ const Profile = ({userData, setUserData}) => {
                             Thumbnail photo
                             <div className="settings-thumbnail__row">
                                 <div onClick={(e) => inputFile.current.click()} className="settings-thumbnail__picture">
-                                    <img
+
+                                    {previewImage !== null ? <img
                                         src={previewImage !== null ? previewImage : userData.photo ? userData.photo : filmIcon}
                                         alt="name" className="settings-thumbnail__img"/>
+                                        : <div className="settings-thumbnail__text">{userName.slice(0, 1)}</div>
+
+                                    }
                                 </div>
 
                                 <button onClick={(e) => handleUploadImage(e)}
                                         className="settings-thumbnail__btn">Upload
                                 </button>
                                 <button onClick={(e) => {
-                                    e.preventDefault()
                                     setPreviewImage(null)
-                                    setUploadedImage(null)
-                                    handleUploadImage()
+                                    setUploadedImage('')
+                                    handleUploadImage(e, true)
                                 }} className="settings-thumbnail__remove">Remove
                                 </button>
                                 <input type="file" onChange={(e) => getImage(e)} ref={inputFile} id="myInput"

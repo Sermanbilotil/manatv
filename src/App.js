@@ -76,7 +76,13 @@ function App() {
   return (
     <div >
         <Router>
-        <Header showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} getUserData={getUserData} userData={userData} userLogged={userLogged} />
+        <Header showLoginModal={showLoginModal}
+                setShowLoginModal={setShowLoginModal}
+                getUserData={getUserData}
+                userData={userData}
+                userLogged={userLogged}
+                favouriteSerials={favouriteSerials}
+        />
         <main>
 
 

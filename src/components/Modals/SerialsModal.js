@@ -2,16 +2,17 @@ import {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 
 import logo from "../../img/mana-logo.svg";
+import {api_url} from "../../utils/utils";
 
-const SerialsModal = () => {
+const SerialsModal = ({favouriteSerials}) => {
     const { pathname } = useLocation();
     const [activeTab, setActiveTab] = useState(1)
-    const [favouriteSerials, setFavouriteSerials] = useState([])
+    // const [favouriteSerials, setFavouriteSerials] = useState([])
 
 
     useEffect(() => {
-        const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
-        setFavouriteSerials(savedSerials)
+        // const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
+        // setFavouriteSerials(savedSerials)
     }, []);
 
 
@@ -46,13 +47,13 @@ const SerialsModal = () => {
                 </li>
                 {favouriteSerials.map(item => {
                     return <li className="site-search__item site-search-item">
-                        <Link to={`/videos/${item.title}`} state={{serialId: item.id}} style={{textDecoration: 'none'}} >
+                        <Link to={`/videos/${item.title}`} state={{serialId: item.tv_show.id}} style={{textDecoration: 'none'}} >
                         <div  className="site-search-item__link">
-                            <img className="site-search-item__img" src={item.thumbnail}
+                            <img className="site-search-item__img" src={api_url + item.tv_show.thumbnail}
                                  alt="New iron man series"/>
                             <div className={'site-search-item-left'}>
-                                <span className="site-search-item__name">{item.title}</span>
-                                <span style={{color: '#999', fontSize: 14}}>{item.year}</span>
+                                <span className="site-search-item__name">{item.tv_show.title}</span>
+                                <span style={{color: '#999', fontSize: 14}}>{item.tv_show.year}</span>
                             </div>
                         </div>
                          </Link>
