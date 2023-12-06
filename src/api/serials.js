@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 
 const token = Cookies.get('token');
-export const getSerials = (setSerials, Token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter) => {
+export const getSerials = (setSerials, Token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter, titleFilter) => {
     console.log('token', token)
 
     let url = `tv-shows/?`
@@ -25,9 +25,14 @@ export const getSerials = (setSerials, Token, sortFilter, genresFilter, countryF
     if (genresFilter !== 'Виберіть опцію') {
         url = url + `&genres=${genresFilter}`
     }
+    if (titleFilter !== '') {
+        url = url + `&title=${titleFilter}`
+    } else if (titleFilter == undefined) {
+        url = url
+    }
 
 
-    console.log('url', url)
+    console.log('url', titleFilter)
 
 
     axios.get(api_url + url, {
@@ -109,34 +114,43 @@ export const getSerialData = (id, setSerialData, Token) => {
 }
 
 
-export const addToFavourites = (e, serial, setInFavourite) => {
+export const addToFavourites = (e, serial, setInFavourite, Token, inFavourite,inFavouriteId,setInFavouriteId) => {
     e.preventDefault()
+
+    if(inFavourite) {
+        deleteFavourites(e,inFavouriteId, setInFavourite, Token)
+        return
+    }
+
     axios.post(api_url + `user-favourites/`, {
         tv_show: serial.id,
     }, {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization": token,
+            "Authorization": Token ? Token : token,
         }
     })
         .then(function (response) {
-            console.log('res SerialData addToFavourites', response)
+            console.log('res addToFavourites', response)
+            setInFavouriteId(response.data.id)
             setInFavourite(true)
 
         })
         .catch(function (error) {
             console.log('err', error);
-
+            if(error.status === 400 ) {
+                deleteFavourites(e,serial.id, setInFavourite, Token)
+            }
         });
 }
 
-export const getFavourites = (token, setFavouriteSerials) => {
+export const getFavourites = (Token, setFavouriteSerials) => {
     axios.get(api_url + `user-favourites/`, {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization": token,
+            "Authorization": Token ? Token : token,
         }
     })
         .then(function (response) {
@@ -149,17 +163,19 @@ export const getFavourites = (token, setFavouriteSerials) => {
         });
 }
 
-export const deleteFavourites = (id) => {
-    axios.get(api_url + `user-favourites/`, {
+export const deleteFavourites = (e, id,setInFavourite, Token, ) => {
+    console.log('token', token)
+    axios.delete(api_url + `user-favourites/${id}`, {
         withCredentials: true,
         headers: {
             'Accept': 'application/json',
-            "Authorization": token,
+            "Authorization": Token ? Token : token,
         }
     })
         .then(function (response) {
             console.log('res SerialData', response)
 
+            setInFavourite(false)
         })
         .catch(function (error) {
             console.log('err', error);

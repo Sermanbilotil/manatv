@@ -73,6 +73,7 @@ function App() {
 
     }
 
+
   return (
     <div >
         <Router>
@@ -82,6 +83,8 @@ function App() {
                 userData={userData}
                 userLogged={userLogged}
                 favouriteSerials={favouriteSerials}
+                setFavouriteSerials={setFavouriteSerials}
+                getFavourites={getFavourites}
         />
         <main>
 
@@ -90,8 +93,11 @@ function App() {
                 <Route path="/" element={ <MainPage  />} />
                 <Route path="/settings" element={ <Profile  userData={userData}  setUserData={setUserData} />} />
                 <Route path="/dictionary" element={ <Dictionary />} />
-                <Route path="/videos" element={ <Videos />} />
-                <Route  path="/videos/:id" element={ <Serial />} />
+                <Route path="/videos" element={ <Videos setFavouriteSerials={setFavouriteSerials}
+                                                        getFavourites={getFavourites}
+                                                        favouriteSerials={favouriteSerials} />}
+                />
+                <Route  path="/videos/:id" element={ <Serial  favouriteSerials={favouriteSerials}  />}/>
                 <Route  path="/notifications" element={ <Notifications />} />
                 <Route  path="/subscription" element={ <Subscription />} />
                 <Route  path="/faq" element={ <FAQ />} />

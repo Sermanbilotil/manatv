@@ -1,6 +1,3 @@
-
-
-
 import InvertLogo from '../img/invert-logo.svg'
 
 
@@ -11,11 +8,10 @@ import {useLocation} from "react-router-dom";
 import Cookies from "js-cookie";
 
 
+const Videos = ({favouriteSerials, userData,setFavouriteSerials,
+                    getFavourites}) => {
 
-
-
-const Videos = () => {
-    const location = useLocation();
+    const {pathname, location} = useLocation();
     const token = Cookies.get('token');
 
     const [sortData, setSortData] = useState(['title', 'rating', 'year'])
@@ -43,13 +39,17 @@ const Videos = () => {
 
 
     useEffect(() => {
-            console.log('token 1', token)
-        if(token) {
-            getSerials(setSerials, token,sortFilter,genresFilter,countryFilter,channelFilter,yearFilter)
+        console.log('token 1', token)
+        if (token) {
+            getSerials(setSerials, token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter,'')
 
         }
 
     }, [token]);
+
+    useEffect(() => {
+            getFavourites(token, setFavouriteSerials)
+    }, [pathname]);
 
 
     useEffect(() => {
@@ -61,9 +61,9 @@ const Videos = () => {
 
     useEffect(() => {
 
-            getSerials(setSerials, token, sortFilter,genresFilter,countryFilter,channelFilter,yearFilter)
+        getSerials(setSerials, token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter,'')
 
-    }, [sortFilter,genresFilter,countryFilter,channelFilter,yearFilter]);
+    }, [sortFilter, genresFilter, countryFilter, channelFilter, yearFilter,]);
 
     const addFilters = () => {
         const newGenres = []
@@ -72,7 +72,7 @@ const Videos = () => {
         getGenresFilter(setGenres, token)
         serials.map(item => {
             item.networks.filter(network => channels.indexOf(network) === -1 ? channels.push(network) : null)
-            if(years.indexOf(item.year) === -1) {
+            if (years.indexOf(item.year) === -1) {
                 years.push(item.year)
             }
 
@@ -87,25 +87,27 @@ const Videos = () => {
                 <div className="filter__header">
                     <div className="filter__title">Choose video</div>
                     <div className="filter__total">
-                        Total: <span>3049 Video</span>
+                        Total: <span>{serials.length} Video</span>
                     </div>
                 </div>
                 <div className="filter__body">
-                    <label className="filter__label">
-                        Sort by
-                        <div onClick={() => setShowSortFilter(!showSortFilter)} className="custom-select ">
-                            <div className={showSortFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{sortFilter}</span><i
-                                className="arrow-icon"></i></div>
-                            <ul className={showSortFilter ? 'options-list opened' : 'options-list'}>
-                                <li onClick={() => setSortFilter('Виберіть опцію')}>Виберіть опцію</li>
-                                {sortData.map(item => <li onClick={() => setSortFilter(item)}>{item}</li>)}
-                            </ul>
-                        </div>
-                    </label>
+                    {/*<label className="filter__label">*/}
+                    {/*    Sort by*/}
+                    {/*    <div onClick={() => setShowSortFilter(!showSortFilter)} className="custom-select ">*/}
+                    {/*        <div className={showSortFilter ? 'select-header opened' : 'select-header'}><span*/}
+                    {/*            className="selected-option">{sortFilter}</span><i*/}
+                    {/*            className="arrow-icon"></i></div>*/}
+                    {/*        <ul className={showSortFilter ? 'options-list opened' : 'options-list'}>*/}
+                    {/*            <li onClick={() => setSortFilter('Виберіть опцію')}>Виберіть опцію</li>*/}
+                    {/*            {sortData.map(item => <li onClick={() => setSortFilter(item)}>{item}</li>)}*/}
+                    {/*        </ul>*/}
+                    {/*    </div>*/}
+                    {/*</label>*/}
                     <label className="filter__label">
                         Genres
                         <div onClick={() => setShowGenresFilter(!showGenresFilter)} className="custom-select ">
-                            <div className={showGenresFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{genresFilter}</span><i
+                            <div className={showGenresFilter ? 'select-header opened' : 'select-header'}><span
+                                className="selected-option">{genresFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showGenresFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setGenresFilter('Виберіть опцію')}>Виберіть опцію</li>
@@ -116,18 +118,21 @@ const Videos = () => {
                     <label className="filter__label">
                         Country
                         <div onClick={() => setShowCountryFilter(!showCountryFilter)} className="custom-select ">
-                            <div className={showCountryFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{countryFilter}</span><i
+                            <div className={showCountryFilter ? 'select-header opened' : 'select-header'}><span
+                                className="selected-option">{countryFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showCountryFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setCountryFilter('Виберіть опцію')}>Виберіть опцію</li>
-                                {countries.map(item => <li onClick={() => setCountryFilter(item.name)}>{item.name}</li>)}
+                                {countries.map(item => <li
+                                    onClick={() => setCountryFilter(item.name)}>{item.name}</li>)}
                             </ul>
                         </div>
                     </label>
                     <label className="filter__label">
                         Channel/Studio
                         <div onClick={() => setShowChannelFilter(!showChannelFilter)} className="custom-select ">
-                            <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{channelFilter}</span><i
+                            <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span
+                                className="selected-option">{channelFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setChannelFilter('Виберіть опцію')}>Виберіть опцію</li>
@@ -138,7 +143,8 @@ const Videos = () => {
                     <label className="filter__label">
                         Year
                         <div onClick={() => setShowYearFilter(!showYearFilter)} className="custom-select ">
-                            <div className={showYearFilter ? 'select-header opened' : 'select-header'}><span className="selected-option">{yearFilter}</span><i
+                            <div className={showYearFilter ? 'select-header opened' : 'select-header'}><span
+                                className="selected-option">{yearFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showYearFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setYearFilter('Виберіть опцію')}>Виберіть опцію</li>
@@ -151,7 +157,8 @@ const Videos = () => {
             </div>
             <ul className="videos__list videos-list">
                 {filteredSerials && filteredSerials.map(item => {
-                    return <SerialCard serial={item} />
+                    return <SerialCard getSerials={getSerials} setSerials={setSerials} serial={item}
+                                       favouriteSerials={favouriteSerials}/>
                 })}
             </ul>
         </div>

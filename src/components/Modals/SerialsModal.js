@@ -3,19 +3,21 @@ import {Link, useLocation} from "react-router-dom";
 
 import logo from "../../img/mana-logo.svg";
 import {api_url} from "../../utils/utils";
+import {getFavourites} from "../../api/serials";
+import Cookies from "js-cookie";
 
-const SerialsModal = ({favouriteSerials}) => {
+const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => {
     const { pathname } = useLocation();
     const [activeTab, setActiveTab] = useState(1)
     // const [favouriteSerials, setFavouriteSerials] = useState([])
 
 
     useEffect(() => {
+        const token = Cookies.get('token');
+        getFavourites(token,setFavouriteSerials)
         // const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
         // setFavouriteSerials(savedSerials)
     }, []);
-
-
 
 
 
@@ -46,10 +48,11 @@ const SerialsModal = ({favouriteSerials}) => {
                     <span style={{color: '#999'}}>Mark all watched</span>
                 </li>
                 {favouriteSerials.map(item => {
+
                     return <li className="site-search__item site-search-item">
                         <Link to={`/videos/${item.title}`} state={{serialId: item.tv_show.id}} style={{textDecoration: 'none'}} >
                         <div  className="site-search-item__link">
-                            <img className="site-search-item__img" src={api_url + item.tv_show.thumbnail}
+                            <img className="site-search-item__img" src={api_url.replace(/.$/,".") + item.tv_show.thumbnail}
                                  alt="New iron man series"/>
                             <div className={'site-search-item-left'}>
                                 <span className="site-search-item__name">{item.tv_show.title}</span>
@@ -64,9 +67,9 @@ const SerialsModal = ({favouriteSerials}) => {
 
                 <li className="site-search__item site-search-item">
                     <a href="video.html" className="site-search-item__link">
-                        <img className="site-search-item__img" src={logo}
-                             alt="New iron man series"/>
-                        <span className="site-search-item__name">New iron man series</span>
+                        {/*<img className="site-search-item__img" src={logo}*/}
+                        {/*     alt="New iron man series"/>*/}
+                        {/*<span className="site-search-item__name">New iron man series</span>*/}
                     </a>
                 </li>
             </>

@@ -319,7 +319,7 @@ const Profile = ({userData, setUserData}) => {
                                     {previewImage !== null ? <img
                                         src={previewImage !== null ? previewImage : userData.photo ? userData.photo : filmIcon}
                                         alt="name" className="settings-thumbnail__img"/>
-                                        : <div className="settings-thumbnail__text">{userName.slice(0, 1)}</div>
+                                        : <div className="settings-thumbnail__text">{userName.slice(0, 1) || 'S'}</div>
 
                                     }
                                 </div>
