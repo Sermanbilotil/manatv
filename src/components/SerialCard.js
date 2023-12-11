@@ -3,10 +3,12 @@ import {Link} from "react-router-dom";
 import {addToFavourites} from "../api/serials";
 import Cookies from "js-cookie";
 import {add} from "react-modal/lib/helpers/classList";
+import {useTranslation} from "react-i18next";
 
 
 const SerialCard = ({serial, favouriteSerials, getSerials, setSerials}) => {
     const token = Cookies.get('token');
+    const { t } = useTranslation();
     const [inFavourite, setInFavourite] = useState(false)
     const [inFavouriteId, setInFavouriteId] = useState(null)
 
@@ -60,7 +62,7 @@ const SerialCard = ({serial, favouriteSerials, getSerials, setSerials}) => {
                 {serial.description}
             </p>
             <p className="videos-list-item__add">
-                Add to:
+                {t('serial.add_to')}:
                 <div
                     onClick={(e) => addToFavourites(e, serial, setInFavourite, token, inFavourite, inFavouriteId, setInFavouriteId)}
                     className="videos-list-item__fav">

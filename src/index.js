@@ -1,4 +1,5 @@
 import React from 'react';
+import  './i18n';
 import ReactDOM from 'react-dom/client';
 
 import './style/header.css';
@@ -12,7 +13,12 @@ import {Helmet,HelmetProvider} from "react-helmet-async";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import {BrowserRouter} from "react-router-dom";
 
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+
 
 root.render(
     <GoogleOAuthProvider clientId="338576098456-a7h7s7cj413egjmcdec86i8kj88dprh8.apps.googleusercontent.com">

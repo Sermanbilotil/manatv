@@ -6,36 +6,57 @@ import SerialCard from "../components/SerialCard";
 import {getCountriesFilter, getFavourites, getGenresFilter, getSerials} from "../api/serials";
 import {useLocation} from "react-router-dom";
 import Cookies from "js-cookie";
+import {useTranslation} from "react-i18next";
 
 
 const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                     getFavourites}) => {
 
     const {pathname, location} = useLocation();
+    const { t,  i18n} = useTranslation();
+
     const token = Cookies.get('token');
+    const [lang, setLang] = useState()
 
     const [sortData, setSortData] = useState(['title', 'rating', 'year'])
     const [showSortFilter, setShowSortFilter] = useState('')
-    const [sortFilter, setSortFilter] = useState('Виберіть опцію')
+    const [sortFilter, setSortFilter] = useState('')
+
 
     const [genres, setGenres] = useState([])
     const [showGenresFilter, setShowGenresFilter] = useState('')
-    const [genresFilter, setGenresFilter] = useState('Виберіть опцію')
+    const [genresFilter, setGenresFilter] = useState(t('video.choose_option'))
 
     const [countries, setCountries] = useState([])
     const [showCountryFilter, setShowCountryFilter] = useState('')
-    const [countryFilter, setCountryFilter] = useState('Виберіть опцію')
+    const [countryFilter, setCountryFilter] = useState(t('video.choose_option'))
 
     const [channels, setChannels] = useState([])
     const [showChannelFilter, setShowChannelFilter] = useState('')
-    const [channelFilter, setChannelFilter] = useState('Виберіть опцію')
+    const [channelFilter, setChannelFilter] = useState(t('video.choose_option'))
 
     const [years, setYears] = useState([])
     const [showYearFilter, setShowYearFilter] = useState('')
-    const [yearFilter, setYearFilter] = useState('Виберіть опцію')
+    const [yearFilter, setYearFilter] = useState(t('video.choose_option'))
 
     const [serials, setSerials] = useState([])
     const [filteredSerials, setFilteredSerials] = useState([])
+
+
+    i18n.on('languageChanged', lang => {
+        setLang(lang)
+    });
+
+    useEffect(() => {
+        console.log('token 1', lang)
+        setChannelFilter(t('video.choose_option'))
+        setCountryFilter(t('video.choose_option'))
+        setYearFilter(t('video.choose_option'))
+        setGenresFilter(t('video.choose_option'))
+    }, [lang]);
+
+
+
 
 
     useEffect(() => {
@@ -85,9 +106,9 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
         <div className="container">
             <div className="videos__filter filter">
                 <div className="filter__header">
-                    <div className="filter__title">Choose video</div>
+                    <div className="filter__title">{t('video.title')}</div>
                     <div className="filter__total">
-                        Total: <span>{serials.length} Video</span>
+                        {t('video.total')}: <span>{serials.length} {t('video.video')}</span>
                     </div>
                 </div>
                 <div className="filter__body">
@@ -104,50 +125,50 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                     {/*    </div>*/}
                     {/*</label>*/}
                     <label className="filter__label">
-                        Genres
+                        {t('video.genres')}
                         <div onClick={() => setShowGenresFilter(!showGenresFilter)} className="custom-select ">
                             <div className={showGenresFilter ? 'select-header opened' : 'select-header'}><span
                                 className="selected-option">{genresFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showGenresFilter ? 'options-list opened' : 'options-list'}>
-                                <li onClick={() => setGenresFilter('Виберіть опцію')}>Виберіть опцію</li>
+                                <li onClick={() => setGenresFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
                                 {genres.map(item => <li onClick={() => setGenresFilter(item.title)}>{item.title}</li>)}
                             </ul>
                         </div>
                     </label>
                     <label className="filter__label">
-                        Country
+                        {t('video.country')}
                         <div onClick={() => setShowCountryFilter(!showCountryFilter)} className="custom-select ">
                             <div className={showCountryFilter ? 'select-header opened' : 'select-header'}><span
                                 className="selected-option">{countryFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showCountryFilter ? 'options-list opened' : 'options-list'}>
-                                <li onClick={() => setCountryFilter('Виберіть опцію')}>Виберіть опцію</li>
+                                <li onClick={() => setCountryFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
                                 {countries.map(item => <li
                                     onClick={() => setCountryFilter(item.name)}>{item.name}</li>)}
                             </ul>
                         </div>
                     </label>
                     <label className="filter__label">
-                        Channel/Studio
+                        {t('video.channel')}
                         <div onClick={() => setShowChannelFilter(!showChannelFilter)} className="custom-select ">
                             <div className={showChannelFilter ? 'select-header opened' : 'select-header'}><span
                                 className="selected-option">{channelFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>
-                                <li onClick={() => setChannelFilter('Виберіть опцію')}>Виберіть опцію</li>
+                                <li onClick={() => setChannelFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
                                 {channels.map(item => <li onClick={() => setChannelFilter(item)}>{item}</li>)}
                             </ul>
                         </div>
                     </label>
                     <label className="filter__label">
-                        Year
+                        {t('video.year')}
                         <div onClick={() => setShowYearFilter(!showYearFilter)} className="custom-select ">
                             <div className={showYearFilter ? 'select-header opened' : 'select-header'}><span
                                 className="selected-option">{yearFilter}</span><i
                                 className="arrow-icon"></i></div>
                             <ul className={showYearFilter ? 'options-list opened' : 'options-list'}>
-                                <li onClick={() => setYearFilter('Виберіть опцію')}>Виберіть опцію</li>
+                                <li onClick={() => setYearFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
                                 {years.map(item => <li onClick={() => setYearFilter(item)}>{item}</li>)}
 
                             </ul>

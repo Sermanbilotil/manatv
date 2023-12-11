@@ -3,11 +3,13 @@ import {useState} from "react";
 import {api_url, ValidateEmail} from "../../utils/utils";
 import axios from "axios";
 import Cookies from "js-cookie";
+import {useTranslation} from "react-i18next";
 
 
 const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal, setConfirmLetterSend}) => {
     const [email, setEmail] = useState('')
     const [validEmail, setValidEmail] = useState('')
+    const { t } = useTranslation();
 
     const Login = () => {
         setShowPasswordModal(false)
@@ -50,20 +52,20 @@ const ForgotPass = ({setShowPasswordModal,setShowLoginModal, setEmailSendModal, 
         <div className="modal modal--password opened">
             <button onClick={() => setShowPasswordModal(false)} className="modal__close"></button>
             <div className="modal__name">
-                Forgot your password?
+                {t('login.forgot_pass')}
             </div>
             <form className="modal__form">
                 <label  className="modal__label">
                     Email
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="modal__input" placeholder="Write your email" />
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="modal__input" placeholder={t('setting.email_place')} />
                     {validEmail.length > 0 && <p className={'red_text'}>{validEmail}</p>}
                 </label>
                 <button onClick={(e) => resetPassword(e)} className="btn btn--black modal__btn">
-                    Send me reset password instructions
+                    {t('login.reset_btn')}
                 </button>
             </form>
             <a onClick={() => Login()} href="#" className="modal__link modal__link--login">
-                Log in
+                {t('header.login')}
             </a>
             {/*<a href="#" className="modal__link modal__link--signup">*/}
             {/*    Sign up*/}

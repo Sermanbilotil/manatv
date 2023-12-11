@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 const Register = ({
                       setShowSignModal,
                       setShowLoginModal,
@@ -14,7 +16,7 @@ const Register = ({
                       confirmLetterSend
                   }) => {
 
-
+    const { t } = useTranslation();
     const openLoginModal = () => {
         setShowSignModal(false)
         setShowLoginModal(true)
@@ -27,12 +29,12 @@ const Register = ({
         <div className="modal modal--signup opened">
             <button onClick={() => setShowSignModal(false)} className="modal__close"></button>
             <div className="modal__name">
-                Sign up
+                {t('header.sign_up')}
             </div>
             <form className="modal__form">
                 <label className="modal__label">
-                    Name
-                    <input value={userName} onChange={e => setUserName(e.target.value)} type="text" className="modal__input" placeholder="Write your name"/>
+                    {t('setting.name')}
+                    <input value={userName} onChange={e => setUserName(e.target.value)} type="text" className="modal__input" placeholder={t('setting.name')}/>
                 </label>
                 <label className="modal__label">
                     Email
@@ -41,16 +43,16 @@ const Register = ({
                 </label>
 
                 <label className="modal__label">
-                    Password
-                    <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="modal__input" placeholder="Write your password"/>
+                    {t('login.password')}
+                    <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="modal__input" placeholder= {t('login.password')}/>
                 </label>
                 <label className="modal__label">
-                    Password confirmation
-                    <input value={confirmPassword}  onChange={(e) => setConfirmPassword(e.target.value)} type="password" className="modal__input" placeholder="Write your password"/>
+                    {t('setting.confirm_pass')}
+                    <input value={confirmPassword}  onChange={(e) => setConfirmPassword(e.target.value)} type="password" className="modal__input" placeholder= {t('setting.confirm_pass_placeholder')}/>
                 </label>
                 {/*{confirmLetterSend.length > 0 && <p className={'green_text'}>{confirmLetterSend}</p>}*/}
                 <button onClick={(e) => Register(e)} className="btn btn--black modal__btn">
-                    Sign up
+                    {t('header.sign_up')}
                 </button>
 
             </form>
@@ -86,7 +88,7 @@ const Register = ({
             {/*    </div>*/}
             {/*</div>*/}
             <a onClick={() => openLoginModal()} href="#" className="modal__link modal__link--login">
-                Log in
+                {t('header.login')}
             </a>
             {/*<a href="#" className="modal__link modal__link--password">*/}
             {/*    Forgot your password?*/}

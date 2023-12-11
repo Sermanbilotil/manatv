@@ -20,13 +20,21 @@ import Notifications from "./Views/Profile/Notifications";
 import Subscription from "./Views/Profile/Subscription";
 import Terms from "./Views/Terms";
 import {getFavourites} from "./api/serials";
+import {IntlProvider} from "react-intl";
+import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
+
 
 function App() {
+
+
     const [showLoginModal, setShowLoginModal] = useState(false)
 
     const [userLogged, setUserLogged ] = useState(false)
 
     const [userData, setUserData] = useState({})
+
+    const [currentLang, setCurrentLang] = useState('en')
 
     const [favouriteSerials, setFavouriteSerials] = useState([])
 
@@ -46,6 +54,13 @@ function App() {
 
     }, [])
 
+    useEffect(() => {
+        changeLanguage(currentLang)
+    }, [currentLang])
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
     const getUserData = (token, bearer) => {
 
 
@@ -62,7 +77,8 @@ function App() {
 
                 localStorage.setItem('userLogged', 'true')
                 localStorage.setItem('userData', JSON.stringify(response.data))
-                console.log('res',response.data);
+                console.log('res userData',response.data);
+                setCurrentLang(response.data.interface_language)
                 setUserLogged(true)
                 setUserData(response.data)
             })
@@ -72,6 +88,7 @@ function App() {
             });
 
     }
+
 
 
   return (
@@ -85,6 +102,8 @@ function App() {
                 favouriteSerials={favouriteSerials}
                 setFavouriteSerials={setFavouriteSerials}
                 getFavourites={getFavourites}
+                currentLang={currentLang}
+                setCurrentLang={setCurrentLang}
         />
         <main>
 

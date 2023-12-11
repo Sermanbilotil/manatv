@@ -8,6 +8,7 @@ import VkAuth from 'react-vk-auth';
 import {api_url, ValidateEmail} from "../../utils/utils";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const Login = ({
                    setShowLoginModal,
@@ -21,7 +22,7 @@ const Login = ({
                    validPassword,
                    getUserData
                }) => {
-
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
@@ -105,27 +106,27 @@ const Login = ({
         <div className="modal modal--login opened">
             <button onClick={() => setShowLoginModal(false)} className="modal__close"></button>
             <div className="modal__name">
-                Log in
+                {t('login.login')}
             </div>
             <form className="modal__form">
                 <label className="modal__label">
                     Email
                     <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="modal__input"
-                           placeholder="Write your email"/>
+                           placeholder={t('setting.email_title')}/>
                 </label>
                 <label className="modal__label">
-                    Password
+                    {t('login.password')}
                     <input value={password} onChange={e => setPassword(e.target.value)} type="password"
-                           className="modal__input" placeholder="Write your password"/>
+                           className="modal__input" placeholder={t('setting.current_pass_placeholder')}/>
                 </label>
                 {validPassword.length > 0 && <p className={'red_text'}>{validPassword}</p>}
                 <button onClick={(e) => LoginUser(e)} className="btn btn--black modal__btn">
-                    Log in
+                    {t('header.login')}
                 </button>
             </form>
             <div className="modal__network">
                 <div className="modal__network-title">
-                    With social networks
+                    {t('login.social_title')}
                 </div>
                 <div className="modal__network-btns">
                     {/*<button  className="btn btn--network">*/}
@@ -186,10 +187,10 @@ const Login = ({
                 </div>
             </div>
             <a onClick={() => signUp()} href="#" className="modal__link modal__link--signup">
-                Sign up
+                {t('header.sign_up')}
             </a>
             <a onClick={() => forgotPass()} href="#" className="modal__link modal__link--password">
-                Forgot your password?
+                {t('login.forgot_pass')}
             </a>
         </div>
 

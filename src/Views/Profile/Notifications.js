@@ -4,9 +4,11 @@ import InvertLogo from '../../img/invert-logo.svg'
 import {useEffect, useState} from "react";
 import SubHeader from "../../components/SubHeader";
 import {json} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 
 const Notifications = () => {
+    const { t } = useTranslation();
 
     const [specialOffers, setSpecialOffers] = useState(null)
     const [newShows, setNewShows] = useState(null)
@@ -43,12 +45,12 @@ const Notifications = () => {
         <section className="notifications">
             <div className="container">
                 <div className="notifications-block">
-                    <p className="notifications-block__title">Common notification settings</p>
+                    <p className="notifications-block__title"> {t('notifications.common_title')}</p>
                     <ul className="notifications-block__list">
                         <li className="notifications-block__item notifications-block-item">
                             <label className="custom-checkbox__label">
             <span className="notifications-block-item__name">
-              Special offers and discounts
+              {t('notifications.common_btn1')}
             </span>
                                 <input
                                     type="checkbox"
@@ -64,7 +66,7 @@ const Notifications = () => {
                         <li className="notifications-block__item notifications-block-item">
                             <label className="custom-checkbox__label">
             <span className="notifications-block-item__name">
-              New TV shows and movies
+                {t('notifications.common_btn2')}
             </span>
                                 <input type="checkbox" className="custom-checkbox"
                                        checked={newShows}
@@ -80,12 +82,12 @@ const Notifications = () => {
                     </ul>
                 </div>
                 <div className="notifications-block">
-                    <p className="notifications-block__title">Common notification settings</p>
+                    {/*<p className="notifications-block__title">Common notification settings</p>*/}
                     <ul className="notifications-block__list">
                         <li className="notifications-block__item notifications-block-item">
                             <label className="custom-checkbox__label">
             <span className="notifications-block-item__name">
-              Enable / Disable Browser Notifications
+              {t('notifications.common_btn3')}
             </span>
                                 <input
                                     type="checkbox"
@@ -101,7 +103,7 @@ const Notifications = () => {
                         <li className="notifications-block__item notifications-block-item">
                             <label className="custom-checkbox__label">
             <span className="notifications-block-item__name">
-              Receive push notifications in my current browser
+                 {t('notifications.common_btn4')}
             </span>
                                 <input type="checkbox" className="custom-checkbox"
                                        checked={currentBrowserNotification}

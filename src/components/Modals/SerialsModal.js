@@ -5,9 +5,11 @@ import logo from "../../img/mana-logo.svg";
 import {api_url} from "../../utils/utils";
 import {getFavourites} from "../../api/serials";
 import Cookies from "js-cookie";
+import {useTranslation} from "react-i18next";
 
 const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => {
     const { pathname } = useLocation();
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState(1)
     // const [favouriteSerials, setFavouriteSerials] = useState([])
 
@@ -32,10 +34,10 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => 
             }}>
 
                 <div onClick={() => setActiveTab(1)}
-                     className={activeTab == 1 ? 'favourite_btn active' : 'favourite_btn'}>Favorites
+                     className={activeTab == 1 ? 'favourite_btn active' : 'favourite_btn'}>{t('header.favorites')}
                 </div>
                 <div onClick={() => setActiveTab(2)}
-                     className={activeTab == 2 ? 'favourite_btn active' : 'favourite_btn'}>I'm Watching
+                     className={activeTab == 2 ? 'favourite_btn active' : 'favourite_btn'}>{t('header.watching')}
                 </div>
 
             </div>
@@ -45,7 +47,7 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => 
         {activeTab === 1 ?
             <>
                 <li className="site-search__item site-search-item">
-                    <span style={{color: '#999'}}>Mark all watched</span>
+                    <span style={{color: '#999'}}>{t('header.mark_watched')}</span>
                 </li>
                 {favouriteSerials.map(item => {
 

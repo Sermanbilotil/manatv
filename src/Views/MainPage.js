@@ -8,9 +8,11 @@ import MoreInfo from '../img/more-info.png'
 import Example2x from '../img/example-2x.png'
 import Example from '../img/example.png'
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 
 const MainPage = () => {
+    const { t } = useTranslation();
 
 
     useEffect(() => {
@@ -23,10 +25,10 @@ const MainPage = () => {
     return <>
         <section className="hero">
             <div className="hero__content">
-                <h1 className="hero__title">Вивчай мови дивлячись серіали та фільми</h1>
-                <p className="hero__text">Більше 3000 фільмів серіалів чекають на тебе</p>
+                <h1 className="hero__title">{t('main_page.title')}</h1>
+                <p className="hero__text">{t('main_page.subTitle')}</p>
                 <Link to="/videos"  className="btn btn--white hero__btn">
-                    Почати дивитись
+                    {t('main_page.btn_start')}
                 </Link>
             </div>
         </section>
@@ -41,30 +43,21 @@ const MainPage = () => {
                     />
                     <div className="main-info__content">
                         <h2 className="main-info__title">
-                            Excepteur sint occaecat cupidatat
+                            {t('main_page.subtitle_title')}
                         </h2>
                         <div className="main-info__text">
                             <p>
-                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                                aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem
-                                quia voluptas sit aspernatur aut odit aut fugit. Nemo enim ipsam
-                                voluptatem quia voluptas sit.
+                                {t('main_page.subtitle_desc1')}
                             </p>
                             <p>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque laudantium, to
+                                {t('main_page.subtitle_desc2')}
                             </p>
                             <p>
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam
-                                corporis suscipit laboriosam, nisi ut al Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
-                                quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit
-                                aspernatur aut odit aut fugit. Nemo enim ipsam voluptatem quia
-                                voluptas sit.
+                                {t('main_page.subtitle_desc3')}
                             </p>
                         </div>
                         <Link to="/videos" className="btn btn--black main-info__btn">
-                            Join now
+                            {t('main_page.btn_start')}
                         </Link>
                     </div>
                 </div>
@@ -72,17 +65,14 @@ const MainPage = () => {
         </section>
         <section className="more-info">
             <div className="more-info__container">
-                <h2 className="h1 more-info__title">Excepteur sint occaecat cupidatat</h2>
+                <h2 className="more-info__title">{t('main_page.about_title')}</h2>
                 <img
                     src={MoreInfo}
                     alt="Preview of product"
                     className="more-info__img"
                 />
                 <p className="more-info__text">
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-                    fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas
-                    sit aspernatur aut odit aut fugit. Nemo enim ipsam voluptatem quia
-                    voluptas sit.
+                    {t('main_page.about_desc')}
                 </p>
             </div>
         </section>
@@ -96,29 +86,20 @@ const MainPage = () => {
                         className="about__img"
                     />
                     <div className="about__content">
-                        <h2 className="about__title">Excepteur sint occaecat cupidatat</h2>
+                        <h2 className="about__title">{t('main_page.add_words_title')}</h2>
                         <div className="about__text">
                             <p>
-                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                                aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem
-                                quia voluptas sit aspernatur aut odit aut fugit. Nemo enim ipsam
-                                voluptatem quia voluptas sit.
+                                {t('main_page.add_words_text1')}
                             </p>
                             <p>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque laudantium, to
+                                {t('main_page.add_words_text2')}
                             </p>
                             <p>
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam
-                                corporis suscipit laboriosam, nisi ut al Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
-                                quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit
-                                aspernatur aut odit aut fugit. Nemo enim ipsam voluptatem quia
-                                voluptas sit.
+                                {t('main_page.add_words_text3')}
                             </p>
                         </div>
                         <Link to="./dictionary" className="btn btn--black about__btn">
-                            Join now
+                            {t('main_page.btn_start')}
                         </Link>
                     </div>
                 </div>

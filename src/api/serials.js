@@ -5,24 +5,24 @@ import Cookies from "js-cookie";
 
 const token = Cookies.get('token');
 export const getSerials = (setSerials, Token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter, titleFilter) => {
-    console.log('token', token)
+    console.log('token', sortFilter)
 
     let url = `tv-shows/?`
-    if (sortFilter !== 'Виберіть опцію') {
+    if (sortFilter !== 'Выберите опцию' && sortFilter !== 'Choose Option') {
         url = url + `ordering=${sortFilter}`
     }
-    if (yearFilter !== 'Виберіть опцію') {
+    if (yearFilter !== 'Выберите опцию'&& sortFilter !== 'Choose Option') {
         url = url + `&year=${yearFilter}`
     }
-    if (countryFilter !== 'Виберіть опцію') {
+    if (countryFilter !== 'Выберите опцию' && sortFilter !== 'Choose Option') {
         url = url + `&countries=${countryFilter}`
     }
 
-    if (channelFilter !== 'Виберіть опцію') {
+    if (channelFilter !== 'Выберите опцию'&& sortFilter !== 'Choose Option') {
         url = url + `&networks=${channelFilter}`
     }
 
-    if (genresFilter !== 'Виберіть опцію') {
+    if (genresFilter !== 'Выберите опцию'&& sortFilter !== 'Choose Option' ) {
         url = url + `&genres=${genresFilter}`
     }
     if (titleFilter !== '') {

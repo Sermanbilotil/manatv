@@ -6,10 +6,12 @@ import InvertLogo from '../img/invert-logo.svg'
 
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 
 
 const Footer = () => {
+    const { t } = useTranslation();
 
 
     useEffect(() => {
@@ -27,7 +29,7 @@ const Footer = () => {
                 </a>
                 <div className="site-footer__menu site-footer-menu">
                     <h3 className="site-footer-menu__name">
-                        Contact support
+                        {t('main_page.contact_support')}
                     </h3>
                     <ul className="site-footer-menu__list">
                         <li className="site-footer-menu__item">
@@ -39,46 +41,37 @@ const Footer = () => {
                 </div>
                 <div className="site-footer__menu site-footer-menu">
                     <h3 className="site-footer-menu__name">
-                        FAQ
+                        {t('main_page.faq')}
                     </h3>
                     <ul className="site-footer-menu__list">
                         <li className="site-footer-menu__item">
                             <Link to="/faq" className="site-footer-menu__question">
-                                Do you have the rights to the provided content?
+                                {t('faq.content_title')}
                             </Link>
                         </li>
                         <li className="site-footer-menu__item">
                             <Link to="/faq" className="site-footer-menu__btn">
-                                Show all questions
+                                {t('main_page.show_all_questions')}
                             </Link>
                         </li>
                     </ul>
                 </div>
                 <div className="site-footer__menu site-footer-menu">
                     <h3 className="site-footer-menu__name">
-                        Terms & Conditions
+                        {t('main_page.terms')}
                     </h3>
                     <ul className="site-footer-menu__list">
                         <li className="site-footer-menu__item">
                             <Link to="/terms" className="site-footer-menu__link">
-                                Copyright
+                                {t('copyright.copyright')}
                             </Link>
                         </li>
                         <li className="site-footer-menu__item">
                             <Link to="/terms" className="site-footer-menu__link">
-                                Privacy policy
+                                {t('terms_conditions.privacy_title')}
                             </Link>
                         </li>
-                        <li className="site-footer-menu__item">
-                            <Link to="/terms" className="site-footer-menu__link">
-                                Terms of service
-                            </Link>
-                        </li>
-                        <li className="site-footer-menu__item">
-                            <Link to="/terms" className="site-footer-menu__link">
-                                Terms of payment
-                            </Link>
-                        </li>
+
                     </ul>
                 </div>
             </div>

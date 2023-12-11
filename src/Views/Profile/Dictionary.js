@@ -8,9 +8,12 @@ import WordModal from "../../components/Modals/WordModal";
 import StudyWordModal from "../../components/Modals/StudyWordModal";
 import SubHeader from "../../components/SubHeader";
 import Cookies from "js-cookie";
+import {useTranslation} from "react-i18next";
 
 const token = Cookies.get('token');
 const Dictionary = () => {
+
+    const { t } = useTranslation();
 
     const [gridType, setGridType] = useState('grid')
     const [searchWord, setSearchWord] = useState('')
@@ -60,7 +63,6 @@ const Dictionary = () => {
 
 
     useEffect(() => {
-
         console.log('source ', source)
         let filteredWords = dictionaryWords
         if (dictionaryWords !== null && source !== null) {
@@ -70,7 +72,6 @@ const Dictionary = () => {
             dictionaryData !== null && setDictionaryWords(dictionaryData.dictionary_words)
         }
     }, [source]);
-
 
 
     const showModal = (data) => {
@@ -87,9 +88,9 @@ const Dictionary = () => {
         <div className="container">
             <div className="dictionary-main">
                 <div className="sidebar">
-                    <h1 className="sidebar__name">Dictionary</h1>
+                    <h1 className="sidebar__name">{t('dictionary.title')}</h1>
                     <button onClick={() => setShowStudyWordModal(true)} className="btn btn--transparent sidebar__btn">
-                        Study words
+                        {t('dictionary.study_words')}
                     </button>
                     <div className="sidebar-check">
                         <input
@@ -102,11 +103,11 @@ const Dictionary = () => {
                             onChange={() => setShowTranslations(!showTranslations)}
                         />
                         <label htmlFor="translation" className="sidebar-checkbox__label">
-                            Show translation
+                            {t('dictionary.show_trs')}
                         </label>
                     </div>
                     <div className="sidebar-block">
-                        <h3 className="sidebar-block__title">Source</h3>
+                        <h3 className="sidebar-block__title">{t('dictionary.source')}</h3>
                         <ul className="sidebar-block__items">
                             <li className="sidebar-block__item">
                                 <input
@@ -117,7 +118,7 @@ const Dictionary = () => {
                                     defaultChecked="true"
                                 />
                                 <label onClick={() => setSource(null)} htmlFor="sources-all" className="sidebar-block__label">
-                                    All words
+                                    {t('dictionary.all_words')}
                                 </label>
                             </li>
                             {dictionaryData && dictionaryData.sources_word_count.map(item => {
@@ -167,7 +168,7 @@ const Dictionary = () => {
                                 d="M20.063 10.5v9a1.313 1.313 0 0 1-1.313 1.313H5.25A1.313 1.313 0 0 1 3.937 19.5v-9A1.313 1.313 0 0 1 5.25 9.187H7.5a.563.563 0 0 1 0 1.126H5.25a.187.187 0 0 0-.188.187v9a.188.188 0 0 0 .188.188h13.5a.188.188 0 0 0 .188-.188v-9a.188.188 0 0 0-.188-.188H16.5a.562.562 0 1 1 0-1.125h2.25a1.313 1.313 0 0 1 1.313 1.313ZM8.648 6.397l2.79-2.789v9.142a.562.562 0 1 0 1.124 0V3.608l2.79 2.79a.563.563 0 1 0 .796-.796l-3.75-3.75a.563.563 0 0 0-.796 0l-3.75 3.75a.563.563 0 1 0 .796.795Z"
                             />
                         </svg>
-                        Export
+                        {t('dictionary.export')}
                     </ExportJsonCsv>
                     <button onClick={() => dictionary.length > 0 && deleteDictionary(dictionary[0].id, setDictionary)} className="btn btn--icon btn-delete-all">
                         <svg
@@ -180,7 +181,7 @@ const Dictionary = () => {
                                 d="M20.25 4.688h-3.938V3.75a2.062 2.062 0 0 0-2.062-2.063h-4.5A2.063 2.063 0 0 0 7.687 3.75v.938H3.75a.563.563 0 1 0 0 1.125h.938V19.5A1.313 1.313 0 0 0 6 20.813h12a1.313 1.313 0 0 0 1.313-1.313V5.812h.937a.562.562 0 1 0 0-1.125ZM8.812 3.75a.937.937 0 0 1 .938-.938h4.5a.937.937 0 0 1 .938.938v.938H8.811V3.75Zm9.376 15.75a.188.188 0 0 1-.188.188H6a.188.188 0 0 1-.188-.188V5.812h12.375V19.5Zm-7.875-9.75v6a.562.562 0 1 1-1.126 0v-6a.563.563 0 1 1 1.126 0Zm4.5 0v6a.562.562 0 1 1-1.126 0v-6a.563.563 0 0 1 1.126 0Z"
                             />
                         </svg>
-                        Delete all
+                        {t('dictionary.delete_all')}
                     </button>
 
                 </div>
@@ -191,7 +192,7 @@ const Dictionary = () => {
                                 type="text"
                                 className="dictionary-search__input"
                                 name="search-dictionary"
-                                placeholder="Type a word"
+                                placeholder={t('dictionary.search_text')}
                                 onChange={(e) => setSearchWord(e.target.value)}
                             />
                         </div>

@@ -8,9 +8,12 @@ import { Spinner } from "react-activity";
 import "react-activity/dist/library.css";
 import Series from "../components/series";
 import Cookies from "js-cookie";
+import {useTranslation} from "react-i18next";
 
 const Serial = ({}) => {
     const location = useLocation();
+    const { t } = useTranslation();
+
     const token = Cookies.get('token');
     const { serialId, favouriteSerials,currentInFavouriteId} = location.state;
 
@@ -87,10 +90,10 @@ const Serial = ({}) => {
                     <img src={serialData.thumbnail} alt="name"/>
                     <div className="video__btns">
                         <button onClick={() => window.open(serialData.trailer)} className="btn btn--transparent-new video__btn video--trailer">
-                            Trailer
+                            {t('serial.trailer')}
                         </button>
                         <button className="btn btn--transparent-new video__btn video--fav">
-                            Add to:
+                            {t('serial.add_to')}
                             <div onClick={(e) => addToFavourites(e, serialData, setInFavourite, token, inFavourite,inFavouriteId,setInFavouriteId)} className="videos-list-item__fav">
                                 {inFavourite ?
                                     <svg width="24" height="24" viewBox="0 0 32 32" fill="red" xmlns="http://www.w3.org/2000/svg">
@@ -122,28 +125,28 @@ const Serial = ({}) => {
                     </div>
                     <div className="video__main video-main">
                         <div className="video-main__row">
-                            Rating: <b>{serialData.rating}</b>
+                            {t('serial.rating')}: <b>{serialData.rating}</b>
                         </div>
                         <div className="video-main__row">
-                            Release year:{" "}
+                            {t('serial.year')}:{" "}
                             <a href="#" className="video-main__link">
                                 {serialData.year}
                             </a>
                         </div>
                         <div className="video-main__row">
-                            Genres:{" "}
+                            {t('serial.genres')}:{" "}
                             <a href="#" className="video-main__link">
                                 {serialData?.genres.map(item => item + ', ')}
                             </a>
                         </div>
                         <div className="video-main__row">
-                            Countries:{" "}
+                            {t('serial.countries')}:{" "}
                             <a href="#" className="video-main__link">
-                                United States
+                                {serialData?.countries.map(item => item + ', ')}
                             </a>
                         </div>
-                        <div className="video-main__row">Duration: {serialData.duration}</div>
-                        <div className="video-main__row">Status: Returning Series</div>
+                        <div className="video-main__row"> {t('serial.duration')}: {serialData.duration}</div>
+                        <div className="video-main__row"> {t('serial.status')}: Returning Series</div>
                     </div>
                     <div className="video-table">
                         <div className="video-table__tabs">
@@ -153,7 +156,7 @@ const Serial = ({}) => {
                                     className={activeSeason.season_number === season.season_number ? 'video-table__tab active' : 'video-table__tab'}
                                     onClick={() => setActiveSeason(season)}
                                 >
-                                    {season.season_number} Season
+                                    {season.season_number}  {t('serial.season')}
                                 </button>
                             })}
                         </div>
@@ -169,7 +172,7 @@ const Serial = ({}) => {
 
                     </div>
                     <div className="video__future video-future">
-                        <h3 className="video-future__title">Next series:</h3>
+                        <h3 className="video-future__title"> {t('serial.next_series')}:</h3>
                         <p className="video-future__text">
                             №6 "Comply Slowly" premieres on July 26, 2023
                         </p>

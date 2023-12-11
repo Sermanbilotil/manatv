@@ -6,10 +6,12 @@ import {api_url, ValidateEmail} from "../../utils/utils";
 import Cookies from "js-cookie";
 import Modal from 'react-modal';
 import SubHeader from "../../components/SubHeader";
+import {useTranslation} from "react-i18next";
 
 
 const Profile = ({userData, setUserData}) => {
     const token = Cookies.get('token');
+    const { t } = useTranslation();
 
     const [userName, setUserName] = useState('')
     const [userLang, setUserLang] = useState('Select option')
@@ -184,8 +186,9 @@ const Profile = ({userData, setUserData}) => {
                 }
             })
                 .then(function (response) {
-                    console.log('UpdateUserData', response)
+                    console.log('UpdateUserData', response.data)
                     if (response.status === 200) {
+                        setUserData(response.data)
                         setDataSavedText('User data has been successfully updated')
                     }
                     if (response.data.detail) {
@@ -249,13 +252,13 @@ const Profile = ({userData, setUserData}) => {
         <div className="container">
             <div className="settings-block">
                 <p className="settings-block__title">
-                    Your email
+                    {t('setting.email_title')}
                 </p>
                 <form action className="settings-block__form settings-block-form">
                     <div className="settings-block-form__row">
                         <label className="settings-block__label settings-block__label--large">
-                            You will have to confirm your email
-                            <input type="email" value={email} placeholder="User email"/>
+                            {t('setting.email_desc')}
+                            <input type="email" value={email} placeholder={t('setting.email_place')}/>
                             {/*{emailError.length > 0 && <p className={'red_text'}>{emailError}</p>}*/}
                         </label>
                         {/*<button onClick={(e) => ChangeEmail(e)} className="btn btn--transparent settings-block__btn settings-block__btn--small">*/}
@@ -266,72 +269,72 @@ const Profile = ({userData, setUserData}) => {
             </div>
             <div className="settings-block">
                 <p className="settings-block__title">
-                    Change password
+                    {t('setting.pass_title')}
                 </p>
                 <form action className="settings-block__form settings-block-form">
                     <div className="settings-block-form__row">
 
                         <label className="settings-block__label">
-                            New Password
+                            {t('setting.new_pass')}
                             <input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password"
-                                   placeholder="Type new password"/>
+                                   placeholder= {t('setting.new_pass_placeholder')}/>
                             {newPasswordError.length > 0 && <p className={'red_text'}>{newPasswordError}</p>}
                         </label>
                         <label className="settings-block__label">
-                            Password confirmation
+                            {t('setting.confirm_pass')}
                             <input value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)}
-                                   type="password" placeholder="Type password confirmation"/>
+                                   type="password" placeholder= {t('setting.confirm_pass_placeholder')}/>
                             {newPasswordError.length > 0 && <p className={'red_text'}>{newPasswordError}</p>}
                         </label>
                     </div>
                     <div className="settings-block-form__row">
 
                         <label className="settings-block__label">
-                            Current password
+                            {t('setting.current_pass')}
                             <input value={password} onChange={(e) => setPassword(e.target.value)} type="password"
-                                   placeholder="Type current password"/>
+                                   placeholder= {t('setting.current_pass_placeholder')}/>
                             {passwordError.length > 0 &&
-                                <p className={passwordError == 'Password changed successfully.' ? 'green_text' : 'red_text'}>{passwordError}</p>}
+                                <p className={passwordError == t('setting.change_pass_success') ? 'green_text' : 'red_text'}>{passwordError}</p>}
                         </label>
                         <button onClick={(e) => ChangePassword(e)}
                                 className="btn btn--transparent settings-block__btn settings-block__btn--big">
-                            Save
+                            {t('setting.btn_save')}
                         </button>
                     </div>
                 </form>
             </div>
             <div className="settings-block">
                 <p className="settings-block__title">
-                    Personal settings
+                    {t('setting.setting')}
                 </p>
                 <form action className="settings-block__form settings-block-form">
                     <div className="settings-block-form__row">
                         <label className="settings-block__label">
-                            Displayed name
+                    {t('setting.name')}
                             <input type="text" placeholder="User name" value={userName}
                                    onChange={(e) => setUserName(e.target.value)}/>
                         </label>
                         <div className="label settings-block__label settings-thumbnail">
-                            Thumbnail photo
+                    {t('setting.photo')}
                             <div className="settings-thumbnail__row">
                                 <div onClick={(e) => inputFile.current.click()} className="settings-thumbnail__picture">
 
-                                    {previewImage !== null ? <img
+                                    {previewImage !== null || userData.photo !== null ? <img
                                         src={previewImage !== null ? previewImage : userData.photo ? userData.photo : filmIcon}
                                         alt="name" className="settings-thumbnail__img"/>
-                                        : <div className="settings-thumbnail__text">{userName.slice(0, 1) || 'S'}</div>
+                                        : <div className="settings-thumbnail__text">{userName.slice(0, 1) || 'P'}</div>
 
                                     }
                                 </div>
 
                                 <button onClick={(e) => handleUploadImage(e)}
-                                        className="settings-thumbnail__btn">Upload
+                                        className="settings-thumbnail__btn"> {t('setting.btn_upload')}
                                 </button>
                                 <button onClick={(e) => {
                                     setPreviewImage(null)
                                     setUploadedImage('')
                                     handleUploadImage(e, true)
-                                }} className="settings-thumbnail__remove">Remove
+                                }} className="settings-thumbnail__remove"> {t('setting.btn_remove')}
                                 </button>
                                 <input type="file" onChange={(e) => getImage(e)} ref={inputFile} id="myInput"
                                        style={{display: 'none'}}/>
@@ -340,11 +343,11 @@ const Profile = ({userData, setUserData}) => {
                     </div>
                     <div className="settings-block-form__row">
                         <label className="settings-block__label">
-                            Language level
+                    {t('setting.language_lvl')}
 
                             <div onClick={() => setLangLevelOpened(!langLevelOpened)} className="custom-select">
                                 <div className={langLevelOpened ? 'select-header opened' : 'select-header'}><span
-                                    className="selected-option">{langLevel && langLevel.length > 0 ? langLevel : 'Виберіть опцію'}</span><i
+                                    className="selected-option">{langLevel && langLevel.length > 0 ? langLevel : t('video.choose_option')}</span><i
                                     className="arrow-icon"></i>
                                 </div>
                                 <ul className={langLevelOpened ? 'options-list opened' : 'options-list'}>
@@ -356,7 +359,7 @@ const Profile = ({userData, setUserData}) => {
                         </label>
                         <button onClick={(e) => UpdateUserData(e)}
                                 className="btn btn--transparent settings-block__btn settings-block__btn--big">
-                            Save
+                    {t('setting.btn_save')}
                         </button>
                     </div>
                     {dataSavedText && dataSavedText.length > 0 && <p className={'green_text'}>{dataSavedText}</p>}
@@ -364,16 +367,16 @@ const Profile = ({userData, setUserData}) => {
             </div>
             <div className="settings-block">
                 <p className="settings-block__title">
-                    Language and subtitles
+                    {t('setting.language_title')}
                 </p>
                 <form action className="settings-block__form settings-block-form">
                     <div className="settings-block-form__row">
                         <label className="settings-block__label">
-                            User interface language
+                    {t('setting.user_lang')}
 
                             <div onClick={() => setUserLangOpened(!userLangOpened)} className="custom-select">
                                 <div className={userLangOpened ? 'select-header opened' : 'select-header'}><span
-                                    className="selected-option">{userLang && userLang.length > 0 ? userLang : 'Виберіть опцію'}</span><i
+                                    className="selected-option">{userLang && userLang.length > 0 ? userLang : t('video.choose_option')}</span><i
                                     className="arrow-icon"></i>
                                 </div>
                                 <ul className={userLangOpened ? 'options-list opened' : 'options-list'}>
@@ -383,11 +386,11 @@ const Profile = ({userData, setUserData}) => {
                             </div>
                         </label>
                         <label className="settings-block__label">
-                            Subtitle translation language
+                            {t('setting.translation_lang')}
                             <div onClick={() => setSubtitleLangOpened(!subtitleLangOpened)} className="custom-select">
                                 <div className={subtitleLangOpened ? "select-header opened" : 'select-header'}><span
                                     className="selected-option">
-                                        {subtitleLang && subtitleLang.length > 0 ? subtitleLang : 'Виберіть опцію'}
+                                        {subtitleLang && subtitleLang.length > 0 ? subtitleLang : t('video.choose_option')}
                                     </span><i
                                     className="arrow-icon"></i></div>
                                 <ul className={subtitleLangOpened ? 'options-list opened' : 'options-list'}>

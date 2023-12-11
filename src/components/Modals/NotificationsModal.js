@@ -1,11 +1,12 @@
 
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 
 
 const NotificationsModal = () => {
-
+    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -17,7 +18,7 @@ const NotificationsModal = () => {
     return   <ul className="site-search__list site_notification_list" >
 
         <li className="site-search__item site-search-item" style={{textAlign: 'center'}}>
-            <span style={{color: '#7E7E7E', fontSize: 14,}}>You don’t have notifications</span>
+            <span style={{color: '#7E7E7E', fontSize: 14,}}>{t('notifications.warn')}</span>
         </li>
         {/*<li className="site-search__item site-search-item">*/}
         {/*    <a href="video.html" className="site-search-item__link">*/}
