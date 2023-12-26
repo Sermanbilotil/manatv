@@ -23,6 +23,7 @@ import {getFavourites} from "./api/serials";
 import {IntlProvider} from "react-intl";
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
+import Policy from "./Views/Policy";
 
 
 function App() {
@@ -121,6 +122,7 @@ function App() {
                 <Route  path="/subscription" element={ <Subscription />} />
                 <Route  path="/faq" element={ <FAQ />} />
                 <Route  path="/terms" element={ <Terms />} />
+                <Route  path="/policy" element={ <Policy />} />
             </Routes>
 
         </main>

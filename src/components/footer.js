@@ -67,7 +67,7 @@ const Footer = () => {
                             </Link>
                         </li>
                         <li className="site-footer-menu__item">
-                            <Link to="/terms" className="site-footer-menu__link">
+                            <Link to="/policy" className="site-footer-menu__link">
                                 {t('terms_conditions.privacy_title')}
                             </Link>
                         </li>
