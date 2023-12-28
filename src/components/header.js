@@ -253,7 +253,7 @@ const Header = ({
                                 {showNotifications && <NotificationsModal/>}
                             </li>
 
-                            <li className="site-header-menu-list__item">
+                            {userLogged && <li className="site-header-menu-list__item">
                                 <div onClick={() => {
                                     setShowFavourites(!showFavourites)
                                     setShowNotifications(false)
@@ -276,7 +276,7 @@ const Header = ({
                                     getFavourites={getFavourites}
                                     setFavouriteSerials={setFavouriteSerials}
                                     favouriteSerials={favouriteSerials}/>}
-                            </li>
+                            </li>}
 
 
                             <li className="site-header-menu-list__item site-header-menu-list__item--parent">

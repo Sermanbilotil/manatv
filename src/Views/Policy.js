@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
+import TermsHeader from "../components/TermsHeader";
 
 
 
@@ -14,32 +15,7 @@ const Policy = () => {
 
 
     return <>
-        <header className="common-header">
-            <div className="container">
-                <ul className="common-header__list">
-                    <li className="common-header__item">
-                        <a href="#" className="common-header__link">
-                            <span className="common-header__name">Copyright</span>
-                        </a>
-                    </li>
-                    <li className="common-header__item">
-                        <a href="#" className="common-header__link active">
-                            <span className="common-header__name">Privacy policy</span>
-                        </a>
-                    </li>
-                    <li className="common-header__item">
-                        <a href="#" className="common-header__link">
-                            <span className="common-header__name">Terms of service</span>
-                        </a>
-                    </li>
-                    <li className="common-header__item">
-                        <a href="#" className="common-header__link">
-                            <span className="common-header__name">Terms of payment</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </header>
+            <TermsHeader />
         <section className="terms">
             <div className="container">
                 <div className="terms__content">

@@ -34,7 +34,7 @@ const Footer = () => {
                     <ul className="site-footer-menu__list">
                         <li className="site-footer-menu__item">
                             <a href="mailto:support@ororo.tv" className="site-footer-menu__link">
-                                support@ororo.tv
+                                support@manamana.tv
                             </a>
                         </li>
                     </ul>

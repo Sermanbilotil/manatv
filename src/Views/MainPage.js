@@ -98,7 +98,7 @@ const MainPage = () => {
                                 {t('main_page.add_words_text3')}
                             </p>
                         </div>
-                        <Link to="./dictionary" className="btn btn--black about__btn">
+                        <Link to="./videos" className="btn btn--black about__btn">
                             {t('main_page.btn_start')}
                         </Link>
                     </div>
