@@ -32,7 +32,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
 
     const tracks = episodes[0].episode_subtitles.map((subtitle) => ({
       // no /api/ because the URL was updated
-      src: subtitle.subtitles_file.replace('/media/', '/api/media/'),
+      src: subtitle.subtitles_file,
       srclang:  subtitle.language === 'Russian' ?   'ru' : subtitle.language,
       label: subtitle.language,
     }))
