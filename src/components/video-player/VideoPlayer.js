@@ -41,7 +41,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
       ...prev,
       sources: [{
         // no /api/ because the URL was updated
-        src:  episodes[0].episode_file.replace('/media/', '/api/media/'),
+        src:  episodes[0].episode_file,
         type: 'video/mp4'
       }],
       tracks
