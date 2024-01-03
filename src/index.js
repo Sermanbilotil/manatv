@@ -22,11 +22,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <GoogleOAuthProvider clientId="338576098456-a7h7s7cj413egjmcdec86i8kj88dprh8.apps.googleusercontent.com">
-  <React.StrictMode>
-
-    <App />
-
-  </React.StrictMode>
+     <App />
     </GoogleOAuthProvider>
 );
 

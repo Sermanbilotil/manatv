@@ -1104,7 +1104,8 @@ footer ul {
   margin: auto;
 }
 .video__sidebar {
-  width: 270px;
+  width: 275px;
+  min-width: 275px;
   display: flex;
   flex-direction: column;
 }

@@ -1,0 +1,42 @@
+@media only screen and (max-device-width: 1024px) {
+  .video-js .vjs-volume-panel:not(.vjs-hidden) {
+    display: block !important;
+    width: 2.5em !important;
+  }
+
+  .vjs-title-wrapper.vjs-menu-button.vjs-menu-button-popup.vjs-control {
+    margin-left: 0;
+    padding: 0 0 0 1em;
+  }
+
+  .video-js .vjs-volume-panel:not(.vjs-hidden) .vjs-volume-control {
+    display: none;
+  }
+}
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+  .video-js .vjs-progress-control{
+    font-size: 1.2em;
+  }
+
+  .video-js .vjs-play-control.vjs-button {
+    width: 2.5em;
+  }
+
+  .video-js .vjs-next-button {
+    padding-left: 0;
+  }
+
+  .video-js .vjs-text-track-display .word-container.active .tooltip {
+    position: fixed;
+    bottom: auto;
+    font-size: 0.50em;
+  }
+
+  .video-js .vjs-next-button .vjs-control-text,
+  .video-js .vjs-playback-rate.vjs-menu-button,
+  .video-js .vjs-resolution-button-wrapper.vjs-menu-button,
+  .video-js .vjs-title-wrapper.has-menu .vjs-control-text {
+    display: none;
+  }
+} 

@@ -101,7 +101,6 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
 
     }
 
-
     return <section className="videos">
         <div className="container">
             <div className="videos__filter filter">

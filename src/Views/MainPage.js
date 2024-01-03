@@ -9,6 +9,7 @@ import Example2x from '../img/example-2x.png'
 import Example from '../img/example.png'
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import { VideoPlayer } from "../components/video-player/VideoPlayer";
 
 
 const MainPage = () => {
@@ -23,6 +24,7 @@ const MainPage = () => {
 
 
     return <>
+
         <section className="hero">
             <div className="hero__content">
                 <h1 className="hero__title">{t('main_page.title')}</h1>

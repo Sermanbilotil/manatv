@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 
 
 
-const Series = ({series}) => {
+const Series = ({episode, series,setSeries,}) => {
 
     const [showDescription, setShowDescription]  = useState(false)
     useEffect(() => {
@@ -19,27 +19,27 @@ const Series = ({series}) => {
 
 
     return <li className="season-list__item season-list-item">
-        <span className="season-list-item__number">1</span>
+        <span className="season-list-item__number">{episode.episode_number}</span>
         <div className="season-list-item__content">
-            <button className="season-list-item__name video-open">
-                {series.title}
-            </button>
+            <div onClick={() => series !== episode.episode_number ?  setSeries(episode.episode_number) : setSeries(0)} className="season-list-item__name video-open">
+                {episode.title}
+            </div>
             <div className={showDescription ? 'season-list-item__description opened' : 'season-list-item__description'}>
                 <p>
-                    {series.description}
+                    {episode.description}
                 </p>
             </div>
             <button
                 className="season-list-item__more"
                 onClick={() => setShowDescription(!showDescription)}
             >
-                show description
+                {showDescription ? 'hide description' : 'show description'}
             </button>
         </div>
         <div className="season-list-item__info">
             <div className="season-list-item__flags">
 
-                {series.episode_subtitles.map(item => {
+                {episode.episode_subtitles.map(item => {
 
                     return    <img src={item.subtitles_file} alt="Country"/>
                 })}

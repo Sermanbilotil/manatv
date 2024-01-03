@@ -1,0 +1,556 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+@import url("components.css");
+@import url("adaptive.css");
+
+.vjs-fade-out {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+
+  -webkit-transition: visibility 1.5s, opacity 1.5s;
+  -moz-transition: visibility 1.5s, opacity 1.5s;
+  -ms-transition: visibility 1.5s, opacity 1.5s;
+  -o-transition: visibility 1.5s, opacity 1.5s;
+  transition: visibility 1.5s, opacity 1.5s;
+
+  /* Wait a moment before fading out the control bar */
+  -webkit-transition-delay: 2s;
+  -moz-transition-delay: 2s;
+  -ms-transition-delay: 2s;
+  -o-transition-delay: 2s;
+  transition-delay: 2s;
+}
+
+#wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#wrapper .video-js{
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+.video-js .vjs-control-bar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #040505 !important;
+  height: 4.2em;
+}
+
+.video-js .vjs-button {
+  display: flex;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  height: 100%;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  border-radius: 0;
+}
+
+.video-js .vjs-button:hover {
+  color: rgba(254, 77, 205, 1);
+}
+
+.video-js .vjs-icon-placeholder:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vjs-fullscreen-control {
+  right: 0;
+}
+
+#video-close-button {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
+  line-height: 1em;
+  border: 5px solid transparent;
+  border-radius: 8px;
+  box-sizing: content-box;
+  z-index: 999;
+  width: 2em;
+  height: 2em;
+  transition: opacity 1s;
+}
+
+#video-close-button::before {
+  content: url('../source/svg/icon-close-player.svg');
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vjs-picture-in-picture-control[title="Picture-in-Picture"],
+.vjs-subs-caps-button.vjs-menu-button{
+  display: none;
+}
+
+.video-js .vjs-help-button:before,
+.video-js .vjs-subtitles-button .vjs-icon-placeholder:before,
+.video-js .vjs-subtitles-button .vjs-control-text,
+.video-js .vjs-next-button,
+.video-js .vjs-playback-rate:before,
+.video-js .vjs-resolution-button-wrapper .vjs-menu-button.vjs-menu-button-popup.vjs-button:before,
+.video-js .vjs-play-control .vjs-icon-placeholder:before,
+.video-js .vjs-mute-control .vjs-icon-placeholder:before,
+.video-js .vjs-fullscreen-control .vjs-icon-placeholder:before {
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+.video-js .vjs-help-button:hover:before,
+.video-js .vjs-subtitles-button:hover .vjs-icon-placeholder:before,
+.video-js .vjs-subtitles-button:hover .vjs-control-text,
+.video-js .vjs-subtitles-button.active .vjs-icon-placeholder:before,
+.video-js .vjs-subtitles-button.active .vjs-control-text,
+.video-js .vjs-next-button>.vjs-control-text:hover,
+.video-js .vjs-next-button:hover,
+.video-js .vjs-playback-rate:hover:before,
+.video-js .vjs-resolution-button-wrapper .vjs-menu-button.vjs-menu-button-popup.vjs-button:hover:before,
+.video-js .vjs-play-control .vjs-icon-placeholder:hover:before,
+.video-js .vjs-mute-control .vjs-icon-placeholder:hover:before,
+.video-js .vjs-fullscreen-control .vjs-icon-placeholder:hover:before {
+  opacity: 1;
+}
+
+
+.video-js .vjs-big-play-button {
+  display: none;
+}
+
+.video-js .vjs-play-control {
+  width: 3.5em;
+  font-size: 18px;
+}
+
+/* Play control */
+.video-js .vjs-play-control .vjs-icon-placeholder:before {
+  content: "";
+  background: url('../source/svg/icon-play-control.svg') no-repeat center;
+  background-size: contain;
+  width: 1em;
+  height: 80%;
+}
+
+.video-js .vjs-play-control.vjs-playing .vjs-icon-placeholder:before {
+  content: "";
+  background: url('../source/svg/icon-pause-control.svg') no-repeat center;
+  background-size: contain;
+  width: 1.8em;
+  height: 80%;
+}
+
+
+/* Volume control */
+.video-js .vjs-volume-control{
+  width: 7em !important;
+  opacity: 1 !important;
+}
+
+.vjs-icon-volume-mid:before,
+.video-js .vjs-mute-control.vjs-vol-2 .vjs-icon-placeholder:before,
+.video-js .vjs-mute-control.vjs-vol-1 .vjs-icon-placeholder:before,
+.video-js .vjs-mute-control .vjs-icon-placeholder:before {
+  content: "";
+  background: url('../source/svg/icon-speaker-control.svg') no-repeat center;
+  background-size: contain;
+  width: 2.4em;
+  height: 80%;
+}
+
+.video-js .vjs-mute-control.vjs-vol-0 .vjs-icon-placeholder:before {
+  content: "";
+  background: url('../source/svg/icon-speaker-off-control.svg') no-repeat center;
+  background-size: contain;
+  width: 2.4em;
+  height: 80%;
+}
+
+.vjs-volume-bar.vjs-slider-horizontal {
+  width: 5.39em;
+  margin: 1.3em 0.45em;
+  height: 0.539em;
+}
+
+.video-js .vjs-volume-bar.vjs-slider {
+  background: #333333;
+}
+
+.video-js .vjs-volume-control .vjs-volume-level{
+  height: 0.539em ;
+  background-color: #666666;
+}
+
+.video-js .vjs-volume-control .vjs-volume-level:before{
+  content: '';
+}
+
+.video-js .vjs-volume-panel-horizontal,
+.video-js .vjs-volume-panel.vjs-volume-panel-horizontal.vjs-hover {
+  width: 3.5em;
+  font-size: 13px;
+}
+
+
+/* Fullscreen control*/
+
+.video-js .vjs-fullscreen-control {
+  width: 4.3em;
+}
+
+.video-js .vjs-fullscreen-control .vjs-icon-placeholder:before,
+.video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before {
+  content: "";
+  background: url('../source/svg/icon-fullscreen.svg') no-repeat center;
+  background-size: contain;
+  width: 1.8em;
+  height: 80%;
+}
+
+/* Current Time */
+
+.video-js .vjs-current-time,
+.video-js .vjs-duration {
+  display: flex;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  top: -1.5em;
+  height: 1.5em;
+  align-items: center;
+}
+
+.video-js .vjs-time-control {
+  font-size: 1em;
+  line-height: 0;
+}
+
+.video-js .vjs-current-time-display, 
+.video-js .vjs-duration-display {
+  font-size: 1.3em;
+}
+
+.video-js .vjs-duration {
+  right: 0;
+}
+.video-js .vjs-remaining-time {
+  display: none;
+}
+
+
+/* Load progress */
+
+.video-js .vjs-progress-control {
+  position: absolute;
+  width: 100% ;
+  display: block ;
+  height: 1.54em;
+  left: 0;
+  top: -1.5em;
+  -webkit-transition: height 0.4s, top 0.4s;
+  transition: height 0.4s, top 0.4s;
+}
+
+.video-js .vjs-progress-control .vjs-progress-holder {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
+  font-size: 1.7em !important;
+  margin: 0;
+  height: 100%;
+  background-color: #333333;
+}
+
+.vjs-load-progress {
+  background: rgba(115, 133, 159, 0.5);
+}
+
+.video-js .vjs-load-progress  {
+  background: #3F4750;
+}
+
+.video-js .vjs-play-progress {
+  background: #7B516F;
+}
+
+.video-js .vjs-load-progress div {
+  background: #474747;
+}
+
+.video-js .vjs-play-progress:before {
+  content: '';
+}
+
+.video-js .vjs-resolution-button-wrapper .vjs-menu-item {
+  position: relative;
+  padding: 1em;
+}
+
+.video-js .vjs-resolution-button-wrapper .vjs-menu-button.vjs-menu-button-popup.vjs-button:before {
+  content: url('../source/svg/icon-options-settings.svg');
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vjs-subtitles-button {
+  order: 6;
+}
+
+.video-js .vjs-help-button {
+  order: 9;
+}
+
+.video-js .vjs-playback-rate{
+  order: 7;
+}
+
+.video-js .vjs-resolution-button-wrapper {
+  order: 8;
+}
+
+
+.vjs-fullscreen-control {
+  order: 10;
+}
+
+.video-js .vjs-help-button::before,
+.video-js .vjs-menu-content .vjs-menu-item.vjs-selected:before,
+.video-js .vjs-playback-rate .vjs-menu-button.vjs-menu-button-popup.vjs-button:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.video-js .vjs-help-button,
+.video-js .vjs-playback-rate,
+.video-js .vjs-resolution-button-wrapper {
+  width: 4.5em;
+}
+
+/* Help button */
+
+.video-js .vjs-help-button::before {
+  content: "";
+  background: url('../source/svg/icon-square.svg') no-repeat center;
+  background-size: contain;
+  width: 3.1em;
+  height: 80%;
+}
+
+#player-help {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 10px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s, z-index 0s 0.3s;
+  background: white;
+  color: #8F9DA2;
+  padding: 2.5em;
+  border-radius: 4px;
+  font-size: 1em;
+  max-width: 800px;
+  min-width: 300px;
+  max-height: calc(100% - 80px);
+  user-select: none;
+  overflow: auto;
+}
+
+#player-help .keyboard.mobile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#player-help .keyboard.mobile .container {
+  display: flex;
+  margin-top: 10px;
+}
+
+#player-help .mobile .container-img {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+#player-help .mobile .container-img img {
+  width: 100%;
+}
+
+#player-help .mobile .container-text__title {
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+#player-help .mobile .container-text__text {
+  font-size: 1.1em;
+}
+
+#player-help.active {
+  opacity: 1;
+  z-index: 1000;
+  transition: opacity 0.3s;
+}
+
+#player-help .container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 1em 0;
+}
+
+#player-help h4 {
+  font-size: 2.24em;
+  padding-bottom: 10px;
+  color: black;
+  font-weight: normal;
+  margin: 0;
+}
+
+#player-help .container-title .close {
+  position: relative;
+  padding: 0;
+  right: -1.5em;
+}
+
+#player-help .container-title .close::before { 
+  display: flex;
+  content: "";
+  background: url('../source/svg/icon-close-player.svg') no-repeat center;
+  background-size: contain;
+  width: 4em;
+  height: 3em;
+  cursor: pointer;
+}
+
+#player-help p {
+  font-size: 1.54em;
+  line-height: 1.4em;
+  margin: 0;
+  float: left;
+  width: 50%;
+  margin-bottom: 10px;
+  padding-right: 20px;
+  cursor: default;
+}
+
+/* Subtitles button */
+.video-js .vjs-subtitles-button  {
+  margin-left: auto;
+}
+
+.video-js .vjs-subtitles-button .vjs-icon-placeholder:before {
+  /* content: url('../source/svg/icon-subtitles.svg'); */
+
+  content: "";
+  background: url('../source/svg/icon-subtitles.svg') no-repeat center;
+  background-size: contain;
+  width: 1.8em;
+  height: 80%;
+}
+
+/* Rate button */
+.video-js .vjs-menu-button-popup .vjs-menu-content {
+  max-height: none;
+  background-color: rgba(17, 17, 17, 0.9);
+  position: relative;
+  bottom: 0;
+  border-radius: 8px 8px 0 0;
+  cursor: default;
+}
+
+.video-js .vjs-menu-button-popup .vjs-menu-content::-webkit-scrollbar {
+  width: 6px;
+  min-height: 15px;
+}
+
+.video-js .vjs-menu-button-popup .vjs-menu-content::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 6px;
+}
+
+.vjs-menu .vjs-menu-content {
+  display: block;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  overflow: auto;
+}
+
+.video-js .vjs-menu-button-popup .vjs-menu {
+  width: auto;
+  height: auto;
+  min-width: 67px;
+  left: 0;
+  bottom: 100%;
+  margin: 0;
+  z-index: 100;
+  cursor: default;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.video-js .vjs-menu-content .vjs-menu-item.vjs-selected .vjs-menu-item-text {
+  color: #FE4DCD;
+  font-weight: 700;
+}
+
+.video-js .vjs-playback-rate .vjs-menu-button.vjs-menu-button-popup.vjs-button:before {
+  content: url('../source/svg/icon-speed-video.svg');
+}
+
+.vjs-menu-button .vjs-playback-rate-value {
+  display: none;
+}
+
+.video-js .vjs-playback-rate .vjs-menu-content .vjs-menu-item {
+  color: #FFFFFF;
+  padding: 1em;
+  position: relative;
+}
+
+.video-js .vjs-menu li.vjs-selected {
+  background-color: transparent;
+}
+
+.video-js .vjs-playback-rate .vjs-menu-content .vjs-menu-item:hover {
+  color: #FE4DCD;
+  background-color: transparent;
+}
+
+.video-js .vjs-menu-button-popup .vjs-menu-item {
+  cursor: pointer;
+  font-size: 1.68em;
+}
+
+.video-js .vjs-play-speed-wrapper .vjs-menu-content .vjs-menu-item:last-child {
+  margin-bottom: 8px;
+}
+
+.vjs-menu.vjs-lock-showing + .vjs-resolution-button,
+.video-js .vjs-subtitles-button.active,
+.video-js .vjs-subtitles-button:hover,
+.video-js .vjs-title-wrapper.active,
+.video-js .vjs-title-wrapper.active .vjs-title-control,
+.vjs-menu.vjs-lock-showing + .vjs-menu-button.vjs-menu-button-popup.vjs-button:before  {
+  color: rgba(254, 77, 205, 1);
+  opacity: 1;
+}

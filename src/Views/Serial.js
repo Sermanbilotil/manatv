@@ -1,28 +1,29 @@
-
 import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
 import {addToFavourites, getSerialData, getSerials} from "../api/serials";
 import {useLocation} from "react-router-dom";
 
-import { Spinner } from "react-activity";
+import {Spinner} from "react-activity";
 import "react-activity/dist/library.css";
 import Series from "../components/series";
 import Cookies from "js-cookie";
 import {useTranslation} from "react-i18next";
+import {VideoPlayer} from "../components/video-player/VideoPlayer";
 
 const Serial = ({}) => {
     const location = useLocation();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
+
 
     const token = Cookies.get('token');
-    const { serialId, favouriteSerials,currentInFavouriteId} = location.state;
+    const {serialId, favouriteSerials, currentInFavouriteId} = location.state;
 
     const [inFavourite, setInFavourite] = useState(false)
     const [inFavouriteId, setInFavouriteId] = useState(null)
 
     const [serialData, setSerialData] = useState([])
     const [activeSeason, setActiveSeason] = useState({})
-
+    const [series, setSeries] = useState(0)
 
     useEffect(() => {
 
@@ -44,12 +45,12 @@ const Serial = ({}) => {
 
 
     useEffect(() => {
-       if(serialData.tv_show_seasons) {
+        if (serialData.tv_show_seasons) {
 
-           setActiveSeason(serialData.tv_show_seasons[0])
-       }
+            setActiveSeason(serialData.tv_show_seasons[0])
+        }
         const objectExists = checkIfFavourite()
-        if(objectExists) {
+        if (objectExists) {
             setInFavourite(true)
         }
 
@@ -58,9 +59,9 @@ const Serial = ({}) => {
 
     const checkIfFavourite = () => {
         const savedSerials = favouriteSerials || []
-            console.log('favouriteSerials',favouriteSerials)
+
         const existing = savedSerials.some(obj => {
-            console.log('id', obj.tv_show.id ,serialData.id)
+
             const isFavourite = obj.tv_show.id === serialData.id
 
             if (isFavourite && !currentInFavouriteId) {
@@ -74,30 +75,37 @@ const Serial = ({}) => {
     }
 
 
+    if (serialData.length === 0) {
+        return <div
+            style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '75vh'}}>
+            <Spinner/>
+        </div>
 
-        if(serialData.length === 0 ) {
-            return  <div style={{display: 'flex',alignItems: 'center', justifyContent: 'center', width: '100%',minHeight: '75vh'}}>
-                        <Spinner />
-                </div>
-
-        }
+    }
 
 
     return <section className="video">
+
         <div className="container container--sm">
             <div className="video__row">
                 <div className="video__sidebar">
                     <img src={serialData.thumbnail} alt="name"/>
                     <div className="video__btns">
-                        <button onClick={() => window.open(serialData.trailer)} className="btn btn--transparent-new video__btn video--trailer">
+                        <button onClick={() => window.open(serialData.trailer)}
+                                className="btn btn--transparent-new video__btn video--trailer">
                             {t('serial.trailer')}
                         </button>
                         <button className="btn btn--transparent-new video__btn video--fav">
                             {t('serial.add_to')}
-                            <div onClick={(e) => addToFavourites(e, serialData, setInFavourite, token, inFavourite,inFavouriteId,setInFavouriteId)} className="videos-list-item__fav">
+                            <div
+                                onClick={(e) => addToFavourites(e, serialData, setInFavourite, token, inFavourite, inFavouriteId, setInFavouriteId)}
+                                className="videos-list-item__fav">
                                 {inFavourite ?
-                                    <svg width="24" height="24" viewBox="0 0 32 32" fill="red" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M29.9998 12.25C30.002 13.2023 29.8153 14.1456 29.4505 15.0253C29.0858 15.9049 28.5502 16.7036 27.8748 17.375L16.7123 28.7025C16.6193 28.797 16.5084 28.872 16.386 28.9232C16.2637 28.9744 16.1324 29.0008 15.9998 29.0008C15.8672 29.0008 15.7359 28.9744 15.6136 28.9232C15.4913 28.872 15.3804 28.797 15.2873 28.7025L4.12482 17.375C2.76393 16.0157 1.99873 14.1716 1.99756 12.2481C1.99639 10.3247 2.75934 8.47961 4.11857 7.11872C5.47781 5.75783 7.32199 4.99263 9.24541 4.99146C11.1688 4.99028 13.0139 5.75324 14.3748 7.11247L15.9998 8.63122L17.6361 7.10747C18.6516 6.09696 19.9438 5.40998 21.3495 5.13326C22.7552 4.85654 24.2113 5.00249 25.5341 5.55269C26.8569 6.10288 27.987 7.03265 28.7818 8.22462C29.5766 9.41659 30.0005 10.8173 29.9998 12.25Z" fill="red"/>
+                                    <svg width="24" height="24" viewBox="0 0 32 32" fill="red"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M29.9998 12.25C30.002 13.2023 29.8153 14.1456 29.4505 15.0253C29.0858 15.9049 28.5502 16.7036 27.8748 17.375L16.7123 28.7025C16.6193 28.797 16.5084 28.872 16.386 28.9232C16.2637 28.9744 16.1324 29.0008 15.9998 29.0008C15.8672 29.0008 15.7359 28.9744 15.6136 28.9232C15.4913 28.872 15.3804 28.797 15.2873 28.7025L4.12482 17.375C2.76393 16.0157 1.99873 14.1716 1.99756 12.2481C1.99639 10.3247 2.75934 8.47961 4.11857 7.11872C5.47781 5.75783 7.32199 4.99263 9.24541 4.99146C11.1688 4.99028 13.0139 5.75324 14.3748 7.11247L15.9998 8.63122L17.6361 7.10747C18.6516 6.09696 19.9438 5.40998 21.3495 5.13326C22.7552 4.85654 24.2113 5.00249 25.5341 5.55269C26.8569 6.10288 27.987 7.03265 28.7818 8.22462C29.5766 9.41659 30.0005 10.8173 29.9998 12.25Z"
+                                            fill="red"/>
                                     </svg>
                                     : <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -156,19 +164,47 @@ const Serial = ({}) => {
                                     className={activeSeason.season_number === season.season_number ? 'video-table__tab active' : 'video-table__tab'}
                                     onClick={() => setActiveSeason(season)}
                                 >
-                                    {season.season_number}  {t('serial.season')}
+                                    {season.season_number} {t('serial.season')}
                                 </button>
                             })}
                         </div>
+
+
                         <div className="video-table__seasons">
                             <div id="season-1" className="season activetab">
                                 <ul className="season-list">
-                                    {activeSeason.season_series && activeSeason.season_series.map(series => {
-                                        return <Series series={series} />
+                                    {activeSeason.season_series && activeSeason.season_series.map(episode => {
+
+                                        return <>
+                                            <Series episode={episode} series={series} setSeries={setSeries}/>
+                                            {series === episode.episode_number &&
+                                                <VideoPlayer
+                                                    serialData={serialData}
+                                                    setActiveSeason={setActiveSeason}
+                                                    activeSeason={activeSeason}
+                                                    episodes={activeSeason.season_series}
+                                                    series={series}
+                                                    setSeries={setSeries}
+                                                    id={5}
+                                                />
+
+                                            }
+                                        </>
                                     })}
                                 </ul>
                             </div>
                         </div>
+
+
+                        {/*{series !== 0 &&  <div>*/}
+                        {/*        <VideoPlayer episodes={activeSeason.season_series}*/}
+                        {/*                     series={series}*/}
+                        {/*                     setSeries={setSeries}*/}
+                        {/*                     id={5}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*}*/}
+
 
                     </div>
                     <div className="video__future video-future">
@@ -187,4 +223,4 @@ const Serial = ({}) => {
 
 }
 
-export default Serial
+    export default Serial
