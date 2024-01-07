@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import Modal from 'react-modal';
 import SubHeader from "../../components/SubHeader";
 import {useTranslation} from "react-i18next";
+import {ChangePassword, handleUploadImage, UpdateUserData} from "../../api/profile";
 
 
 const Profile = ({userData, setUserData}) => {
@@ -58,157 +59,9 @@ const Profile = ({userData, setUserData}) => {
     }, [userData]);
 
 
-    const ChangePassword = (e) => {
-        e.preventDefault()
-
-        if (newPassword === confirmNewPassword) {
-            axios.post(api_url + 'users/change_password/', {
-                old_password: password,
-                new_password: newPassword,
-            }, {
-                withCredentials: true,
-                headers: {
-                    'Accept': 'application/json',
-                    "Authorization": token,
-                }
-            })
-                .then(function (response) {
-                    console.log('change pass res', response)
-                    if (response.data.detail) {
-                        setPasswordError(response.data.detail)
-                        setPassword('')
-                        setNewPassword('')
-                        setConfirmNewPassword('')
-                    }
-                })
-                .catch(function (error) {
-                    console.log('err', error.response.data);
-                    if (error.response.data.detail) {
-                        setPasswordError(error.response.data.detail)
-                    }
-                    if (error.response.data.new_password) {
-
-                        setNewPasswordError(error.response.data.new_password[0])
-                    }
-                    if (error.response.data.old_password) {
-                        setPasswordError(error.response.data.old_password[0])
-                    }
-
-                });
-        } else {
-
-            setNewPasswordError('Passwords do not match.')
-
-
-        }
-    }
-
-    const ChangeEmail = (e) => {
-        e.preventDefault()
-
-        if (ValidateEmail(email)) {
-            axios.post(api_url + `users/change_email/`, {
-                new_email: email,
-            }, {
-                withCredentials: true,
-                headers: {
-                    'Accept': 'application/json',
-                    "Authorization": "Token " + token,
-                }
-            })
-                .then(function (response) {
-                    console.log('change email res', response)
-                    if (response.data.detail) {
-                        setEmailError(response.data.detail)
-                    }
-                })
-                .catch(function (error) {
-                    console.log('err change email', error.response.data);
-                    if (error.response.data.detail) {
-                        setEmailError(error.response.data.detail)
-                    }
-                });
-        } else {
-            setEmailError('Email not valid')
-        }
-    }
-
-    const handleUploadImage = (e, remove) => {
-        e.preventDefault()
-        if(remove) {
-            inputFile.current.value = ''
-        }
-        const userId = userData.id
-
-        const formData = new FormData();
-        formData.append('photo', remove ? '' :  uploadedImage);
-        console.log('for', previewImage)
-        axios.patch(api_url + `users/${userId}/`, formData, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json',
-                "Authorization":  token,
-            }
-        })
-            .then(function (response) {
-                console.log('handleUploadImage res', response)
-                localStorage.setItem('userData', JSON.stringify(response.data))
-
-                setUserData(response.data)
-
-                if (response.data.detail) {
-                    setEmailError(response.data.detail)
-                }
-            })
-            .catch(function (error) {
-                console.log('err', error.response.data);
-                if (error.response.data.detail) {
-                    setEmailError(error.response.data.detail)
-                }
-            });
-    }
-
-    const UpdateUserData = (e) => {
-        e.preventDefault()
-
-        if (true) {
-            axios.put(api_url + `users/${userData.id}/`, {
-                name: userName,
-                language_level: langLevel,
-                interface_language: userLang,
-                subtitle_translation_language: subtitleLang,
-            }, {
-                withCredentials: true,
-                headers: {
-                    'Accept': 'application/json',
-                    "Authorization": token,
-                }
-            })
-                .then(function (response) {
-                    console.log('UpdateUserData', response.data)
-                    if (response.status === 200) {
-                        setUserData(response.data)
-                        setDataSavedText('User data has been successfully updated')
-                    }
-                    if (response.data.detail) {
-                        setEmailError(response.data.detail)
-                    }
-                })
-                .catch(function (error) {
-                    console.log('err', error.response.data);
-                    if (error.response.data.detail) {
-                        setEmailError(error.response.data.detail)
-                    }
-                });
-        } else {
-            setEmailError('Email not valid')
-        }
-    }
 
     const inputFile = useRef(null)
     const getImage = (e) => {
-        console.log('tttttt')
 
         const file = e.target.files[0];
         setUploadedImage(file)
@@ -296,7 +149,7 @@ const Profile = ({userData, setUserData}) => {
                             {passwordError.length > 0 &&
                                 <p className={passwordError == t('setting.change_pass_success') ? 'green_text' : 'red_text'}>{passwordError}</p>}
                         </label>
-                        <button onClick={(e) => ChangePassword(e)}
+                        <button onClick={(e) => ChangePassword(e,password, newPassword, confirmNewPassword, setPasswordError, setPassword, setNewPassword, setConfirmNewPassword, setNewPasswordError)}
                                 className="btn btn--transparent settings-block__btn settings-block__btn--big">
                             {t('setting.btn_save')}
                         </button>
@@ -327,16 +180,16 @@ const Profile = ({userData, setUserData}) => {
                                     }
                                 </div>
 
-                                <button onClick={(e) => handleUploadImage(e)}
+                                <button onClick={(e) => handleUploadImage(e, false,inputFile,userData,uploadedImage,previewImage,setUserData,setEmailError)}
                                         className="settings-thumbnail__btn"> {t('setting.btn_upload')}
                                 </button>
                                 <button onClick={(e) => {
                                     setPreviewImage(null)
                                     setUploadedImage('')
-                                    handleUploadImage(e, true)
+                                    handleUploadImage(e, true,inputFile,userData,uploadedImage,previewImage,setUserData,setEmailError)
                                 }} className="settings-thumbnail__remove"> {t('setting.btn_remove')}
                                 </button>
-                                <input type="file" onChange={(e) => getImage(e)} ref={inputFile} id="myInput"
+                                <input type="file" onChange={(e) => getImage(e,)} ref={inputFile} id="myInput"
                                        style={{display: 'none'}}/>
                             </div>
                         </div>
@@ -357,9 +210,9 @@ const Profile = ({userData, setUserData}) => {
                                 </ul>
                             </div>
                         </label>
-                        <button onClick={(e) => UpdateUserData(e)}
+                        <button onClick={(e) => UpdateUserData(e,userData,userName,langLevel,userLang,subtitleLang,setUserData,setDataSavedText,setEmailError)}
                                 className="btn btn--transparent settings-block__btn settings-block__btn--big">
-                    {t('setting.btn_save')}
+                                      {t('setting.btn_save')}
                         </button>
                     </div>
                     {dataSavedText && dataSavedText.length > 0 && <p className={'green_text'}>{dataSavedText}</p>}

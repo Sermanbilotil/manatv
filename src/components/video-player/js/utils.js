@@ -1,4 +1,3 @@
-
 const languages = [
   {'3': 'Es'},
   {'4': 'It'},
@@ -35,7 +34,7 @@ async function getTranslateWorld({word, targetLanguage, apiKey}) {
   const response = await fetch(url);
   const data = await response.json();
   const translatedText = data.data.translations[0].translatedText;;
-  
+
   return translatedText;
 }
 
@@ -61,11 +60,11 @@ async function getTranslateWorlds({ word, targetLanguage = 'ru', apiKey }) {
   } catch (error) {
     console.error('Error translate:', error.message);
   }
-  
-  return { textVersion, wordTranslate };
-};
 
-module.exports = {
+  return { textVersion, wordTranslate };
+}
+
+export {
   getTranslateWorlds,
   languages
 }

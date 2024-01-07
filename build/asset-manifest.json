@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4b55e979.css",
+    "main.js": "/static/js/main.9d737d58.js",
+    "static/js/787.ffbaf7f2.chunk.js": "/static/js/787.ffbaf7f2.chunk.js",
+    "static/media/preview-2x.png": "/static/media/preview-2x.477b5658b984d32f230a.png",
+    "static/media/hero-bg.png": "/static/media/hero-bg.dd49041d876bdae078d5.png",
+    "static/media/more-info.png": "/static/media/more-info.09e9fec16d8c7913ab26.png",
+    "static/media/preview.png": "/static/media/preview.74351400daed0e719297.png",
+    "static/media/example-2x.png": "/static/media/example-2x.57cd5ca45164227a7a9e.png",
+    "static/media/example.png": "/static/media/example.cad20de0dadffad43799.png",
+    "static/media/icon-fullscreen.svg": "/static/media/icon-fullscreen.a2ac9a135dc6958bdf55.svg",
+    "static/media/icon-options-settings.svg": "/static/media/icon-options-settings.b5f9460bea1d5ed1b503.svg",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/icon-speaker-off-control.svg": "/static/media/icon-speaker-off-control.fabeefcbbbb926ee10a1.svg",
+    "static/media/invert-logo.svg": "/static/media/invert-logo.2617d80898a8f5901265fbe8645e984c.svg",
+    "static/media/icon-subtitles.svg": "/static/media/icon-subtitles.309a88678ee2a264efcd.svg",
+    "static/media/mana-logo.svg": "/static/media/mana-logo.bd98b9a9ffac723d01f70641e19423ac.svg",
+    "static/media/icon-close-player.svg": "/static/media/icon-close-player.5cb2414392613fcd676b.svg",
+    "static/media/icon-like.svg": "/static/media/icon-like.d7f6b1e36db9351e1d50e45bc06bc6f5.svg",
+    "static/media/icon-playlist-player.svg": "/static/media/icon-playlist-player.ba759409ccf1273ae35860dad54eefd2.svg",
+    "static/media/icon-speech-sound.svg": "/static/media/icon-speech-sound.73863398fd088ee4714d3e9bc9b12736.svg",
+    "static/media/icon-square.svg": "/static/media/icon-square.d57529afaaaffe1e77c7.svg",
+    "static/media/icon-speaker-control.svg": "/static/media/icon-speaker-control.11a02a725b6ea498f906.svg",
+    "static/media/icon-speed-video.svg": "/static/media/icon-speed-video.e65d653a8fca8d65c5f4.svg",
+    "static/media/icon-next-play.svg": "/static/media/icon-next-play.f23e9438d280d0586f956a5dc9dc4feb.svg",
+    "index.html": "/index.html",
+    "static/media/icon-pause-control.svg": "/static/media/icon-pause-control.5c7e140483eb40d083e7.svg",
+    "static/media/icon-play-control.svg": "/static/media/icon-play-control.e38baa7432dfa68dc089.svg",
+    "static/media/getFetch.cjs": "/static/media/getFetch.40f37ddea2378391108f.cjs",
+    "static/media/icon-checked.svg": "/static/media/icon-checked.a5a2fb76847a19700033e353b82f2d10.svg",
+    "main.4b55e979.css.map": "/static/css/main.4b55e979.css.map",
+    "main.9d737d58.js.map": "/static/js/main.9d737d58.js.map",
+    "787.ffbaf7f2.chunk.js.map": "/static/js/787.ffbaf7f2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b55e979.css",
+    "static/js/main.9d737d58.js"
+  ]
+}

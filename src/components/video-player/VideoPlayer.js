@@ -12,6 +12,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
   const playerRef = React.useRef(null);
   const [season, setSeason] = useState(null)
 
+
   const [videoJsOptions, setVideoJsOptions] = useState({
     autoplay: false,
     controls: true,
@@ -29,7 +30,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
   })
 
   useEffect(() => {
-
+    console.log('season id', activeSeason, activeSeason.season_series[series - 1].id)
     const tracks = episodes[0].episode_subtitles.map((subtitle) => ({
       // no /api/ because the URL was updated
       src: subtitle.subtitles_file,
@@ -41,15 +42,13 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
       ...prev,
       sources: [{
         // no /api/ because the URL was updated
-        src:  episodes[0].episode_file,
+        src:  api_url + `tv-shows/${activeSeason.season_series[series - 1].id}/get_streaming_video`,
         type: 'video/mp4'
       }],
       tracks
     }))
 
     const processedSeriesData = processSeasons(serialData.tv_show_seasons);
-
-
     const { seasonPrev, seasonNext } = setSeasonData(serialData.tv_show_seasons, activeSeason);
 
     setSeason({
@@ -59,13 +58,10 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
       seasonPrev,
       seasonNext
     });
+
   }, [episodes])
 
-
-
-  useEffect(() => {
-
-  }, [season])
+  console.log('sd', serialData)
 
   function processSeasons(seasons) {
     const seriesData = [];
@@ -76,7 +72,9 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
 
         seriesData.push({
           name: episode.title,
-          href: episode.episode_file
+          onClick: () => {
+            console.log('episode.episode_file', episode.episode_file);
+          }
         });
       });
     });
@@ -88,16 +86,14 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
     const seasonPrev = {};
     const seasonNext = {};
 
-    // Находим предыдущий и следующий сезоны относительно текущего номера сезона
     const prevSeason = seasons.find(season => season.season_number === currentSeasonNumber - 1);
     const nextSeason = seasons.find(season => season.season_number === currentSeasonNumber + 1);
 
-    // Заполняем данные для смены сезонов
+
     if (prevSeason) {
       seasonPrev.title = `Season ${prevSeason.season_number}`;
       seasonPrev.onClick = () => {
-        // Обработка клика на предыдущий сезон
-        // Можно добавить здесь логику для отображения предыдущего сезона
+
         console.log(`Clicked on ${seasonPrev.title}`);
       };
     }
@@ -105,8 +101,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
     if (nextSeason) {
       seasonNext.title = `Season ${nextSeason.season_number}`;
       seasonNext.onClick = () => {
-        // Обработка клика на следующий сезон
-        // Можно добавить здесь логику для отображения следующего сезона
+
         console.log(`Clicked on ${seasonNext.title}`);
       };
     }

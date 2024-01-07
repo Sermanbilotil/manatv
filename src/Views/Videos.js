@@ -74,7 +74,6 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
 
 
     useEffect(() => {
-        console.log('serials', serials)
         addFilters()
         setFilteredSerials(serials)
 
@@ -131,7 +130,7 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                                 className="arrow-icon"></i></div>
                             <ul className={showGenresFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setGenresFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
-                                {genres.map(item => <li onClick={() => setGenresFilter(item.title)}>{item.title}</li>)}
+                                {genres.map((item, i) => <li  key={i} onClick={() => setGenresFilter(item.title)}>{item.title}</li>)}
                             </ul>
                         </div>
                     </label>
@@ -143,7 +142,7 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                                 className="arrow-icon"></i></div>
                             <ul className={showCountryFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setCountryFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
-                                {countries.map(item => <li
+                                {countries.map((item, i) => <li  key={i}
                                     onClick={() => setCountryFilter(item.name)}>{item.name}</li>)}
                             </ul>
                         </div>
@@ -156,7 +155,7 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                                 className="arrow-icon"></i></div>
                             <ul className={showChannelFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setChannelFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
-                                {channels.map(item => <li onClick={() => setChannelFilter(item)}>{item}</li>)}
+                                {channels.map((item, i) => <li  key={i} onClick={() => setChannelFilter(item)}>{item}</li>)}
                             </ul>
                         </div>
                     </label>
@@ -168,7 +167,7 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                                 className="arrow-icon"></i></div>
                             <ul className={showYearFilter ? 'options-list opened' : 'options-list'}>
                                 <li onClick={() => setYearFilter(t('video.choose_option'))}>{t('video.choose_option')}</li>
-                                {years.map(item => <li onClick={() => setYearFilter(item)}>{item}</li>)}
+                                {years.map((item, i) => <li  key={i} onClick={() => setYearFilter(item)}>{item}</li>)}
 
                             </ul>
                         </div>
@@ -176,9 +175,10 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                 </div>
             </div>
             <ul className="videos__list videos-list">
-                {filteredSerials && filteredSerials.map(item => {
-                    return <SerialCard getSerials={getSerials} setSerials={setSerials} serial={item}
+                {filteredSerials && filteredSerials.map((item, i) => {
+                    return <SerialCard  getSerials={getSerials} setSerials={setSerials} serial={item}
                                        favouriteSerials={favouriteSerials}/>
+
                 })}
             </ul>
         </div>

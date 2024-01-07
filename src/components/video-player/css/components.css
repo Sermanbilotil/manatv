@@ -124,7 +124,7 @@
   position: relative;
 }
 
-.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content a {
+.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content span {
   display: block;
   font-size: 1.68em;
   color: inherit;
@@ -217,7 +217,7 @@
   position: relative;
 }
 
-.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content a {
+.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content span {
   display: block;
   font-size: 1.68em;
   color: rgba(255, 255, 255, 1);
@@ -232,12 +232,12 @@
 }
 
 
-.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content a.current {
+.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content span.current {
   color: rgba(254, 77, 205, 1);
   font-weight: 700;
 }
 
-.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content a:hover {
+.video-js .vjs-title-wrapper.has-menu .vjs-menu .vjs-menu-content span:hover {
   background-color: #4e4f4f;
 }
 

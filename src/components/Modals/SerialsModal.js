@@ -3,11 +3,11 @@ import {Link, useLocation} from "react-router-dom";
 
 import logo from "../../img/mana-logo.svg";
 import {api_url} from "../../utils/utils";
-import {getFavourites} from "../../api/serials";
+import {getFavourites, getWatched} from "../../api/serials";
 import Cookies from "js-cookie";
 import {useTranslation} from "react-i18next";
 
-const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => {
+const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,setWatchedSerials,watchedSerials}) => {
     const { pathname } = useLocation();
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState(1)
@@ -17,6 +17,7 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => 
     useEffect(() => {
         const token = Cookies.get('token');
         getFavourites(token,setFavouriteSerials)
+        getWatched(token, setWatchedSerials)
         // const savedSerials = JSON.parse(localStorage.getItem('favouriteSerials')) || []
         // setFavouriteSerials(savedSerials)
     }, []);
@@ -54,7 +55,7 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,}) => 
                     return <li className="site-search__item site-search-item">
                         <Link to={`/videos/${item.title}`} state={{serialId: item.tv_show.id}} style={{textDecoration: 'none'}} >
                         <div  className="site-search-item__link">
-                            <img className="site-search-item__img" src={api_url.replace(/.$/,".") + item.tv_show.thumbnail}
+                            <img className="site-search-item__img" src={item.tv_show.thumbnail}
                                  alt="New iron man series"/>
                             <div className={'site-search-item-left'}>
                                 <span className="site-search-item__name">{item.tv_show.title}</span>

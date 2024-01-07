@@ -35,22 +35,18 @@ function App() {
 
     const [userData, setUserData] = useState({})
 
-    const [currentLang, setCurrentLang] = useState('en')
+    const [currentLang, setCurrentLang] = useState('ru')
 
     const [favouriteSerials, setFavouriteSerials] = useState([])
+    const [watchedSerials, setWatchedSerials] = useState([])
 
     useEffect(() => {
         const token = Cookies.get('token');
 
         if(localStorage.getItem('userLogged') === 'true' && token ) {
-            setShowLoginModal(false)
-            console.log(' loc localStorage.getItem(\'authType\')', localStorage.getItem('authType'))
-
-
+                  setShowLoginModal(false)
                   getUserData(token)
-
-                     getFavourites(token,setFavouriteSerials)
-
+                  getFavourites(token,setFavouriteSerials)
         }
 
     }, [])
@@ -99,9 +95,12 @@ function App() {
                 setShowLoginModal={setShowLoginModal}
                 getUserData={getUserData}
                 userData={userData}
+                setUserData={setUserData}
                 userLogged={userLogged}
                 favouriteSerials={favouriteSerials}
                 setFavouriteSerials={setFavouriteSerials}
+                watchedSerials={watchedSerials}
+                setWatchedSerials={setWatchedSerials}
                 getFavourites={getFavourites}
                 currentLang={currentLang}
                 setCurrentLang={setCurrentLang}

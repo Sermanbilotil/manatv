@@ -25,12 +25,15 @@ const Header = ({
                     userLogged,
                     getUserData,
                     userData,
+                    setUserData,
                     showLoginModal,
                     setShowLoginModal,
                     getFavourites,
                     setFavouriteSerials,
                     currentLang,
-                    setCurrentLang
+                    setCurrentLang,
+                    setWatchedSerials,
+                    watchedSerials
                 }) => {
     const { t } = useTranslation();
     const token = Cookies.get('token');
@@ -162,9 +165,38 @@ const Header = ({
         setShowLoginModal(true)
     }
 
+    const UpdateUserLang = (lng) => {
+
+
+        if (true) {
+            axios.put(api_url + `users/${userData.id}/`, {
+                name: userData.name,
+                interface_language: lng,
+            }, {
+                withCredentials: true,
+                headers: {
+                    'Accept': 'application/json',
+                    "Authorization": token,
+                }
+            })
+                .then(function (response) {
+                    console.log('UpdateUserLang', response.data)
+                    if (response.status === 200) {
+                        setUserData(response.data)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error)
+                });
+        } else {
+
+        }
+    }
+
     const changeLanguage = (lng) => {
         setCurrentLang(lng)
         i18n.changeLanguage(lng);
+        UpdateUserLang(lng)
     };
 
 
@@ -180,6 +212,7 @@ const Header = ({
                                   validPassword={validPassword}
                                   getUserData={getUserData}
         />}
+
         {showSignModal && <SignUp setShowSignModal={setShowSignModal}
                                   setShowLoginModal={setShowLoginModal}
                                   userName={userName}
@@ -231,7 +264,7 @@ const Header = ({
                             {/*</li>*/}
 
                             <li className="site-header-menu-list__item">
-                                <div onClick={() => {
+                                {userLogged &&  <div onClick={() => {
                                     setShowNotifications(!showNotifications)
                                     setShowFavourites(false)
                                 }}>
@@ -248,7 +281,7 @@ const Header = ({
                                                 fill="#111111"/>
                                         </svg>
                                     }
-                                </div>
+                                </div>}
 
                                 {showNotifications && <NotificationsModal/>}
                             </li>
@@ -275,6 +308,8 @@ const Header = ({
                                 {showFavourites && <SerialsModal
                                     getFavourites={getFavourites}
                                     setFavouriteSerials={setFavouriteSerials}
+                                    setWatchedSerials={setWatchedSerials}
+                                    watchedSerials={watchedSerials}
                                     favouriteSerials={favouriteSerials}/>}
                             </li>}
 

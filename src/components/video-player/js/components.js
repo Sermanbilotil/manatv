@@ -282,10 +282,13 @@ const seasonComponent = ({videoPlayer, videojs, seriesData, titleSeason, titleSe
   const changeSeasonPane = document.createElement('div');
   changeSeasonPane.className ='season-pane js-resize-height js-scrollbar ps-container ps-theme-default'
 
-  seriesData?.forEach(({name, href}) => {
-    const series = document.createElement('a');
-    series.setAttribute('href', href)
+  seriesData?.forEach(({name, onClick}) => {
+    const series = document.createElement('span');
     series.innerHTML = name
+    series.addEventListener('click', () => {
+      onClick()
+    })
+
     changeSeasonPane.appendChild(series)
   })
   menuContent.appendChild(changeSeasonPane)

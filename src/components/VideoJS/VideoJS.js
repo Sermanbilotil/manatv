@@ -8,7 +8,7 @@ export const VideoJS = (props) => {
   const playerRef = React.useRef(null);
   const customVideoPlayerRef = React.useRef(null);
   const {options, season, onReady} = props;
-  
+
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -25,7 +25,7 @@ export const VideoJS = (props) => {
       customVideoPlayerRef.current = customVideoPlayer;
 
       customVideoPlayer.initialize();
- 
+
     } else {
       const player = playerRef.current;
       player.autoplay(options.autoplay);
@@ -33,11 +33,11 @@ export const VideoJS = (props) => {
     }
   }, [options, onReady]);
 
-  
+
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
     const player = playerRef.current;
-    
+
     return () => {
       if (player && !player.isDisposed()) {
         player.dispose();
@@ -54,16 +54,14 @@ export const VideoJS = (props) => {
   }, [options.tracks]);
 
   React.useEffect(() => {
-
     if (season) {
       customVideoPlayerRef.current.seasonInitialize(season);
     }
   }, [season]);
-  
+
   return (
     <div id="wrapper">
       <a id="video-close-button" href=""></a>
-
       <div data-vjs-player>
         <div ref={videoRef} />
       </div>

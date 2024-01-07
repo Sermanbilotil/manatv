@@ -8,32 +8,19 @@ export const getSerials = (setSerials, Token, sortFilter, genresFilter, countryF
     console.log('token', sortFilter)
 
     let url = `tv-shows/?`
-    if (sortFilter !== 'Выберите опцию' && sortFilter !== 'Choose Option') {
-        url = url + `ordering=${sortFilter}`
-    }
-    if (yearFilter !== 'Выберите опцию'&& sortFilter !== 'Choose Option') {
-        url = url + `&year=${yearFilter}`
-    }
-    if (countryFilter !== 'Выберите опцию' && sortFilter !== 'Choose Option') {
-        url = url + `&countries=${countryFilter}`
-    }
 
-    if (channelFilter !== 'Выберите опцию'&& sortFilter !== 'Choose Option') {
-        url = url + `&networks=${channelFilter}`
-    }
+    const addFilterToUrl = (filterName, filterValue) => {
+        if (filterValue && (filterValue !== 'Choose Option' && filterValue !== 'Выберите опцию')) {
+            url += `&${filterName}=${filterValue}`;
+        }
+    };
 
-    if (genresFilter !== 'Выберите опцию'&& sortFilter !== 'Choose Option' ) {
-        url = url + `&genres=${genresFilter}`
-    }
-    if (titleFilter !== '') {
-        url = url + `&title=${titleFilter}`
-    } else if (titleFilter == undefined) {
-        url = url
-    }
-
-
-    console.log('url', titleFilter)
-
+    addFilterToUrl('ordering', sortFilter);
+    addFilterToUrl('year', yearFilter);
+    addFilterToUrl('countries', countryFilter);
+    addFilterToUrl('networks', channelFilter);
+    addFilterToUrl('genres', genresFilter);
+    addFilterToUrl('title', titleFilter);
 
     axios.get(api_url + url, {
         withCredentials: true,
@@ -63,7 +50,6 @@ export const getCountriesFilter = (setCountries, Token) => {
         }
     })
         .then(function (response) {
-            console.log('res getCountriesFilter/', response)
             const countries =
                 setCountries(response.data)
         })
@@ -82,7 +68,6 @@ export const getGenresFilter = (setGenres, Token) => {
         }
     })
         .then(function (response) {
-            console.log('res getGenresFilter ', response)
             setGenres(response.data)
         })
         .catch(function (error) {
@@ -103,7 +88,6 @@ export const getSerialData = (id, setSerialData, Token) => {
         }
     })
         .then(function (response) {
-            console.log('res SerialData', response)
             setSerialData(response.data)
         })
         .catch(function (error) {
@@ -114,11 +98,11 @@ export const getSerialData = (id, setSerialData, Token) => {
 }
 
 
-export const addToFavourites = (e, serial, setInFavourite, Token, inFavourite,inFavouriteId,setInFavouriteId) => {
+export const addToFavourites = (e, serial, setInFavourite, Token, inFavourite, inFavouriteId, setInFavouriteId) => {
     e.preventDefault()
 
-    if(inFavourite) {
-        deleteFavourites(e,inFavouriteId, setInFavourite, Token)
+    if (inFavourite) {
+        deleteFavourites(e, inFavouriteId, setInFavourite, Token)
         return
     }
 
@@ -132,15 +116,14 @@ export const addToFavourites = (e, serial, setInFavourite, Token, inFavourite,in
         }
     })
         .then(function (response) {
-            console.log('res addToFavourites', response)
             setInFavouriteId(response.data.id)
             setInFavourite(true)
 
         })
         .catch(function (error) {
             console.log('err', error);
-            if(error.status === 400 ) {
-                deleteFavourites(e,serial.id, setInFavourite, Token)
+            if (error.status === 400) {
+                deleteFavourites(e, serial.id, setInFavourite, Token)
             }
         });
 }
@@ -154,7 +137,6 @@ export const getFavourites = (Token, setFavouriteSerials) => {
         }
     })
         .then(function (response) {
-            console.log('res favouriteSerials', response)
             setFavouriteSerials(response.data)
         })
         .catch(function (error) {
@@ -163,7 +145,26 @@ export const getFavourites = (Token, setFavouriteSerials) => {
         });
 }
 
-export const deleteFavourites = (e, id,setInFavourite, Token, ) => {
+export const getWatched = (Token, setWatchedSerials) => {
+    axios.get(api_url + `user-watching/`, {
+        withCredentials: true,
+        headers: {
+            'Accept': 'application/json',
+            "Authorization": Token ? Token : token,
+        }
+    })
+        .then(function (response) {
+            setWatchedSerials(response.data)
+        })
+        .catch(function (error) {
+            console.log('err', error);
+
+        });
+}
+
+
+
+export const deleteFavourites = (e, id, setInFavourite, Token,) => {
     console.log('token', token)
     axios.delete(api_url + `user-favourites/${id}`, {
         withCredentials: true,

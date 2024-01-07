@@ -40,11 +40,13 @@ const SerialCard = ({serial, favouriteSerials, getSerials, setSerials}) => {
     }
 
     return <li
+        key={serial.id}
         className="videos-list__item videos-list-item"
         style={{backgroundImage: `url(${serial.thumbnail})`}}
 
     >
         <Link to={`/videos/${serial.title}`}
+
               state={{
                   serialId: serial.id,
                   favouriteSerials: favouriteSerials,

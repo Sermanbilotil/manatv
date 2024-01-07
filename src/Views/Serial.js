@@ -32,23 +32,19 @@ const Serial = ({}) => {
     }, []);
 
     useEffect(() => {
-
         getSerialData(serialId, setSerialData, token)
-
     }, [serialId]);
 
     useEffect(() => {
-
         setInFavouriteId(currentInFavouriteId)
-
     }, [currentInFavouriteId]);
 
 
     useEffect(() => {
         if (serialData.tv_show_seasons) {
-
             setActiveSeason(serialData.tv_show_seasons[0])
         }
+
         const objectExists = checkIfFavourite()
         if (objectExists) {
             setInFavourite(true)

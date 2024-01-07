@@ -7,7 +7,7 @@ export const SearchSerial = ({serials}) => {
     return <ul className="site-search__list">
 
             {serials.map(item => {
-                console.log('serials',item)
+
                 return  <li className="site-search__item site-search-item">
                     <Link to={`/videos/${item.title}`}
                           state={{
