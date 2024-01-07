@@ -59,8 +59,8 @@ const Login = ({
 
             axios.post(api_url + `auth/convert-token/`, {
                 token: token,
-                client_id: 'Kw8NKBbL1nR3ZInibgsEnGesq060vw6tB3hXhVou',
-                client_secret: 'sT0nGKRI41pYZ8nQh8r5O0W6TC3jJvCSYmFg8CPCqCgpaTgcK8YkrrkZgbq7ZsUhYiX03Ioyu7hHh32TNlHMVEBNgWvtzQXU6IJulBDqOUOHsDVTrXZEJ8g39BioJyeC',
+                client_id: 'yNGo1pJjznWyOMQB0Dvii7onaSOUDmre8kmvC61U',
+                client_secret: '35C1IfqPKTlS2iyWhXaldS3CzCvMA1TKWwpei09o1DsLsBDG3JOzxnQwG63GTtFAkpqvFgcSodT5Htl7ZSo5vO6sy5NQY7s2Teo4HUyMxYtepTGb7WtgF8DUMXQhKcvI',
                 backend: 'google-oauth2',
                 grant_type: 'convert_token'
             }, {

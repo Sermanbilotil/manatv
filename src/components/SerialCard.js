@@ -6,7 +6,8 @@ import {add} from "react-modal/lib/helpers/classList";
 import {useTranslation} from "react-i18next";
 
 
-const SerialCard = ({serial, favouriteSerials, getSerials, setSerials}) => {
+const SerialCard = ({serial, favouriteSerials, getSerials, setSerials, setWatchedSerials}) => {
+
     const token = Cookies.get('token');
     const { t } = useTranslation();
     const [inFavourite, setInFavourite] = useState(false)
@@ -51,6 +52,7 @@ const SerialCard = ({serial, favouriteSerials, getSerials, setSerials}) => {
                   serialId: serial.id,
                   favouriteSerials: favouriteSerials,
                   currentInFavouriteId: inFavouriteId,
+
               }}
               className="videos-list-item__link">
             <p className="videos-list-item__name">{serial.title}</p>

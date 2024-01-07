@@ -14,7 +14,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
 
 
   const [videoJsOptions, setVideoJsOptions] = useState({
-    autoplay: false,
+    autoplay: true,
     controls: true,
     responsive: true,
     fluid: true,
@@ -30,9 +30,10 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
   })
 
   useEffect(() => {
-    console.log('season id', activeSeason, activeSeason.season_series[series - 1].id)
-    const tracks = episodes[0].episode_subtitles.map((subtitle) => ({
+
+    const tracks = activeSeason.season_series[series - 1].episode_subtitles.map((subtitle) => ({
       // no /api/ because the URL was updated
+      
       src: subtitle.subtitles_file,
       srclang:  subtitle.language === 'Russian' ?   'ru' : subtitle.language,
       label: subtitle.language,
@@ -73,7 +74,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
         seriesData.push({
           name: episode.title,
           onClick: () => {
-            console.log('episode.episode_file', episode.episode_file);
+            setSeries(episode.episode_number)
           }
         });
       });
@@ -94,7 +95,7 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
       seasonPrev.title = `Season ${prevSeason.season_number}`;
       seasonPrev.onClick = () => {
 
-        console.log(`Clicked on ${seasonPrev.title}`);
+
       };
     }
 

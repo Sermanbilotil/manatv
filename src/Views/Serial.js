@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
-import {addToFavourites, getSerialData, getSerials} from "../api/serials";
+import {addToFavourites, getSerialData, addToWatched} from "../api/serials";
 import {useLocation} from "react-router-dom";
 
 import {Spinner} from "react-activity";
@@ -9,6 +9,7 @@ import Series from "../components/series";
 import Cookies from "js-cookie";
 import {useTranslation} from "react-i18next";
 import {VideoPlayer} from "../components/video-player/VideoPlayer";
+import Modal from 'react-modal';
 
 const Serial = ({}) => {
     const location = useLocation();
@@ -16,7 +17,8 @@ const Serial = ({}) => {
 
 
     const token = Cookies.get('token');
-    const {serialId, favouriteSerials, currentInFavouriteId} = location.state;
+    const {serialId, favouriteSerials, currentInFavouriteId,} = location.state;
+
 
     const [inFavourite, setInFavourite] = useState(false)
     const [inFavouriteId, setInFavouriteId] = useState(null)
@@ -25,11 +27,47 @@ const Serial = ({}) => {
     const [activeSeason, setActiveSeason] = useState({})
     const [series, setSeries] = useState(0)
 
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+
+    const customStyles = {
+        content: {
+            top: '0',
+            left: '0',
+            width: '100vw',
+            height: '100vh',
+            padding: 0,
+            paddingTop: '3%',
+            border: 'none',
+            borderRadius: 0,
+            overflow: 'hidden',
+            zIndex: 6,
+            backgroundColor: '#000',
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
+        },
+        overlay: {zIndex: 6 }
+    };
+
     useEffect(() => {
 
         getSerialData(serialId, setSerialData, token)
 
     }, []);
+
+
+
+    useEffect(() => {
+        if(series === 0) {
+            setModalIsOpen(false)
+        } else {
+            setModalIsOpen(true)
+            addToWatched(serialId)
+        }
+    }, [series]);
+
+
 
     useEffect(() => {
         getSerialData(serialId, setSerialData, token)
@@ -76,6 +114,11 @@ const Serial = ({}) => {
             style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '75vh'}}>
             <Spinner/>
         </div>
+
+    }
+    const showVideoModal = () => {
+        setSeries(0)
+        setModalIsOpen(false)
 
     }
 
@@ -170,24 +213,14 @@ const Serial = ({}) => {
                             <div id="season-1" className="season activetab">
                                 <ul className="season-list">
                                     {activeSeason.season_series && activeSeason.season_series.map(episode => {
-
+                                            console.log('epsd', episode.episode_number, series)
                                         return <>
                                             <Series episode={episode} series={series} setSeries={setSeries}/>
-                                            {series === episode.episode_number &&
-                                                <VideoPlayer
-                                                    serialData={serialData}
-                                                    setActiveSeason={setActiveSeason}
-                                                    activeSeason={activeSeason}
-                                                    episodes={activeSeason.season_series}
-                                                    series={series}
-                                                    setSeries={setSeries}
-                                                    id={5}
-                                                />
 
-                                            }
                                         </>
                                     })}
                                 </ul>
+
                             </div>
                         </div>
 
@@ -215,6 +248,26 @@ const Serial = ({}) => {
                 </div>
             </div>
         </div>
+        <Modal
+            ariaHideApp={false}
+            isOpen={modalIsOpen}
+            onRequestClose={setModalIsOpen}
+            style={customStyles}
+            contentLabel="Example Modal"
+        >
+            <div id="video-close-button" onClick={() => showVideoModal()}></div>
+
+                <VideoPlayer
+                    serialData={serialData}
+                    setActiveSeason={setActiveSeason}
+                    activeSeason={activeSeason}
+                    episodes={activeSeason.season_series}
+                    series={series}
+                    setSeries={setSeries}
+                    id={5}
+                />
+
+        </Modal>
     </section>
 
 }

@@ -10,7 +10,7 @@ import {useTranslation} from "react-i18next";
 
 
 const Videos = ({favouriteSerials, userData,setFavouriteSerials,
-                    getFavourites}) => {
+                    getFavourites, getWatched , setWatchedSerials}) => {
 
     const {pathname, location} = useLocation();
     const { t,  i18n} = useTranslation();
@@ -56,14 +56,10 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
     }, [lang]);
 
 
-
-
-
     useEffect(() => {
         console.log('token 1', token)
         if (token) {
             getSerials(setSerials, token, sortFilter, genresFilter, countryFilter, channelFilter, yearFilter,'')
-
         }
 
     }, [token]);
@@ -176,8 +172,11 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
             </div>
             <ul className="videos__list videos-list">
                 {filteredSerials && filteredSerials.map((item, i) => {
-                    return <SerialCard  getSerials={getSerials} setSerials={setSerials} serial={item}
-                                       favouriteSerials={favouriteSerials}/>
+                    return <SerialCard  getSerials={getSerials}
+                                        setSerials={setSerials}
+                                        serial={item}
+                                        setWatchedSerials={setWatchedSerials}
+                                        favouriteSerials={favouriteSerials}/>
 
                 })}
             </ul>

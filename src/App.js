@@ -19,7 +19,7 @@ import FAQ from "./Views/FAQ";
 import Notifications from "./Views/Profile/Notifications";
 import Subscription from "./Views/Profile/Subscription";
 import Terms from "./Views/Terms";
-import {getFavourites} from "./api/serials";
+import {getFavourites, getWatched} from "./api/serials";
 import {IntlProvider} from "react-intl";
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
@@ -40,6 +40,7 @@ function App() {
     const [favouriteSerials, setFavouriteSerials] = useState([])
     const [watchedSerials, setWatchedSerials] = useState([])
 
+
     useEffect(() => {
         const token = Cookies.get('token');
 
@@ -47,19 +48,21 @@ function App() {
                   setShowLoginModal(false)
                   getUserData(token)
                   getFavourites(token,setFavouriteSerials)
+                  getWatched(token,setWatchedSerials)
         }
 
     }, [])
 
+
     useEffect(() => {
         changeLanguage(currentLang)
     }, [currentLang])
+
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
 
     const getUserData = (token, bearer) => {
-
 
         axios.get(api_url + 'users/me/', {
             withCredentials: true,
@@ -71,7 +74,6 @@ function App() {
             .then(function (response) {
 
                 setShowLoginModal(false)
-
                 localStorage.setItem('userLogged', 'true')
                 localStorage.setItem('userData', JSON.stringify(response.data))
                 console.log('res userData',response.data);
@@ -114,9 +116,12 @@ function App() {
                 <Route path="/dictionary" element={ <Dictionary />} />
                 <Route path="/videos" element={ <Videos setFavouriteSerials={setFavouriteSerials}
                                                         getFavourites={getFavourites}
-                                                        favouriteSerials={favouriteSerials} />}
+                                                        getWatched={getWatched}
+                                                        favouriteSerials={favouriteSerials}
+                                                        setWatchedSerials={setWatchedSerials}
+                />}
                 />
-                <Route  path="/videos/:id" element={ <Serial  favouriteSerials={favouriteSerials}  />}/>
+                <Route  path="/videos/:id" element={ <Serial  favouriteSerials={favouriteSerials}    />}/>
                 <Route  path="/notifications" element={ <Notifications />} />
                 <Route  path="/subscription" element={ <Subscription />} />
                 <Route  path="/faq" element={ <FAQ />} />

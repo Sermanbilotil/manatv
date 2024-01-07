@@ -162,6 +162,26 @@ export const getWatched = (Token, setWatchedSerials) => {
         });
 }
 
+export const addToWatched = (id, Token,) => {
+
+    axios.post(api_url + `user-watching/`, {
+        tv_show: id,
+    }, {
+        withCredentials: true,
+        headers: {
+            'Accept': 'application/json',
+            "Authorization": Token ? Token : token,
+        }
+    })
+        .then(function (response) {
+                console.log('addToWatched res', response)
+        })
+        .catch(function (error) {
+            console.log('err addToWatched', error);
+
+        });
+}
+
 
 
 export const deleteFavourites = (e, id, setInFavourite, Token,) => {

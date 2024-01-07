@@ -310,7 +310,11 @@ const Header = ({
                                     setFavouriteSerials={setFavouriteSerials}
                                     setWatchedSerials={setWatchedSerials}
                                     watchedSerials={watchedSerials}
-                                    favouriteSerials={favouriteSerials}/>}
+
+                                    favouriteSerials={favouriteSerials}
+
+
+                                />}
                             </li>}
 
 

@@ -61,7 +61,7 @@ export const VideoJS = (props) => {
 
   return (
     <div id="wrapper">
-      <a id="video-close-button" href=""></a>
+      {/*<a id="video-close-button" href=""></a>*/}
       <div data-vjs-player>
         <div ref={videoRef} />
       </div>

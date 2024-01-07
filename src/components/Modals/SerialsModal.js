@@ -68,13 +68,21 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,setWat
             </>
             : <>
 
-                <li className="site-search__item site-search-item">
-                    <a href="video.html" className="site-search-item__link">
-                        {/*<img className="site-search-item__img" src={logo}*/}
-                        {/*     alt="New iron man series"/>*/}
-                        {/*<span className="site-search-item__name">New iron man series</span>*/}
-                    </a>
-                </li>
+                {watchedSerials.map(item => {
+
+                    return <li className="site-search__item site-search-item">
+                        <Link to={`/videos/${item.title}`} state={{serialId: item.tv_show.id}} style={{textDecoration: 'none'}} >
+                            <div  className="site-search-item__link">
+                                <img className="site-search-item__img" src={item.tv_show.thumbnail}
+                                     alt="New iron man series"/>
+                                <div className={'site-search-item-left'}>
+                                    <span className="site-search-item__name">{item.tv_show.title}</span>
+                                    <span style={{color: '#999', fontSize: 14}}>{item.tv_show.year}</span>
+                                </div>
+                            </div>
+                        </Link>
+                    </li>
+                })}
             </>
 
 
