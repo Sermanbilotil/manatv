@@ -196,6 +196,7 @@ const Header = ({
     const changeLanguage = (lng) => {
         setCurrentLang(lng)
         i18n.changeLanguage(lng);
+        localStorage.setItem('language', lng.toString());
         UpdateUserLang(lng)
     };
 

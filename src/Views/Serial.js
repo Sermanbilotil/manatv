@@ -37,7 +37,6 @@ const Serial = ({}) => {
             width: '100vw',
             height: '100vh',
             padding: 0,
-            paddingTop: '3%',
             border: 'none',
             borderRadius: 0,
             overflow: 'hidden',

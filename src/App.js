@@ -55,7 +55,15 @@ function App() {
 
 
     useEffect(() => {
-        changeLanguage(currentLang)
+        if( localStorage.getItem('language')) {
+            const lang  = localStorage.getItem('language')
+            console.log('lang', lang)
+            setCurrentLang(lang)
+                changeLanguage(lang)
+        } else {
+            changeLanguage(currentLang)
+        }
+
     }, [currentLang])
 
     const changeLanguage = (lng) => {

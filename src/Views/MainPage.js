@@ -9,8 +9,6 @@ import Example2x from '../img/example-2x.png'
 import Example from '../img/example.png'
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import { VideoPlayer } from "../components/video-player/VideoPlayer";
-
 
 const MainPage = () => {
     const { t } = useTranslation();
