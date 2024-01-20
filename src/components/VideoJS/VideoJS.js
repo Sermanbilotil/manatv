@@ -26,6 +26,8 @@ export const VideoJS = (props) => {
 
       customVideoPlayer.initialize();
 
+      customVideoPlayer.handleTranslationDictionaryClick({onClick: (word) => console.log('word', word)});
+
     } else {
       const player = playerRef.current;
       player.autoplay(options.autoplay);
@@ -37,6 +39,17 @@ export const VideoJS = (props) => {
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
     const player = playerRef.current;
+
+    player.ready(function() {
+    const promise = player.play();
+
+      if (promise !== undefined) {
+        promise.then(function() {
+        }).catch(function(error) {
+          console.log('Autoplay was prevented => ', error);
+        });
+      }
+    });
 
     return () => {
       if (player && !player.isDisposed()) {
@@ -61,7 +74,6 @@ export const VideoJS = (props) => {
 
   return (
     <div id="wrapper">
-      {/*<a id="video-close-button" href=""></a>*/}
       <div data-vjs-player>
         <div ref={videoRef} />
       </div>

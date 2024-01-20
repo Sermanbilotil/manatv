@@ -1,10 +1,10 @@
 import checkedIcon from "../source/svg/icon-checked.svg";
+import addToDictionaryIcon from '../source/svg/icon-like.svg'
+import addToDictionaryActiveIcon from '../source/svg/icon-like-active.svg'
 
 const { getTranslateWorlds } = require("./utils");
 
 const { tapHandler } = require("./helpers");
-
-
 
 const Hammer = require("hammerjs");
 const { TRANSLATE_API_KEY } = require("../config");
@@ -66,6 +66,21 @@ const translateWorld = async ({wordContainerElement, word, isMobile}) => {
   translationDictionary.addEventListener(isMobile ? 'touchstart' : 'click', () => {
     const audioElement = translationDictionary.getElementsByClassName('translation-audio')[0]
     audioElement.play()
+  })
+
+  // Add the translation to the dictionary
+  const translationAddDictionary = wordContainerElement.getElementsByClassName('translation_add_dictionary')[0];
+  translationAddDictionary.addEventListener(isMobile ? 'touchstart' : 'click', () => {
+    const likeButtonIcon = translationAddDictionary.getElementsByClassName('like_img')[0]
+    const isChecked = likeButtonIcon.classList.toggle('active');
+    
+    likeButtonIcon.src = isChecked ? addToDictionaryActiveIcon : addToDictionaryIcon
+
+    const event = new CustomEvent('translationDictionaryClicked', {
+      detail: word
+    });
+    document.dispatchEvent(event);
+
   })
 }
 
@@ -211,14 +226,29 @@ const addSubtitles = async ({ videoPlayer, src, srclang, label, ...props }) => {
   }
 };
 
+const waitForSubtitles = (tracks) => {
+  return new Promise((resolve) => {
+    const checkSubtitles = () => {
+      if (tracks.length) {
+        resolve();
+      } else {
+        setTimeout(checkSubtitles, 100);
+      }
+    };
+    checkSubtitles();
+  });
+};
+
 const toggleSubtitle = ({ videoPlayer, language, toggle }) => {
   const tracks = videoPlayer.textTracks();
 
-  for (let i = 0; i < tracks.length; i++) {
-    if (tracks[i].language === language) {
-      tracks[i].mode = toggle ? 'showing' : 'hidden';
+  waitForSubtitles(tracks).then(() => {
+    for (let i = 0; i < tracks.length; i++) {
+      if (tracks[i].language === language) {
+        tracks[i].mode = toggle ? 'showing' : 'hidden';
+      }
     }
-  }
+  });
 };
 
 

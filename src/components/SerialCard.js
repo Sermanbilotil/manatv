@@ -43,10 +43,9 @@ const SerialCard = ({serial, favouriteSerials, getSerials, setSerials, setWatche
     return <li
         key={serial.id}
         className="videos-list__item videos-list-item"
-        style={{backgroundImage: `url(${serial.thumbnail})`}}
-
+        style={{backgroundImage: `url(${serial.thumbnail})`,height: '410px'}}
     >
-        <Link to={`/videos/${serial.title}`}
+        <Link to={`/videos/${serial.id}`}
 
               state={{
                   serialId: serial.id,

@@ -37,6 +37,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  position: fixed;
   background-color: #040505 !important;
   height: 42px;
 }

@@ -1,6 +1,7 @@
 import nextPlayIcon from '../source/svg/icon-next-play.svg'
 import speechSoundIcon from '../source/svg/icon-speech-sound.svg'
 import addToDictionaryIcon from '../source/svg/icon-like.svg'
+import addToDictionaryActiveIcon from '../source/svg/icon-like-active.svg'
 import playlistPlayerIcon from '../source/svg/icon-playlist-player.svg'
 import { toggleSubtitle, resizeSubtitle, checkedItem, textSelectItem } from './functions'
 import { languages } from './utils'
@@ -54,8 +55,6 @@ const qualityButtonComponent = ({videoPlayer, qualityButtonWrapper}) => {
     tooltip.classList.remove(isTooltipHidden ?'vjs-hidden' : 'vjs-lock-showing');
   });
 
-
-
   qualityButtonWrapper.appendChild(qualityButton);
 }
 
@@ -66,9 +65,14 @@ const wordContainer = ({trimmedWord}) => {
        <img src="${speechSoundIcon}" /> 
       <audio class="translation-audio" preload="none" src="https://ororo.tv/api/frontend/text_to_speech?locale=en&amp;message=${trimmedWord}"></audio>
     </div>`;
-  const addToDictionary = `<button class="translation_dictionary_image">
-    <img src="${addToDictionaryIcon}" />
-    </button>`;
+
+  // const isLiked = likeButtonIcon.classList.toggle('active');
+  // const dictionaryIcon = isLiked ? addToDictionaryActiveIcon : addToDictionaryIcon
+
+  const addToDictionary = `<button class="translation_add_dictionary translation_dictionary_image">
+    <img class="like_img" src="${addToDictionaryIcon}" />
+  </button>`;
+
   const content = `<span class="word">${trimmedWord}</span><span class="tooltip" style="display: none;">
     <span class="tooltip_loading">Loading translation...</span>
     <div class="tooltip_content">

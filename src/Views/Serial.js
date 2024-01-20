@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
 import {addToFavourites, getSerialData, addToWatched} from "../api/serials";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate, useNavigation} from "react-router-dom";
 
 import {Spinner} from "react-activity";
 import "react-activity/dist/library.css";
@@ -17,8 +17,11 @@ const Serial = ({}) => {
 
 
     const token = Cookies.get('token');
-    const {serialId, favouriteSerials, currentInFavouriteId,} = location.state;
 
+    const { favouriteSerials, currentInFavouriteId,} = location.state !== null;
+
+    const serialId = window.location.pathname.split('/').slice(-1)[0]
+    console.log('serialId',window.location.pathname.split('/').slice(-1)[0] )
 
     const [inFavourite, setInFavourite] = useState(false)
     const [inFavouriteId, setInFavouriteId] = useState(null)
@@ -44,7 +47,7 @@ const Serial = ({}) => {
             backgroundColor: '#000',
             alignItems: 'center',
             justifyContent: 'center',
-            display: 'flex'
+            display: 'flex',
         },
         overlay: {zIndex: 6 }
     };
@@ -55,13 +58,29 @@ const Serial = ({}) => {
 
     }, []);
 
+    useEffect(() => {
+        const hash = location.hash
+        const currentSerial = hash.split('#').slice(-1)[0].split('-')
+
+        console.log('location',currentSerial)
+        if(serialData.tv_show_seasons && hash.length > 0) {
+            setActiveSeason(serialData.tv_show_seasons[currentSerial[0] - 1])
+            setSeries(currentSerial[1])
+            setModalIsOpen(true)
+        }
+
+
+    }, [serialData]);
+
 
 
     useEffect(() => {
+
         if(series === 0) {
             setModalIsOpen(false)
         } else {
             setModalIsOpen(true)
+            window.location.href = location.pathname + '#' + '1-1'
             addToWatched(serialId)
         }
     }, [series]);
@@ -212,17 +231,15 @@ const Serial = ({}) => {
                             <div id="season-1" className="season activetab">
                                 <ul className="season-list">
                                     {activeSeason.season_series && activeSeason.season_series.map(episode => {
-                                            console.log('epsd', episode.episode_number, series)
+
                                         return <>
                                             <Series episode={episode} series={series} setSeries={setSeries}/>
-
                                         </>
                                     })}
                                 </ul>
 
                             </div>
                         </div>
-
 
                         {/*{series !== 0 &&  <div>*/}
                         {/*        <VideoPlayer episodes={activeSeason.season_series}*/}

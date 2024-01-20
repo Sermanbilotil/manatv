@@ -159,10 +159,17 @@ export class CustomVideoPlayer {
           controlSubtitlesTextChecked.split('+').forEach(language => {
             toggleSubtitle({videoPlayer: this.videoPlayer, language, toggle: true})
           });
+    });
+  }
+  
+  handleTranslationDictionaryClick({onClick}) {
+    if (onClick) {
+      document.addEventListener('translationDictionaryClicked', (event) => {
+        onClick(event.detail)
       });
     }
+  }
 
-  
   // Season initialize 
   seasonInitialize ({titleSeason, titleSeries, seasonPrev , seasonNext, seriesData}) {
     seasonComponent({videoPlayer: this.videoPlayer, videojs: this.videojs, seriesData, titleSeason, titleSeries, seasonPrev , seasonNext})

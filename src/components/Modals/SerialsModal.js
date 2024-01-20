@@ -54,8 +54,9 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,setWat
 
                     return <li className="site-search__item site-search-item">
                         <Link to={`/videos/${item.title}`} state={{serialId: item.tv_show.id}} style={{textDecoration: 'none'}} >
-                        <div  className="site-search-item__link">
+                        <div  className="site-search-item__link" style={{gap: 10}}>
                             <img className="site-search-item__img" src={item.tv_show.thumbnail}
+                                 style={{borderRadius: 2, width: 22, height: 30, }}
                                  alt="New iron man series"/>
                             <div className={'site-search-item-left'}>
                                 <span className="site-search-item__name">{item.tv_show.title}</span>
@@ -72,8 +73,9 @@ const SerialsModal = ({getFavourites,setFavouriteSerials,favouriteSerials,setWat
 
                     return <li className="site-search__item site-search-item">
                         <Link to={`/videos/${item.title}`} state={{serialId: item.tv_show.id}} style={{textDecoration: 'none'}} >
-                            <div  className="site-search-item__link">
+                            <div  className="site-search-item__link" style={{gap: 10}}>
                                 <img className="site-search-item__img" src={item.tv_show.thumbnail}
+                                     style={{borderRadius: 2, width: 22, height: 30, }}
                                      alt="New iron man series"/>
                                 <div className={'site-search-item-left'}>
                                     <span className="site-search-item__name">{item.tv_show.title}</span>

@@ -1005,7 +1005,7 @@ footer ul {
   }
 }
 .videos-list__item {
-  border-radius: 8px;
+  border-radius: 0px;
   overflow: hidden;
 }
 .videos-list__item:hover .videos-list-item__link {
@@ -1112,7 +1112,7 @@ footer ul {
 .video__sidebar img {
   height: 410px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 4px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 .video__btns {
@@ -1956,7 +1956,7 @@ button.btn--icon svg {
 }
 
 .settings-block {
-  max-width: 570px;
+  max-width: 610px;
   margin: auto auto 32px;
   display: flex;
   flex-direction: column;

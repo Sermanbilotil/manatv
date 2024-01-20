@@ -1,6 +1,3 @@
-import InvertLogo from '../img/invert-logo.svg'
-
-
 import {useEffect, useState} from "react";
 import SerialCard from "../components/SerialCard";
 import {getCountriesFilter, getFavourites, getGenresFilter, getSerials} from "../api/serials";
@@ -170,7 +167,7 @@ const Videos = ({favouriteSerials, userData,setFavouriteSerials,
                     </label>
                 </div>
             </div>
-            <ul className="videos__list videos-list">
+            <ul className="videos__list videos-list" >
                 {filteredSerials && filteredSerials.map((item, i) => {
                     return <SerialCard  getSerials={getSerials}
                                         setSerials={setSerials}

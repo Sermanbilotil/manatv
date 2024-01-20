@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from "./components/header";
 import {BrowserRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom';
@@ -8,11 +7,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {api_url} from "./utils/utils";
 import Cookies from 'js-cookie';
-
 import Dictionary from "./Views/Profile/Dictionary";
-import SubHeader from "./components/SubHeader";
 import Videos from "./Views/Videos";
-import SerialCard from "./components/SerialCard";
 import Serial from "./Views/Serial";
 import MainPage from "./Views/MainPage";
 import FAQ from "./Views/FAQ";
@@ -20,8 +16,6 @@ import Notifications from "./Views/Profile/Notifications";
 import Subscription from "./Views/Profile/Subscription";
 import Terms from "./Views/Terms";
 import {getFavourites, getWatched} from "./api/serials";
-import {IntlProvider} from "react-intl";
-import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
 import Policy from "./Views/Policy";
 
@@ -129,8 +123,11 @@ function App() {
                                                         setWatchedSerials={setWatchedSerials}
                 />}
                 />
-                <Route  path="/videos/:id" element={ <Serial  favouriteSerials={favouriteSerials}    />}/>
+                <Route  path={'/videos/:id'} element={ <Serial  favouriteSerials={favouriteSerials}    />}/>
+                <Route  path={'/videos/:id'} element={ <Serial  favouriteSerials={favouriteSerials}    />}/>
                 <Route  path="/notifications" element={ <Notifications />} />
+                <Route  path="/videos/:id#1-1" element={ <Serial  favouriteSerials={favouriteSerials}    />} />
+
                 <Route  path="/subscription" element={ <Subscription />} />
                 <Route  path="/faq" element={ <FAQ />} />
                 <Route  path="/terms" element={ <Terms />} />

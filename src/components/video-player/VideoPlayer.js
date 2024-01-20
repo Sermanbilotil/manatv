@@ -14,7 +14,6 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
 
 
   const [videoJsOptions, setVideoJsOptions] = useState({
-    autoplay: true,
     controls: true,
     responsive: true,
     fluid: true,
@@ -30,11 +29,10 @@ export const VideoPlayer = ({setActiveSeason,activeSeason, serialData, episodes,
   })
 
   useEffect(() => {
-
     const tracks = activeSeason.season_series[series - 1].episode_subtitles.map((subtitle) => ({
       // no /api/ because the URL was updated
       src: subtitle.subtitles_file,
-      srclang:  subtitle.language === 'Russian' ?   'ru' : subtitle.language,
+      srclang: subtitle.language,
       label: subtitle.language,
     }))
 

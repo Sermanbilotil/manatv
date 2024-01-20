@@ -1,10 +1,9 @@
 
 
 
-import InvertLogo from '../img/invert-logo.svg'
-
 
 import {useEffect, useState} from "react";
+import {renderFlag} from "../utils/flags";
 
 
 
@@ -39,9 +38,9 @@ const Series = ({episode, series,setSeries,}) => {
         <div className="season-list-item__info">
             <div className="season-list-item__flags">
 
-                {episode.episode_subtitles.map(item => {
-
-                    return    <img src={item.subtitles_file} alt="Country"/>
+                {episode.episode_subtitles.reverse().map(item => {
+                        console.log('item', item.language)
+                    return    renderFlag(item)
                 })}
 
             </div>

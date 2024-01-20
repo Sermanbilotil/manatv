@@ -1,5 +1,6 @@
 /* Text translate */
 .vjs-text-track-display {
+  margin-top: auto;
   font-size: 1.3em;
   height: max-content;
   top: auto;
